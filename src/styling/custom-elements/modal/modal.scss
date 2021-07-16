@@ -1,0 +1,74 @@
+.ui-modal-dark-backdrop {
+    @include themify {
+        background: themed('modal-dark-background');
+    }
+}
+
+.ui-modal-backdrop {
+    @include themify {
+        background: themed('modal-background');
+    }
+}
+
+.ui-user-profile-panel {
+    max-width: 500px !important;
+}
+
+.mat-dialog-container {
+    padding: 0 !important;
+    border-radius: 2px;
+
+    * {
+        max-height: inherit;
+    }
+
+    .ui-modal-container,
+    .ui-component-container {
+        max-height: inherit;
+    }
+
+    .ui-component-container {
+        overflow: auto;
+    }
+
+    @include themify {
+        background: themed('primary-color');
+        color: themed('primary-text-color');
+        box-shadow: 0 0 1px themed('primary-shadow-color');
+    }
+}
+
+.mat-bottom-sheet-container {
+    padding: 0 !important;
+    border-radius: 2px;
+
+    @include themify {
+        background: themed('primary-color');
+        color: themed('primary-text-color');
+        box-shadow: 0 0 1px themed('primary-shadow-color');
+    }
+}
+
+.ui-modal-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.ui-modal-footer {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+    .ui-button {
+        margin: 0 10px;
+    }
+}
+
+.ui-loading-panel {
+    .mat-dialog-container {
+        box-shadow: unset !important;
+        background: unset !important;
+    }
+}

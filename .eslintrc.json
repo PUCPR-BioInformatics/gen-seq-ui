@@ -1,0 +1,79 @@
+{
+    "root": true,
+    "ignorePatterns": [
+        "projects/**/*"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "tsconfig.app.json"
+                ],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "rules": {
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "prefix": "app",
+                        "style": "kebab-case",
+                        "type": "element"
+                    }
+                ],
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "prefix": "app",
+                        "style": "camelCase",
+                        "type": "attribute"
+                    }
+                ],
+                "no-console": ["error", {
+                    "allow": ["error", "info"]
+                }],
+                "indent": ["error", 4, { "SwitchCase": 1 }],
+                "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+                "quotes": ["error", "single"],
+                "no-trailing-spaces": "error",
+                "eol-last":"error",
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/explicit-function-return-type": "off",
+                "@typescript-eslint/no-parameter-properties": "off",
+                "@typescript-eslint/no-object-literal-type-assertion": "off",
+                "@typescript-eslint/camelcase": "off",
+                "max-len": [ "error", { "code": 140 }],
+                "max-classes-per-file": ["error", 1],
+                "max-lines": ["error", 1000],
+                "object-curly-spacing": ["error", "always"],
+                "@angular-eslint/use-lifecycle-interface": "off",
+                "@typescript-eslint/member-delimiter-style": [
+                    "error",
+                    {
+                        "singleline": {
+                            "delimiter": "semi",
+                            "requireLast": true
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended"
+            ],
+            "rules": {}
+        }
+    ]
+}

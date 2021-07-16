@@ -1,0 +1,35 @@
+<div [class] = "getMessageBoxClass()">
+    <ui-spinner class = "ui-message-box-spinner" *ngIf = "data.type === 'loading' && !data.loaderOptions " [message] = "data.description" [boldMessage] = "data.detail" width = '90px' height = '90px'></ui-spinner>
+    <ui-spinner class = "ui-message-box-spinner" *ngIf = "data.type === 'loading' && data.loaderOptions " [message] = "data.loaderOptions.message" [boldMessage] = "data.loaderOptions.boldMessage"
+    [type] = "data.loaderOptions.spinnerType" [completeness] = "data.loaderOptions.completeness" [completenessSize] = "data.loaderOptions.completenessSize"
+    [width] = 'data.loaderOptions.spinnerSize' [height] = 'data.loaderOptions.spinnerSize'>
+    </ui-spinner>
+    <div class = "ui-container-message-box" *ngIf = "description && data.type !== 'loading'">
+        <div *ngIf = "data.icon" class = "ui-container-message-box-icon">
+            <span [class] = "data.icon"></span>
+        </div>
+        <div class = "ui-container-message-box-message">
+            <div *ngIf = "description" class = "ui-container-message-box-message-description">
+                {{description}}
+            </div>
+            <div class = "ui-container-message-box-message-detail">
+                {{detail}}
+            </div>
+            <a *ngIf = "linkMessage" [routerLink] = "[link]"  class = "ui-container-message-box-message-link" (click) = "eventNavigateTo()" >
+                {{linkMessage}}
+            </a>
+        </div>
+        <div class = "ui-container-message-box-operations">
+            <button mat-button *ngIf = "data.iteraction === 'confirm'" class = "ui-container-message-box-operation" (click) = "eventClose({confirmed: true})">
+                <span *ngIf = "data.type !== 'error'" class = "fas fa-check"></span>
+                <span *ngIf = "data.type === 'error'" class = "fas fa-times"></span>
+            </button>
+            <div *ngIf = "data.iteraction === 'choice'" class = "ui-container-message-box-operation ui-button-yes" (click) = "eventClose({chosed: 'yes'})">
+                <span>Sim</span>
+            </div>
+            <div *ngIf = "data.iteraction === 'choice'" class = "ui-container-message-box-operation ui-button-no" (click) = "eventClose({chosed: 'no'})">
+                <span>Não</span>
+            </div>
+        </div>
+    </div>
+</div>

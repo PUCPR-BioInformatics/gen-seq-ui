@@ -1,0 +1,76 @@
+.ui-file-upload-container {
+    @include themify {
+        background: themed('secondary-color');
+    }
+}
+
+.ui-file-upload-container-mobile {
+    @include themify {
+        .ui-file-upload {
+            border: 1px solid themed('primary-border-color');
+            border-bottom: unset;
+        }
+
+        .ui-file-upload-files-container {
+            border: 1px solid themed('primary-border-color');
+        }
+    }
+}
+
+.ui-file-upload-drop-zone-hover {
+    @include themify {
+        .ui-file-upload-files-container,
+        .ui-file-upload {
+            border: 1px dashed themed('primary-border-color');
+        }
+
+        .ui-file-upload {
+            border-right: unset;
+        }
+
+        .ui-file-upload-files-container {
+            border-left: unset;
+        }
+    }
+}
+
+.ui-file-upload {
+    @include themify {
+        background: themed('primary-color');
+        border: 1px solid themed('primary-border-color');
+        border-right: unset;
+    }
+}
+
+.ui-file-upload-icon {
+    @include themify {
+        color: themed('tertiary-color');
+    }
+}
+
+.ui-file-upload-files-container {
+    @include themify {
+        border: 1px solid themed('primary-border-color');
+        border-left: unset;
+    }
+}
+
+.ui-file-upload-format {
+    @include themify {
+        border: 1px solid themed('tertiary-color');
+        color: themed('tertiary-color');
+    }
+}
+
+.ui-invalid-file-upload {
+    @include themify {
+        border-color: themed('red-color');
+        color: themed('red-color');
+    }
+}
+
+.ui-file-upload-invalid {
+    @include themify {
+        color: themed('red-color');
+    }
+}

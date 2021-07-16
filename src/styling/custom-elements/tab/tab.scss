@@ -1,0 +1,35 @@
+.ui-tabs {
+    display: flex;
+    width: 100%;
+    height: auto;
+
+    .mat-tab-label {
+        padding: 0 15px;
+        justify-content: unset;
+        align-items: unset;
+        opacity: 0.8;
+        min-width: 100px;
+
+        @include themify {
+            color: themed('primary-text-color');
+        }
+    }
+
+    .mat-tab-label-active {
+        opacity: 1;
+        font-weight: bold;
+    }
+
+    .mat-ink-bar {
+        height: 3px;
+        border-radius: 5px;
+
+        @include themify {
+            background-color: themed('tertiary-color') !important;
+        }
+    }
+
+    .ui-tab-title {
+        margin-left: 5px;
+    }
+}

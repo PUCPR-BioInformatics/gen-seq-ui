@@ -1,0 +1,42 @@
+<div class = "ui-nav-bar-system" [matTooltip] = "getSystemName()" [matTooltipDisabled] = "mode === 'mobile' || !retracted" (click) = "eventNavigateToHome()">
+    <div class = "ui-nav-bar-system-logo"></div>
+    <div class = "ui-nav-bar-system-name">
+        {{getSystemName()}}
+    </div>
+</div>
+<div class = "ui-nav-bar-states-container" >
+    <div class = "ui-nav-bar-states" *ngIf = "userStates">
+        <div mat-button *ngFor = "let state  of userStates" [ngClass] = "{
+            'ui-nav-bar-state': true,
+            'ui-nav-bar-state-selected': state.name === actualState?.name
+        }" (click) = "eventNavigateTo(state)" [matTooltip] = "state.alias" [matTooltipDisabled] = "mode === 'mobile' || !retracted">
+            <span [class] = "'ui-button-icon ' + state.icon"></span>
+            <span class = "ui-nav-bar-state-alias">{{state.alias}}</span>
+        </div>
+        <ng-content></ng-content>
+    </div>
+</div>
+<div *ngIf = "mode !== 'mobile'" class = "ui-nav-bar-retraction">
+    <button (click) = "eventRetract()" [matTooltip] = "(!retracted) ? 'Recolher' : 'Expandir'" mat-button class = "ui-circle-button">
+        <span [class] = "'ui-button-icon ' + ((!this.retracted) ? 'fas fa-arrow-left' :  'fas fa-arrow-right')"></span>
+    </button>
+</div>
+<div [ngClass] = "{
+    'ui-nav-default-options': true,
+    'ui-nav-absolute-options': mode === 'vertical'
+}">
+    <button matTooltip = "Menu do usuário" mat-button class = "ui-circle-button" [matMenuTriggerFor] = "userMenu">
+        <span class = "ui-button-icon fas fa-user"></span>
+    </button>
+</div>
+
+<mat-menu #userMenu = "matMenu" class = "ui-menu">
+    <div class = "ui-menu-container">
+        <button mat-button class = "ui-button ui-menu-option" (click) = "eventUserProfilePanel()">
+            <span class = "fas fa-fingerprint ui-menu-option-icon"></span>
+            <span class = "ui-menu-option-name">Meu perfil</span>
+        </button>
+    </div>
+</mat-menu>
+
+

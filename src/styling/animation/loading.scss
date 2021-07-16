@@ -1,0 +1,80 @@
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes color-change {
+    0% {
+        border-top-color: themed('green-color');
+        border-right-color: themed('green-color');
+    }
+
+    25% {
+        border-top-color: themed('blue-color');
+        border-right-color: themed('blue-color');
+    }
+
+    50% {
+        border-top-color: themed('purple-color');
+        border-right-color: themed('purple-color');
+    }
+
+    75% {
+        border-top-color: themed('red-color');
+        border-right-color: themed('red-color');
+    }
+
+    100% {
+        border-top-color: themed('green-color');
+        border-right-color: themed('green-color');
+    }
+}
+
+@keyframes shadow-change {
+    0% {
+        box-shadow: 1px 0 1px 0 themed('blue-color');
+    }
+
+    25% {
+        box-shadow: 1px 0 1px 0 themed('purple-color');
+    }
+
+    50% {
+        box-shadow: 1px 0 1px 0 themed('purple-color');
+    }
+
+    75% {
+        box-shadow: 1px 0 1px 0 themed('green-color');
+    }
+
+    100% {
+        box-shadow: 1px 0 1px 0 themed('blue-color');
+    }
+}
+
+@keyframes circle-color-change {
+    0% {
+        border-color: themed('blue-color');
+    }
+
+    25% {
+        border-color: themed('purple-color');
+    }
+
+    50% {
+        border-color: themed('purple-color');
+    }
+
+    75% {
+        border-color: themed('green-color');
+    }
+
+    100% {
+        border-color: themed('blue-color');
+    }
+}

@@ -1,0 +1,85 @@
+.ui-card-selection {
+    display: flex;
+    border-radius: 2px;
+    padding: 5px;
+    flex: 1;
+}
+
+.ui-card {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    cursor: pointer;
+
+    @include themify {
+        box-shadow: 4px 4px 5px -4px themed('primary-shadow-color');
+    }
+}
+
+.ui-card:hover {
+    @include themify {
+        box-shadow: 5px 5px 5px -3px themed('primary-shadow-color');
+    }
+}
+
+.ui-card-selected {
+    .ui-card {
+        border: unset;
+        box-shadow: unset;
+    }
+
+    @include themify {
+        background: themed('green-color');
+    }
+}
+
+.ui-card-freak:hover {
+    animation: card-freak-animation 2s ease-in infinite alternate;
+}
+
+.ui-card-zoomed:hover {
+    animation: card-zoomed-animation 0.5s ease-in alternate forwards;
+}
+
+@keyframes card-freak-animation {
+    0% {
+        opacity: 0.9;
+        transform: rotate(0.6deg);
+    }
+
+    25% {
+        opacity: 0.92;
+        transform: rotate(-0.4deg);
+    }
+
+    50% {
+        opacity: 0.96;
+        transform: rotate(0.4deg);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes card-zoomed-animation {
+    0% {
+        opacity: 0.9;
+        transform: rotate(0.9deg);
+    }
+
+    25% {
+        opacity: 0.92;
+        transform: rotate(-0.8deg), scale(1.03);
+    }
+
+    50% {
+        opacity: 0.96;
+        transform: rotate(0.08deg), scale(1.03);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+}

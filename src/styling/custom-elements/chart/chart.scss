@@ -1,0 +1,72 @@
+@import './gauge-chart/gauge-chart.scss';
+@import './tooltip/tooltip.scss';
+
+.ui-chart-tooltip {
+    @include themify {
+        color: themed('primary-text-color');
+        background: themed('primary-color');
+        border: 1px solid themed('primary-border-color');
+    }
+}
+
+.ui-linear-gradient-success-initial {
+    @include themify {
+        stop-color: themed('green-color');
+    }
+}
+
+.ui-linear-gradient-success-endless {
+    @include themify {
+        stop-color: themed('blue-color');
+    }
+}
+
+.ui-linear-gradient-error-initial {
+    @include themify {
+        stop-color: themed('orange-color');
+    }
+}
+
+.ui-linear-gradient-error-endless {
+    @include themify {
+        stop-color: themed('red-color');
+    }
+}
+
+.ui-linear-gradient-orange-initial {
+    @include themify {
+        stop-color: themed('orange-color');
+    }
+}
+
+.ui-linear-gradient-orange-endless {
+    @include themify {
+        stop-color: themed('yellow-color');
+    }
+}
+
+.ui-linear-gradient-red-initial {
+    @include themify {
+        stop-color: themed('red-color');
+    }
+}
+
+.ui-linear-gradient-red-endless {
+    @include themify {
+        stop-color: themed('light-red-color');
+    }
+}
+
+.ui-chart-gauge-meter-default {
+    @include themify {
+        fill: themed('gray-color');
+        stroke: themed('gray-color');
+    }
+}
+
+.ui-chart-gauge-meter-detail,
+.ui-chart-gauge-meter-text {
+    @include themify {
+        fill: themed('primary-text-color');
+    }
+}

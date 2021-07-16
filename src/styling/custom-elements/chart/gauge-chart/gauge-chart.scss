@@ -1,0 +1,52 @@
+.ui-chart-gauge-meter {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ui-chart-gauge-meter-path {
+    fill-opacity: 1;
+    stroke-width: 2.1;
+    stroke-opacity: 1;
+    cursor: pointer;
+}
+
+.ui-chart-gauge-meter-default {
+    opacity: 0.3;
+    stroke-width: 1;
+    stroke-opacity: 1;
+    cursor: pointer;
+}
+
+.ui-chart-gauge-meter-detail,
+.ui-chart-gauge-meter-text {
+    text-anchor: middle;
+    font-size: 40px;
+}
+
+.ui-chart-gauge-meter-detail {
+    font-size: 11px;
+}
+
+.ui-chart-gauge-total {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    align-items: center;
+}
+
+.ui-chart-gauge-total-label {
+    font-size: 12px;
+}
+
+.ui-chart-gauge-total-value {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ui-chart-gauge-meter-path:hover {
+    stroke-width: 5px;
+}
+
+.ui-chart-gauge-meter-default:hover {
+    stroke-width: 3px;
+}

@@ -1,0 +1,123 @@
+.ui-accordion {
+    display: flex;
+    width: 100%;
+    padding: 5px 20px 10px 30px;
+    flex-flow: column;
+
+    .mat-expansion-panel {
+        width: 100%;
+        border-radius: 1px !important;
+    }
+
+    .mat-expansion-panel-content {
+        font: inherit !important;
+    }
+
+    .mat-expansion-panel-header {
+        height: 60px;
+    }
+
+    .mat-expansion-panel-header-description,
+    .mat-expansion-panel-header-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .mat-expansion-panel-header-title {
+        font-weight: bold;
+        min-width: 100%;
+    }
+
+    .ui-expansion-icon {
+        font-size: 26px;
+        margin-right: 10px;
+    }
+
+    .ui-expansion-name {
+        margin-left: 5px;
+    }
+
+    .mat-expansion-indicator {
+        margin-top: -5px;
+        vertical-align: unset;
+    }
+
+    .mat-expansion-indicator::after {
+        border-width: 0 3px 3px 0;
+        padding: 5px;
+    }
+
+    @include themify {
+        .mat-expansion-panel-header-description,
+        .mat-expansion-panel-header-title,
+        .mat-expansion-indicator::after {
+            color: themed('primary-text-color');
+        }
+
+        .mat-expansion-panel {
+            color: themed('primary-text-color');
+            background: themed('primary-color');
+            box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
+            border: 1px solid themed('primary-border-color');
+        }
+    }
+}
+
+.ui-minimalist-accordion {
+    display: flex;
+    width: 100%;
+    padding: 0;
+    flex-flow: column;
+
+    .ui-expansion-icon {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    .ui-expansion-name {
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+    .mat-expansion-panel {
+        width: 100%;
+        border: unset;
+        box-shadow: unset !important;
+        border-radius: 0 !important;
+    }
+
+    .mat-expansion-panel-header {
+        height: 40px;
+        padding: 10px;
+    }
+
+    .mat-expansion-panel-body {
+        padding: 0 0 0 8px;
+    }
+
+    .mat-expansion-indicator::after {
+        border-width: 0 3px 3px 0;
+        padding: 3px;
+    }
+
+    @include themify {
+        .mat-expansion-panel-header-description,
+        .mat-expansion-panel-header-title,
+        .mat-expansion-panel {
+            color: themed('primary-text-color');
+            background: unset;
+            box-shadow: unset;
+            border: unset;
+        }
+
+        .mat-expansion-indicator::after,
+        .ui-expansion-icon,
+        .ui-expansion-name {
+            color: themed('tertiary-color');
+        }
+
+        .mat-expansion-panel-header {
+            color: themed('primary-text-color');
+        }
+    }
+}

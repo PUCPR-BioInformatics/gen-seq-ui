@@ -1,0 +1,27 @@
+.ui-badge-normal {
+    @include themify {
+        color: themed('white-color');
+        background: themed('gray-color');
+    }
+}
+
+.ui-badge-error {
+    @include themify {
+        color: themed('white-color');
+        background: themed('red-color');
+    }
+}
+
+.ui-badge-warning {
+    @include themify {
+        color: themed('white-color');
+        background: themed('orange-color');
+    }
+}
+
+.ui-badge-success {
+    @include themify {
+        color: themed('white-color');
+        background: themed('green-color');
+    }
+}

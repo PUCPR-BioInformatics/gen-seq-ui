@@ -1,0 +1,132 @@
+.ui-notifications-header {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.ui-notification-read-option {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    span {
+        font-size: 16px !important;
+    }
+}
+
+.ui-notifications-header-container {
+    display: flex;
+
+    .ui-notifications-header {
+        flex: 1;
+    }
+
+    .ui-circle-button {
+        margin: 5px 5px 0 0;
+
+        span {
+            font-size: 18px;
+        }
+    }
+}
+
+.ui-notifications-body {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+
+    .ui-button {
+        margin-top: 10px;
+    }
+}
+
+.ui-notifications-header-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ui-notifications-header-amount {
+    font-size: 11px;
+}
+
+.ui-notification {
+    display: flex;
+    position: relative;
+    width: 200px;
+    height: 80px;
+    cursor: pointer;
+    margin: 0;
+
+    @include themify {
+        border: 1px solid themed('primary-border-color');
+        border-right: unset;
+        border-left: unset;
+    }
+}
+
+.ui-notification-informations {
+    display: flex;
+    flex-flow: column;
+    padding: 10px 10px;
+    flex: 1;
+}
+
+.ui-notification-information {
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    margin: 5px 0;
+}
+
+.ui-notification-information-small {
+    display: flex;
+    font-size: 10px;
+    flex: 1;
+}
+
+.ui-notifications-loader {
+    display: flex;
+    padding: 10px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-notification-empty {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+}
+
+.ui-notification-unread {
+    @include themify {
+        background: themed('selected-color');
+    }
+}
+
+.ui-notification:hover {
+    @include themify {
+        background: themed('selection-color');
+    }
+}
+
+.ui-notification-severity-normal {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-notification-severity-warning {
+    @include themify {
+        color: themed('orange-color');
+    }
+}
+
+.ui-notification-severity-critical {
+    @include themify {
+        color: themed('red-color');
+    }
+}

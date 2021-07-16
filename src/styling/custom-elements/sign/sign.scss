@@ -1,0 +1,33 @@
+
+.ui-sign {
+    @include themify {
+        color: themed('login-text-color');
+        background: themed('login-background');
+    }
+}
+
+.ui-sign-name {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-sign-label {
+    .ui-sign-system-name {
+        @include themify {
+            color: themed('logo-color') !important;
+        }
+    }
+}
+
+.ui-sign-logo {
+    @include themify {
+        @include background-logo(themed('logo-color'));
+    }
+}
+
+.ui-sign-in-links {
+    @include themify {
+        color: themed('tertiary-color');
+    }
+}

@@ -1,0 +1,115 @@
+.ui-message-box {
+    float: left;
+    min-width: 100%;
+    padding: 10px;
+    border-radius: 2px;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+}
+
+.ui-container-message-box-icon {
+    text-align: center;
+    width: 100%;
+
+    span {
+        font-size: 35px !important;
+    }
+}
+
+.ui-message-box-error {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ui-message-box-spinner {
+    padding: 10px;
+}
+
+.ui-container-message-box {
+    float: left;
+    max-width: 350px;
+    height: auto;
+    word-wrap: break-word;
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.ui-container-message-box-message {
+    flex: 1;
+    padding: 10px;
+}
+
+.ui-container-message-box-message-description {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ui-message-box-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+
+    .ui-container-message-box-message {
+        padding-top: 15px !important;
+        margin-left: 3px;
+    }
+}
+
+.ui-container-message-box-message-detail,
+.ui-container-message-box-message-link {
+    float: left;
+    width: 100%;
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.ui-container-message-box-message-link {
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.ui-container-message-box-operations {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.ui-container-message-box-operation {
+    margin: auto;
+    flex: 1;
+    font-weight: bold;
+    font-size: 13px;
+    min-width: 20px;
+    max-width: 70px;
+    min-height: 20px;
+    max-height: 70px;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 45px;
+    line-height: 40px;
+}
+
+.ui-container-message-box-operation span {
+    cursor: pointer;
+}
+
+.ui-button-no,
+.ui-button-yes {
+    opacity: 0.8;
+    font-weight: normal;
+}
+
+.ui-button-no span:hover,
+.ui-button-yes span:hover {
+    opacity: 1;
+    font-weight: bold;
+    font-size: 14px;
+}

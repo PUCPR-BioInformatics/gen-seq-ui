@@ -1,0 +1,28 @@
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+
+@import 'themes/core/theme-core.scss';
+@import 'themes/theming.scss';
+
+@import 'custom-elements/custom-elements.scss';
+@import 'loading.scss';
+
+* {
+    box-sizing: border-box !important;
+    font-family: Helvetica, Verdana;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    min-height: 500px;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}

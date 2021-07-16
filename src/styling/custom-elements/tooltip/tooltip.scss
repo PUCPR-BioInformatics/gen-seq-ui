@@ -1,0 +1,6 @@
+.ui-tooltip {
+    @include themify {
+        background: themed('secondary-color');
+        color: themed('secondary-text-color');
+    }
+}

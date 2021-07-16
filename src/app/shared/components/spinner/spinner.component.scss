@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
+.ui-spinner-loading-message-container {
+    padding-top: 15px;
+    font-size: 14px;
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-flow: column;
+}
+
+.ui-spinner-loading-message-instance {
+    font-weight: bold;
+    padding-top: 5px;
+}

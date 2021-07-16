@@ -1,0 +1,17 @@
+.ui-filter-sort-button {
+    @include themify {
+        color: themed('tertiary-color');
+    }
+}
+
+.ui-filter-edit:hover {
+    @include themify {
+        color: themed('green-color');
+    }
+}
+
+.ui-filter-remove:hover {
+    @include themify {
+        color: themed('red-color');
+    }
+}

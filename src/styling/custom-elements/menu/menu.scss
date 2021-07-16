@@ -1,0 +1,68 @@
+.mat-menu-panel {
+    display: flex;
+    flex-flow: column;
+
+    @include themify {
+        background: themed('primary-color');
+    }
+}
+
+.mat-menu-content {
+    padding-top: unset !important;
+    padding-bottom: unset !important;
+}
+
+.ui-menu-container {
+    font-size: 14px;
+    text-align: center;
+
+    @include themify {
+        color: themed('primary-text-color');
+
+        .mat-focus-indicator.mat-button-disabled {
+            background: themed('selected-color') !important;
+            color: themed('selected-text-color') !important;
+        }
+    }
+}
+
+.ui-menu {
+    min-height: unset !important;
+
+    @include themify {
+        color: themed('primary-text-color') !important;
+        box-shadow: 1px 1px 2px 0 themed('primary-shadow-color');
+        border: 1px solid themed('primary-border-color');
+    }
+}
+
+.ui-menu-option {
+    font-size: 12px;
+    display: flex !important;
+    align-items: center;
+    min-height: 30px;
+    cursor: pointer;
+    padding: 5px 20px;
+    width: 100%;
+
+    .ui-menu-option-name {
+        margin: 10px;
+        font-size: 14px;
+    }
+}
+
+.ui-menu-option-icon {
+    font-size: 20px;
+}
+
+.ui-menu-option:hover {
+    @include themify {
+        color: themed('selected-text-color') !important;
+    }
+}
+
+.mat-menu-item {
+    @include themify {
+        color: themed('primary-text-color') !important;
+    }
+}

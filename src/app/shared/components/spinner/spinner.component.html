@@ -1,0 +1,18 @@
+<div class = "ui-spinner-container" *ngIf = "type === 'semi'" [style.width] = 'width' [style.height] = 'height'>
+    <div class = "ui-spinner">
+    </div>
+</div>
+<div class = "ui-full-spinner-container" *ngIf = "type === 'full'" [style.width] = 'width' [style.height] = 'height'>
+    <div class = "ui-full-spinner-effect"></div>
+    <div class = "ui-full-spinner" [style.fontSize] = 'completenessSize'>
+        <span *ngIf = "completeness">{{ completeness }}</span>
+    </div>
+</div>
+<div *ngIf = "message || boldMessage" class = "ui-spinner-loading-message-container">
+    <div *ngIf = "message" class = "ui-spinner-loading-message">
+        {{message}}
+    </div>
+    <div *ngIf = "boldMessage" class = "ui-spinner-loading-message-instance">
+        {{boldMessage}}
+    </div>
+</div>

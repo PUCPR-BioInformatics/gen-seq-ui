@@ -1,0 +1,54 @@
+@import './loading.scss';
+
+.ui-spinner-container {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+
+.ui-spinner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: transparent;
+    animation: spin 2s linear infinite, color-change 2s linear infinite;
+
+    @include themify {
+        border-top: 3px solid themed('blue-color');
+        border-right: 3px solid themed('blue-color');
+    }
+}
+
+.ui-full-spinner-container {
+    display: flex;
+    position: relative;
+    flex-flow: column;
+    align-items: center;
+}
+
+.ui-full-spinner-effect {
+    animation: spin 2s linear infinite, color-change 2s linear infinite;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+
+    @include themify {
+        border-top: 3px solid themed('blue-color');
+        border-right: 3px solid themed('blue-color');
+    }
+}
+
+.ui-full-spinner {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    animation: circle-color-change 2s linear infinite;
+    border: 1px solid themed('tertiary-color');
+    font-size: 16px;
+}

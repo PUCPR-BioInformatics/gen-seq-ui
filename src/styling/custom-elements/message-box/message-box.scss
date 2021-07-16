@@ -1,0 +1,56 @@
+.ui-container-message-box-message-link {
+    @include themify {
+        color: themed('green-color');
+        text-decoration: underline;
+    }
+}
+
+.ui-message-box {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-container-message-box-icon {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-message-box-normal {
+    @include themify {
+        color: themed('primary-text-color');
+
+        .ui-container-message-box-icon {
+            color: themed('green-color');
+        }
+    }
+}
+
+.ui-message-box-error {
+    @include themify {
+        color: themed('white-color');
+        background: themed('red-color');
+
+        .ui-container-message-box-icon {
+            color: themed('white-color');
+        }
+    }
+}
+
+.ui-message-box-warning {
+    @include themify {
+        color: themed('white-color');
+        background: themed('warning-color');
+
+        .ui-container-message-box-icon {
+            color: themed('white-color');
+        }
+    }
+}
+
+.ui-message-box-loading {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}

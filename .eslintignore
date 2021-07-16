@@ -1,0 +1,10 @@
+node_modules
+dist
+scripts
+webpack.config.js
+test.ts
+polyfills.ts
+main.ts
+environment*.ts
+*.mock.spec.ts
+*.conf.js

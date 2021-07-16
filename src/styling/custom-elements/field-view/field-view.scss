@@ -1,0 +1,23 @@
+.ui-field-view-label {
+    font-size: 10px;
+    padding-bottom: 6px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-field-view-value {
+    font-size: 12px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}

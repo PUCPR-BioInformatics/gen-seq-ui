@@ -1,0 +1,120 @@
+.ui-header-title-button.mat-button-base,
+.ui-circle-button.mat-button-base {
+    min-width: 30px !important;
+    padding: 0 !important;
+    max-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 25px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-button-icon {
+    font-size: 20px;
+}
+
+.ui-button-icon-small {
+    font-size: 18px;
+}
+
+.ui-button.mat-button-base,
+.ui-secondary-button.mat-button-base,
+.ui-tertiary-button.mat-button-base {
+    border-radius: 2px;
+}
+
+.ui-theme-button.mat-button-base {
+    height: 40px;
+    width: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    font-size: 20px !important;
+}
+
+.mat-stroked-button {
+    @include themify {
+        box-shadow: 0 0 2px 0 themed('primary-shadow-color') !important;
+        border-color: themed('primary-border-color') !important;
+    }
+}
+
+.ui-add-button:hover {
+    @include themify {
+        color: themed('green-color') !important;
+    }
+}
+
+.ui-remove-button:hover {
+    @include themify {
+        color: themed('red-color') !important;
+    }
+}
+
+.ui-theme-button.mat-button-base span {
+    margin-top: -2px;
+}
+
+.ui-secondary-button.mat-button-base {
+    @include themify {
+        background: themed('secondary-color');
+        color: themed('secondary-text-color');
+    }
+
+    font-size: 13px;
+}
+
+.mat-button-disabled {
+    @include themify {
+        background: themed('disabled-color') !important;
+        color: themed('disabled-text-color') !important;
+    }
+}
+
+.ui-tertiary-button.mat-button-base {
+    @include themify {
+        color: themed('tertiary-text-color');
+        background: themed('tertiary-color');
+    }
+
+    font-size: 13px;
+}
+
+.ui-circle-button.mat-button-base,
+.ui-button.mat-button-base {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-button-remove.mat-button-base,
+.ui-button-edit.mat-button-base {
+    @include themify {
+        color: themed('gray-color');
+    }
+}
+
+.ui-button-remove.mat-button-base:hover {
+    @include themify {
+        color: themed('red-color');
+    }
+}
+
+.ui-button-edit.mat-button-base:hover {
+    @include themify {
+        color: themed('green-color');
+    }
+}
+
+.ui-button-label {
+    margin-left: 10px;
+}
+
+.ui-header-title-button {
+    @include themify {
+        color: themed('tertiary-color') !important;
+    }
+}

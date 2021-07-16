@@ -1,0 +1,50 @@
+@mixin default-theme() {
+    $theme-primary: mat.define-palette(map-get($ui-colors, 'light-slate-gray-palette'), 500, 500, 500);
+    $theme-accent: mat.define-palette(map-get($ui-colors, 'light-sea-green-palette'), 500);
+    $theme-warn: mat.define-palette(map-get($ui-colors, 'light-coral-palette'), 500);
+
+    $inversor-theme-primary: mat.define-palette(map-get($ui-colors, 'light-slate-gray-palette'), 100, 50, 50);
+    $inversor-theme-accent: mat.define-palette(map-get($ui-colors, 'light-sea-green-palette'), 500);
+    $inversor-theme-warn: mat.define-palette(map-get($ui-colors, 'light-coral-palette'), 300);
+
+    $theme: mat.define-light-theme($theme-primary, $theme-accent, $theme-warn);
+    $inversor-theme: mat.define-dark-theme($inversor-theme-primary, $inversor-theme-accent, $inversor-theme-warn);
+
+    @include mat.all-component-themes($theme);
+
+    .ui-inversor-theme {
+        @include mat.tabs-theme($inversor-theme);
+        @include mat.button-theme($inversor-theme);
+        @include mat.checkbox-theme($inversor-theme);
+        @include mat.form-field-theme($inversor-theme);
+        @include mat.input-theme($inversor-theme);
+        @include mat.datepicker-theme($inversor-theme);
+        @include mat.select-theme($inversor-theme);
+        @include mat.dialog-theme($inversor-theme);
+        @include mat.menu-theme($inversor-theme);
+        @include mat.bottom-sheet-theme($inversor-theme);
+        @include mat.slide-toggle-theme($inversor-theme);
+
+        .mat-tab-label-active {
+            color: themed(white-color);
+            opacity: 1 !important;
+        }
+
+        .ui-field-slide {
+            @include themify {
+                color: themed('secondary-text-color');
+            }
+        }
+
+        .ui-button.mat-button {
+            @include themify {
+                color: themed('secondary-text-color');
+            }
+        }
+    }
+    @content;
+}
+
+.ui-default-theme {
+    @include default-theme();
+}

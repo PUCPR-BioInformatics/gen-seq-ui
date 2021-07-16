@@ -1,0 +1,27 @@
+
+.ui-paginator-container {
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.ui-paginator-sizes {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding: 0 20px 0 0;
+
+    .ui-field-smaller {
+        padding: 0 10px;
+        max-width: 80px;
+    }
+}
+
+.ui-paginator-options {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}

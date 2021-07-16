@@ -1,0 +1,45 @@
+.mat-slider {
+    margin-top: -10px !important;
+}
+
+.mat-slider-track-fill {
+    @include themify {
+        background-color: themed('tertiary-color') !important;
+    }
+}
+
+.mat-slider-thumb {
+    @include themify {
+        background-color: themed('tertiary-color') !important;
+    }
+}
+
+.mat-slider-thumb-label {
+    @include themify {
+        top: 7px !important;
+        right: -15px !important;
+        height: 30px;
+        width: 30px;
+        background-color: themed('tertiary-color') !important;
+
+        span {
+            font-size: 10px !important;
+            color: themed('tertiary-text-color') !important;
+        }
+    }
+}
+
+.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label {
+    transform: rotate(-135deg) !important;
+
+    .mat-slider-thumb-label-text {
+        transform: rotate(135deg) !important;
+    }
+}
+
+.ui-slider-value,
+.ui-slider-label {
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}

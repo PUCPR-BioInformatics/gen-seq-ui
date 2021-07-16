@@ -1,0 +1,27 @@
+.ui-datepicker-field.mat-form-field .ui-circle-button.mat-button-base {
+    position: absolute;
+    border: unset;
+    top: -2px;
+    right: -9px;
+    outline: unset;
+    box-shadow: unset !important;
+    background: transparent !important;
+}
+
+.ui-datepicker-field.mat-form-field {
+    width: auto;
+}
+
+.mat-calendar-body-selected {
+    @include themify {
+        background-color: themed('selected-color');
+        color: themed('selected-text-color');
+    }
+}
+
+.mat-datepicker-content {
+    @include themify {
+        background: themed('primary-color');
+        color: themed('primary-text-color');
+    }
+}

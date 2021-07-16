@@ -1,0 +1,19 @@
+.mat-select-value {
+    @include themify {
+        color: themed('primary-text-color') !important;
+    }
+}
+
+mat-option.mat-selected {
+    @include themify {
+        color: themed('selected-text-color') !important;
+        background: themed('selected-color') !important;
+    }
+}
+
+mat-option:hover {
+    @include themify {
+        color: themed('selection-text-color') !important;
+        background: themed('selection-color') !important;
+    }
+}

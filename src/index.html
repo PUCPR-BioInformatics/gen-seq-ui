@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Genesis Seq</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+</head>
+<body id = "ui-body">
+    <script id = "initialize-theme">
+        // Será removido quando a aplicação estiver completamente carregada.
+        const theme  =  localStorage.getItem('current-theme')
+        document.getElementById('ui-body').className  =  (theme) ? theme : 'ui-default-theme';
+    </script>
+
+    <div id = "loading-panel" class = "ui-loading">
+        <!-- Será removido quando a aplicação estiver completamente carregada. -->
+        <div class = "ui-loading-logo">
+        </div>
+        <div class = "ui-loading-spinner">
+            <div class = "ui-full-spinner-container" style = "width: 70px; height: 70px;">
+                <div class = "ui-full-spinner-effect"></div>
+                <div class = "ui-full-spinner">
+                </div>
+            </div>
+        </div>
+        <div class = "ui-loading-description">
+            Iniciando a aplicação...
+        </div>
+    </div>
+    <app-root></app-root>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<app-header icon = "fas fa-swatchbook" class = "ui-information-header" title = "Exibição da aplicacão" subTitle = "Forma de navegação, tema e etc..."></app-header>
+<div class = "ui-exhibition-container">
+    <div *ngIf = "!isMobile" class = "ui-exhibition-options ui-exhibition-not-mobile-options">
+        <div class = "ui-exhibition-option">
+            <div class = "ui-exhibition-option-label">Menu de Navegação</div>
+            <div class = "ui-field ui-field-toggle">
+                <mat-slide-toggle [checked] = "(navBarMode === 'vertical') ? true : false" (change) = "eventNavigationMenuChanged($event.checked)">
+                    Vertical
+                </mat-slide-toggle>
+            </div>
+        </div>
+        <div class = "ui-exhibition-option">
+            <div class = "ui-exhibition-option-label">Retrair o menu de navegação</div>
+            <div class = "ui-field ui-field-toggle">
+                <mat-slide-toggle [checked] = "retraction" (change) = "eventRetractionChanged($event.checked)">
+                    Retraído
+                </mat-slide-toggle>
+            </div>
+        </div>
+    </div>
+    <div class = "ui-exhibition-options">
+      <div class = "ui-exhibition-option">
+        <div class = "ui-exhibition-option-label">Escolha o seu tema</div>
+        <div class = "ui-field ui-field-toggle">
+          <mat-radio-group class = "ui-themes"  (change) = "eventThemeChange($event.value)">
+            <mat-radio-button class = "ui-themes-option"  *ngFor = "let theme of getThemes()" [checked] = "theme.themeClass === getActualTheme()" [value] = "theme">
+              {{theme.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div [ngClass] = "{
+    'ui-header': true,
+    'ui-header-mobile': isMobile
+ }">
+    <div class = "ui-header-title-container">
+        <div class = "ui-flex ui-header-title">
+            <div class = "ui-header-title-and-icon">
+                <div *ngIf = "icon" class = "ui-header-title-icon">
+                    <span [class] = "icon"></span>
+                </div>
+                <div class = "ui-header-title-value">{{title}}</div>
+            </div>
+            <div *ngIf = "bullet" class = "ui-flex ui-flex-center ui-header-bullet">
+                {{ (isMobile) ? bullet : '• ' + bullet }}
+            </div>
+        </div>
+        <div *ngIf = "subTitle" class = "ui-header-sub-title">
+          {{subTitle}}
+        </div>
+        <div class = "ui-flex ui-header-additional">
+          <ng-content select = "[appHeaderAdditionalContent]"></ng-content>
+        </div>
+    </div>
+    <div class = "ui-header-title-options-container">
+      <ng-content select = "[appHeaderTitleOptions]"></ng-content>
+    </div>
+</div>

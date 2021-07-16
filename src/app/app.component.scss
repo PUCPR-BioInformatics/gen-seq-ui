@@ -1,0 +1,17 @@
+@import 'src/styling/themes/core/theme-core.scss';
+
+.ui-menu-container {
+    justify-content: unset;
+    align-items: unset;
+    width: auto;
+    flex-flow: column;
+
+    .ui-button {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.ui-custom-state {
+    font-size: 20px;
+}

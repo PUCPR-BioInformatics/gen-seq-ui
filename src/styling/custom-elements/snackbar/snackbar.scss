@@ -1,0 +1,12 @@
+.mat-snack-bar-container {
+    @include themify {
+        color: themed('primary-text-color');
+        background: themed('primary-color');
+    }
+}
+
+.mat-simple-snackbar-action {
+    @include themify {
+        color: themed('tertiary-color');
+    }
+}

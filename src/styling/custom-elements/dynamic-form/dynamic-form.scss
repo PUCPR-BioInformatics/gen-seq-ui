@@ -1,0 +1,107 @@
+.ui-field-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.ui-form-title {
+    display: flex;
+    font-size: 12px;
+    font-weight: bold;
+    align-items: center;
+    width: 100%;
+    padding: 0 30px;
+}
+
+.ui-field-toggle-container {
+    justify-content: center;
+    width: 100%;
+}
+
+.ui-fields {
+    max-width: 500px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+}
+
+.ui-field-array-container {
+    width: 100%;
+    justify-content: center;
+    padding-top: 10px;
+
+    .ui-fields {
+        padding: 0 10px;
+    }
+
+    .ui-circle-button {
+        margin: 5px;
+    }
+}
+
+.ui-field-mobile-container {
+    justify-content: center;
+    width: 100%;
+
+    .ui-field-smaller,
+    .ui-field {
+        width: 100%;
+    }
+
+    .ui-field-toggle {
+        width: auto;
+    }
+}
+
+.ui-field-array-title {
+    display: flex;
+    font-size: 12px;
+    font-weight: bold;
+    align-items: center;
+}
+
+.ui-field-array-sub-title {
+    display: flex;
+    font-size: 11px;
+    align-items: center;
+    padding: 3px 0 10px 0;
+}
+
+.ui-field-array-values {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.ui-field-array-value-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin: 2px 5px;
+
+    @include themify {
+        border: 1px solid themed('primary-border-color');
+    }
+}
+
+.ui-field-array-value {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.ui-field-array-value-child-container {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+}
+
+.ui-field-array-value-child-container-name {
+    font-size: 11px;
+}
+
+.ui-field-array-value-child-container-value {
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 5px;
+}

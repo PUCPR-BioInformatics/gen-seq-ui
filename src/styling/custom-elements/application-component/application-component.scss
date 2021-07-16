@@ -1,0 +1,53 @@
+.ui-container-mobile,
+.ui-container-mobile-login,
+.ui-container-horizontal,
+.ui-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .ui-header {
+        padding: 15px 20px 10px 30px;
+    }
+
+    @include themify {
+        border-top: 3px solid themed('tertiary-color');
+        background: themed('application-background');
+    }
+}
+
+.ui-component-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    flex: 1;
+
+    @include themify {
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-container-mobile,
+.ui-container-mobile-login,
+.ui-container-horizontal {
+    flex-flow: column;
+
+    .ui-header {
+        padding: 0 20px 0 30px !important;
+    }
+}
+
+.ui-router-component {
+    display: flex;
+    flex: 1;
+    height: auto;
+    overflow-y: auto;
+}
+
+.ui-container-mobile {
+    .ui-router-component {
+        padding-bottom: 60px;
+    }
+}

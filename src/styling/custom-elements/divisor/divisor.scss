@@ -1,0 +1,9 @@
+.ui-divisor {
+    margin: 5px 0;
+    height: 2px;
+    width: 100%;
+
+    @include themify {
+        background: themed('primary-border-color');
+    }
+}

@@ -1,0 +1,48 @@
+$sequence: 0;
+
+@function generate-id() {
+    $sequence: $sequence + 1 !global;
+
+    @return $sequence;
+}
+
+@mixin themify($themes: $themes) {
+    @each $theme, $map in $themes {
+        .#{$theme} & {
+            $theme-colors: () !global;
+
+            @each $key, $submap in $map {
+                $value: map-get(map-get($themes, $theme), '#{$key}');
+                $theme-colors: map-merge($theme-colors, ($key: $value)) !global;
+            }
+            @content;
+            $theme-colors: null !global;
+        }
+    }
+}
+
+@function themed($key) {
+    @if $theme-colors != null {
+        $ui-variable: map-get($theme-colors, $key);
+
+        @if $ui-variable != null {
+            @return $ui-variable;
+        }
+    }
+
+    @return map-get($default-colors, $key);
+}
+
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+@mixin background-logo($color) {
+    background-image: url('../../../assets/img/dna.png');
+}
