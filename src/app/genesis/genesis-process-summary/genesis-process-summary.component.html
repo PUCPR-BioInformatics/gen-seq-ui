@@ -5,8 +5,8 @@
         </button>
     </div>
 </app-header>
-<div class = "ui-component-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
-    <div class = "ui-genesis-container">
+<div class = "ui-component-container ui-genesis-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
+    <div class = "ui-genesis-executions-container">
         <div class = "ui-card ui-card-zoomed" *ngFor = "let execution of genesisProcess.process; trackBy: trackById" (click) = "eventNavigateToDetail(execution)" >
             <app-chart [data] = "getExecutionData(execution)" type = "gauge"></app-chart>
             <div class = "ui-genesis-informations">
@@ -74,4 +74,7 @@
 </div>
 <div class = "ui-component-container" *ngIf = "genesisProcess && genesisProcess.size === 0">
     Nenhuma execução encontrada
+</div>
+<div class = "ui-component-container" *ngIf = "!genesisProcess">
+    <app-spinner message = "Buscando as execuções" boldMessage = "Aguarde"></app-spinner>
 </div>

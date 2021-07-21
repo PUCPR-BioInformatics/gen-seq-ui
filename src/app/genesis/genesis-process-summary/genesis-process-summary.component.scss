@@ -1,13 +1,13 @@
 @import "src/styling/themes/core/theme-core.scss";
 
-.ui-component-container {
+.ui-genesis-container {
     flex-flow: column;
     justify-content: unset;
     align-items: unset;
     flex: unset;
 }
 
-.ui-genesis-container {
+.ui-genesis-executions-container {
     display: flex;
     flex-flow: row wrap;
     padding: 0 20px;

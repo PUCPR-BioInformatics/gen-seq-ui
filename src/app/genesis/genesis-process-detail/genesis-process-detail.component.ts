@@ -44,7 +44,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         });
     }
     public eventNewExecution(): void {
-        this.router.navigate(['./' + GenesisStates.genesis.subStates.creation.path ], {
+        this.router.navigate(['../' + GenesisStates.genesis.subStates.creation.path ], {
             relativeTo: this.route
         });
     }
