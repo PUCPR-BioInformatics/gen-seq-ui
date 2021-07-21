@@ -1,11 +1,11 @@
 {
     "production": {
-        "gen-seq-api": "http://127.0.0.1:8080/gen-seq-api/"
+        "gen-seq-api": "http://127.0.0.1:9000/gen-seq-api/"
     },
     "qa": {
-        "gen-seq-api": "http://127.0.0.1:8080/gen-seq-api/"
+        "gen-seq-api": "http://127.0.0.1:9000/gen-seq-api/"
     },
     "development": {
-        "gen-seq-api": "http://127.0.0.1:8080/gen-seq-api/"
+        "gen-seq-api": "http://127.0.0.1:9000/gen-seq-api/"
     }
 }

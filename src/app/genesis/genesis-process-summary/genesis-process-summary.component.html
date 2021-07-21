@@ -1,0 +1,19 @@
+<app-header [title] = "title" [subTitle] = "subTitle">
+    <div appHeaderTitleOptions class = "ui-header-title-options">
+        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+            <span class = "far fa-file"></span>
+        </button>
+    </div>
+</app-header>
+<div class = "ui-component-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
+    <div class = "ui-genesis-container">
+        <div class = "ui-card ui-card-zoomed" *ngFor = "let execution of genesisProcess.process; trackBy: trackById" (click) = "eventNavigateToDetail(execution)" >
+            {{execution._id}}
+        </div>
+    </div>
+    <app-pagination [limit] = "pagination.limit" [page] = "pagination.page" [size] = "genesisProcess.size" [processing] = "FORCE_UPDATE.getValue()"
+        (limitChange) = "eventLimitChanged($event)" (pageChange) = "eventPageChanged($event)"></app-pagination>
+</div>
+<div class = "ui-component-container" *ngIf = "genesisProcess && genesisProcess.size === 0">
+    Nenhuma execução encontrada
+</div>

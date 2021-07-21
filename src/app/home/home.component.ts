@@ -10,10 +10,6 @@ import { MessageBoxService } from '../shared/components/message-box/message-box.
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends AbstractComponent {
-
-    processing = true;
-    userTaskQuantity = 0;
-
     constructor(
         public systemService: SystemService,
         public messageBoxService: MessageBoxService

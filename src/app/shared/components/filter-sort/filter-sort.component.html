@@ -1,0 +1,20 @@
+<div class = "ui-filter-actual-container" *ngIf = "filterAsString || sortAsString">
+    <div class = "ui-filter-sort-actual">
+        <b>{{(formGroup) ? 'Filtro atual' : ''}} {{(formGroup && sortNames) ? ' & ' : ''}} {{(sortNames) ? 'Ordenação atual' : ''}}: </b>
+        <span>{{filterAsString}}</span>
+        <span>{{sortAsString}}</span>
+    </div>
+    <div class = "ui-filter-sort-actual-options">
+        <span class = "ui-filter-edit far fa-edit" (click) = "eventOpenModal()"></span>
+        <span class = "ui-filter-remove far fa-trash-alt" (click) = "eventCleanFilter()"></span>
+    </div>
+</div>
+<div class = "ui-empty-filter-sort" *ngIf = "((!filterAsString && !sortAsString)) && openFromFilter">
+    {{(formGroup) ? 'Nenhum filtro aplicado' : ''}}
+    {{(formGroup && sortNames) ? ' ou ' : ''}}
+    {{(sortNames) ? 'Nenhuma ordenação aplicada' : ''}}
+  <button mat-button (click) = "eventOpenModal()" class = "ui-primary-button ui-filter-sort-button">Criar</button>
+</div>
+<ng-template #formulary>
+    <ng-content select = "[appFilterFormulary]"></ng-content>
+</ng-template>

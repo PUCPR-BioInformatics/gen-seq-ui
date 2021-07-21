@@ -1,0 +1,12 @@
+<div class = "ui-chart" (mouseout) = "eventCleanTooltip()">
+    <div class = "ui-chart-graph">
+    </div>
+    <div *ngIf = "currentData?.informations.label" class = "ui-chart-gauge-total">
+        <div class = "ui-chart-gauge-total-label">
+            {{currentData.informations.label}}
+        </div>
+        <div class = "ui-chart-gauge-total-value">
+            {{currentData.informations.total}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.ui-chart {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+}
+
+.ui-chart-graph {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}

@@ -1,0 +1,35 @@
+<div class = "ui-modal-container">
+    <div class = "ui-filter-container" *ngIf = "formGroup">
+        <ui-header title = "Filtros" icon = "fas fa-filter" subTitle = "Realize o seus filtros"></ui-header>
+        <div class = "ui-filter-form">
+            <ng-container *ngTemplateOutlet = "formulary"></ng-container>
+        </div>
+    </div>
+    <div class = "ui-sort-container" *ngIf = "sortNames">
+        <ui-header title = "Ordenação" icon = "sort_by_alpha" subTitle = "Selecione a forma de ordenação"></ui-header>
+        <div class = "ui-fields">
+            <div class = "ui-sort-label">Ordenar por:</div>
+            <div class = "ui-field" *ngFor = "let sort of sortNames">
+                <mat-slide-toggle [checked] = "sorted?.name === sort.name" (change) = "eventSortChange($event.checked, sort)">
+                    {{sort.alias}}
+                </mat-slide-toggle>
+            </div>
+        </div>
+        <div class = "ui-fields">
+            <div class = "ui-sort-label">Tipo de ornanção:</div>
+            <div class = "ui-field">
+                <mat-slide-toggle [checked] = "sorted.ascending === true" (change) = "sorted.ascending = $event.checked">
+                    Crescente
+                </mat-slide-toggle>
+            </div>
+        </div>
+    </div>
+    <div class = 'ui-modal-footer'>
+        <button mat-button class = "ui-button" (click) = "eventFilteredSortered()">
+            Realizar
+        </button>
+        <button mat-button class = "ui-button" (click) = "eventCancelFilterSort()">
+            Cancelar
+        </button>
+    </div>
+</div>

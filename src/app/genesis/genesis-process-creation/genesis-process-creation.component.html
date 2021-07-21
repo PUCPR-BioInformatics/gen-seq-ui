@@ -1,0 +1,69 @@
+<app-header title = "Criando" subTitle = "Nova Execução">
+    <div appHeaderTitleOptions class = "ui-header-title-options">
+        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
+            <span class = "fas fa-history"></span>
+        </button>
+    </div>
+</app-header>
+<div [class] = "(!loading) ? 'ui-genesis-process-container' : 'ui-component-container'">
+    <app-spinner *ngIf = "loading" message = "Carregando recursos" boldMessage =  "Aguarde"></app-spinner>
+    <mat-vertical-stepper class = "ui-stepper" *ngIf = "!loading" [linear] = "true">
+        <ng-template matStepperIcon = "edit">
+            <span class = "fas fa-check" style = "font-size: 16px"></span>
+        </ng-template>
+        <mat-step label = "Parâmetros de Entrada" state = "input" [stepControl] = "parametersForm">
+            <form class = "ui-fields" [formGroup] = "parametersForm">
+                <mat-form-field class = "ui-field">
+                    <mat-select formControlName = "reference" placeholder = "Referência">
+                        <mat-option *ngFor = "let reference of genomeReferences" [value] = "reference.name">{{reference.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class = "ui-field">
+                    <input type = "text" matInput placeholder = "Amostra de DNA(SRA)" formControlName = "dnaSraId">
+                </mat-form-field>
+                <mat-form-field class = "ui-field">
+                    <input type = "text" matInput placeholder = "Amostra do RNA(SRA)" formControlName = "rnaSraId">
+                </mat-form-field>
+                <div class = "ui-fields-options">
+                    <button mat-button class = "ui-button" [disabled] = "parametersForm.invalid" matStepperNext>
+                        Próximo
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step label = "Parâmetros: Alinhamento DNA" state = "input" [stepControl] = "dnaAlignmentForm">
+            <form class = "ui-fields" [formGroup] = "dnaAlignmentForm">
+                <mat-form-field class = "ui-field">
+                    <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
+                        <mat-option *ngFor = "let tool of getDnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class = "ui-fields-options">
+                    <button mat-button class = "ui-button" matStepperBack>
+                        Voltar
+                    </button>
+                    <button mat-button class = "ui-button"  matStepperNext>
+                        Próximo
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step label = "Parâmetros: Alinhamento Rna" state = "input" [stepControl] = "rnaAlignmentForm">
+            <form class = "ui-fields" [formGroup] = "rnaAlignmentForm">
+                <mat-form-field class = "ui-field">
+                <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
+                    <mat-option *ngFor = "let tool of getRnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+                <div class = "ui-fields-options">
+                    <button mat-button class = "ui-button" matStepperBack>
+                        Voltar
+                    </button>
+                    <button mat-button class = "ui-button" [disabled] = "rnaAlignmentForm.invalid" (click) = "eventCreateGenesisProcess()">
+                        Executar
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-vertical-stepper>
+</div>

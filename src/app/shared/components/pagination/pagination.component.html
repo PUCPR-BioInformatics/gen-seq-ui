@@ -1,0 +1,23 @@
+<ui-spinner *ngIf = "processing && type !== 'more'" message = "Carregando..."></ui-spinner>
+<button [disabled] = "processing" mat-button *ngIf = "type === 'more' && page * limit < size" (click) = "eventLoadMoreNotifications()" class = "ui-button">
+    <span *ngIf = "!processing">Buscar mais</span>
+    <ui-spinner *ngIf = "processing"></ui-spinner>
+</button>
+<div class = "ui-paginator-container" *ngIf = "type === 'paginated' && !processing">
+    <div class = "ui-paginator-sizes">
+        <b>Items por página:</b>
+        <mat-form-field class = "ui-field-smaller">
+            <mat-select [value] = "limit" (selectionChange) = "eventLimitChange($event.value)">
+                <mat-option *ngFor = "let limitSize of limits" [value] = "limitSize">{{limitSize}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        {{limit}}
+    </div>
+    <div class = "ui-paginator-current">
+        {{ getActualFirstItemIndex() }} - {{ getActualLastItemIndex() }} de  {{ size }}
+    </div>
+    <div class = "ui-paginator-options">
+        <button mat-button [disabled] = "page === 1" (click) = "eventPageChange(page - 1)" class = "ui-circle-button"><span class = "fas fa-chevron-left"></span></button>
+        <button mat-button [disabled] = "page * limit >= size" (click) = "eventPageChange(page + 1)" class = "ui-circle-button"><span class = "fas fa-chevron-right"></span></button>
+    </div>
+</div>

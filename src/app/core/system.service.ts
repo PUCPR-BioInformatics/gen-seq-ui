@@ -61,7 +61,11 @@ export class SystemService {
         return localStorage.getItem(key);
     }
     public getSessionVariableAsBoolean(key: string): boolean {
-        return (this.getSessionVariable(key) === 'true') ? true : false;
+        const value = this.getSessionVariable(key);
+        if (!value) {
+            return null;
+        }
+        return (value === 'true') ? true : false;
     }
     public getSessionVariableAsJson(key: string): any {
         return JSON.parse(this.getSessionVariable(key));
@@ -111,8 +115,8 @@ export class SystemService {
         }
     }
     protected initializeRetraction(navBarRetracted: boolean): void {
-        if (this.getSessionVariableAsBoolean('retracted')) {
-            this.retracted$.next(true);
+        if (this.getSessionVariableAsBoolean('retracted') !== null) {
+            this.retracted$.next(this.getSessionVariableAsBoolean('retracted'));
         } else {
             this.retracted$.next(navBarRetracted);
         }

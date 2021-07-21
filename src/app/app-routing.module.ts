@@ -17,6 +17,9 @@ const routes: Routes = [
         pathMatch: 'full',
         component: HomeComponent,
     }, {
+        path: AppStates.genesis.path,
+        loadChildren: () => import('./genesis/genesis.module').then((m => m.GenesisModule))
+    }, {
         path: AppStates.error.path,
         pathMatch: 'full',
         component: ErrorComponent

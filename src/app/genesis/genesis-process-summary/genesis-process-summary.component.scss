@@ -1,0 +1,47 @@
+@import "src/styling/themes/core/theme-core.scss";
+
+.ui-component-container {
+    flex-flow: column;
+    justify-content: unset;
+    align-items: unset;
+    flex: unset;
+}
+
+.ui-genesis-container {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0 20px;
+}
+
+.ui-card {
+    margin: 5px;
+    width: 220px;
+    max-width: 230px;
+    height: 260px;
+}
+
+:host {
+    @include themify {
+        .ui-card {
+            background: themed('primary-color');
+        }
+    }
+}
+:host-context(.ui-container-mobile) {
+    .ui-genesis-container {
+        justify-content: center;
+    }
+
+    .ui-card {
+        width: 230px;
+        max-width: 230px;
+        flex: unset;
+    }
+
+    @media(max-width: 345px) {
+        .ui-card {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}

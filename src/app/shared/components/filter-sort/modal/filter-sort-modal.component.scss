@@ -1,0 +1,31 @@
+.ui-component-container {
+    align-items: unset;
+    padding: 0 20px;
+    overflow-y: auto;
+}
+
+.ui-sort-container,
+.ui-filter-container {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+}
+
+.ui-sort-form,
+.ui-filter-form {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0 30px;
+    width: 100%;
+}
+
+.ui-filter-form::ng-deep {
+    .ui-fields {
+        width: 100%;
+    }
+
+    .ui-field {
+        padding-right: 20px;
+        flex: 1;
+    }
+}

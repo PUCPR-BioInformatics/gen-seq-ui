@@ -1,0 +1,11 @@
+<app-header [title] = "title" [subTitle] = "subTitle">
+    <div appHeaderTitleOptions class = "ui-header-title-options">
+        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
+            <span class = "fas fa-history"></span>
+        </button>
+    </div>
+</app-header>
+<div class = "ui-component-container">
+    <app-spinner *ngIf = "!genesisProcess" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
+    <div *ngIf = "genesisProcess">Em construção</div>
+</div>

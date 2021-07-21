@@ -1,3 +1,5 @@
+import { GenesisStates } from './genesis/genesis.states';
+
 export const AppStates = {
     home: {
         name: 'home',
@@ -8,6 +10,7 @@ export const AppStates = {
         permissions: null,
         subStates: null
     },
+    ...GenesisStates,
     error: {
         alias: 'error',
         name: 'Erro',
