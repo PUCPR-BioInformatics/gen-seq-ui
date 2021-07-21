@@ -1,5 +1,5 @@
 
-import { GaugeGenericPlotDataModel } from '../components/chart/chart-types/gauge/model/ui-gauge-plot-data.model';
+import { GaugeGenericPlotDataModel } from '../components/chart/chart-types/gauge/model/gauge-plot-data.model';
 import { PlotEffectModel } from '../components/chart/model/plot-effect.model';
 import { PlotTooltip } from '../components/chart/model/plot-tooltip.model';
 import { PlotDataInformationContextModel } from '../components/chart/model/plot-data-information-context.model';

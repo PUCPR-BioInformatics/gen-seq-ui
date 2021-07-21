@@ -17,13 +17,57 @@
     margin: 5px;
     width: 220px;
     max-width: 230px;
-    height: 260px;
+    height: 300px;
+}
+
+.ui-genesis-informations {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: unset;
+    padding: 10px;
+}
+
+.ui-genesis-information {
+    display: flex;
+    flex-flow: column;
+    width: 90px;
+    margin: 5px;
+}
+
+.ui-genesis-information-label {
+    font-size: 9px;
+}
+.ui-genesis-information-value {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.ui-execution-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
 }
 
 :host {
     @include themify {
         .ui-card {
             background: themed('primary-color');
+        }
+
+        .ui-execution-footer-executing {
+            background: themed('tertiary-color');
+            color: themed('tertiary-text-color');
+        }
+
+        .ui-execution-footer-completed {
+            background: themed('green-color');
+            color: themed('white-color');
+        }
+
+        .ui-execution-footer-waiting {
+            background: themed('gray-color');
+            color: themed('white-color');
         }
     }
 }

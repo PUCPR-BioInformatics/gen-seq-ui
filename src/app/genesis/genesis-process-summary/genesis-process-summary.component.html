@@ -8,7 +8,65 @@
 <div class = "ui-component-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
     <div class = "ui-genesis-container">
         <div class = "ui-card ui-card-zoomed" *ngFor = "let execution of genesisProcess.process; trackBy: trackById" (click) = "eventNavigateToDetail(execution)" >
-            {{execution._id}}
+            <app-chart [data] = "getExecutionData(execution)" type = "gauge"></app-chart>
+            <div class = "ui-genesis-informations">
+                <div class = "ui-genesis-information">
+                    <div class = "ui-genesis-information-label">
+                        Sra DNA
+                    </div>
+                    <div class = "ui-genesis-information-value">
+                        {{execution.dnaResource.sra}}
+                    </div>
+                </div>
+                <div class = "ui-genesis-information">
+                    <div class = "ui-genesis-information-label">
+                        Alinhador DNA
+                    </div>
+                    <div class = "ui-genesis-information-value">
+                        {{execution.dnaResource.alignmentParameters?.toolName}}
+                    </div>
+                </div>
+                <div class = "ui-genesis-information">
+                    <div class = "ui-genesis-information-label">
+                        Sra Rna
+                    </div>
+                    <div class = "ui-genesis-information-value">
+                        {{execution.rnaResource.sra}}
+                    </div>
+                </div>
+                <div class = "ui-genesis-information">
+                    <div class = "ui-genesis-information-label">
+                        Alinhador RNA
+                    </div>
+                    <div class = "ui-genesis-information-value">
+                        {{execution.rnaResource.alignmentParameters?.toolName}}
+                    </div>
+                </div>
+                <div class = "ui-genesis-information">
+                    <div class = "ui-genesis-information-label">
+                        Referência
+                    </div>
+                    <div class = "ui-genesis-information-value">
+                        {{execution.reference}}
+                    </div>
+                </div>
+                <div class = "ui-genesis-information">
+                    <div class = "ui-genesis-information-label">
+                       Executado Em
+                    </div>
+                    <div class = "ui-genesis-information-value">
+                        {{getExecutionTime(execution)}}
+                    </div>
+                </div>
+            </div>
+            <div [ngClass] = "{
+                'ui-execution-footer': true,
+                'ui-execution-footer-executing': !execution.completedDate && execution.step !== 'WAITING',
+                'ui-execution-footer-completed': execution.completedDate,
+                'ui-execution-footer-waiting': execution.step === 'WAITING'
+            }">
+                {{ execution.step | StringNormalizePipe }}
+            </div>
         </div>
     </div>
     <app-pagination [limit] = "pagination.limit" [page] = "pagination.page" [size] = "genesisProcess.size" [processing] = "FORCE_UPDATE.getValue()"

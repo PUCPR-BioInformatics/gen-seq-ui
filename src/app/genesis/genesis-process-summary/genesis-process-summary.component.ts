@@ -11,9 +11,10 @@ import { GenesisProcessService } from '../genesis-process.service';
 import { GenesisProcessContainerModel } from '../shared/model/genesis-process-container.model';
 import { PaginationModel } from '../../shared/model/pagination.model';
 import { GenesisProcessModel } from '../shared/model/genesis-process.model';
-import { HttpErrorResponse } from '@angular/common/http';
 import { GenesisStates } from '../genesis.states';
-import { AlignmentToolModel } from '../shared/model/alignment-tool.model';
+import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
+import { ChartHelper } from '../../shared/helper/chart.helper';
+import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
 
 @Component({
     selector: 'app-genesis-process-summary',
@@ -69,6 +70,53 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
     private forceUpdate(): void {
         this.FORCE_UPDATE.next(true);
         this.pushPaginationState();
+    }
+    public getExecutionData(execution: GenesisProcessModel): ChartDataModel {
+        const total = execution.executions.length;
+        const completeness = parseFloat((execution.completeness * 100).toFixed(0));
+        const completenessText = isNaN(completeness) ? 'Sem dados' : completeness + '%';
+        const completenessTooltip = ChartHelper.buildTooltip('Executado ' + completenessText, 'ui-chart-tooltip');
+        const executedTooltip = ChartHelper.buildTooltip('Executado ' + completenessText, 'ui-chart-tooltip');
+        const plots = [
+            ChartHelper.buildGaugeGenericPlotDataModel(
+                total, 0, 1, 52, 54,
+                'ui-chart-gauge-meter-default',
+                completenessTooltip
+            )
+        ];
+        if (execution.step !== GenesisProcessStepEnum.WAITING) {
+            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? 'ui-linear-gradient-orange-initial' :
+                'ui-linear-gradient-success-initial';
+            plots.push(
+                ChartHelper.buildGaugeGenericPlotDataModel(
+                    total, 0, 1 * execution.completeness,
+                    50, 56, cssClass,
+                    executedTooltip
+                )
+            );
+        }
+        return {
+            tooltip: completenessTooltip,
+            informations: {
+                progress: ChartHelper.buildContextInformation(completenessText, 0, 10)
+            },
+            size: {
+                width: 220,
+                height: 140
+            },
+            plots
+        } as ChartDataModel;
+    }
+    public getExecutionTime(execution: GenesisProcessModel): string {
+        let time;
+
+        if (!execution.completedDate) {
+            time = new Date().getTime() - new Date(execution.creationDate).getTime()
+        } else {
+            time = new Date(execution.completedDate).getTime() - new Date(execution.creationDate).getTime();
+        }
+
+        return (time / 1000 / 60).toFixed(2) + ' segundos'
     }
     private handleGenesisProcessContainer(genesisProcess: GenesisProcessContainerModel): void {
         this.genesisProcess = genesisProcess;

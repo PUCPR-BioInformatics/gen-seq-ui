@@ -117,8 +117,7 @@ export abstract class GenericChart {
     protected buildTooltip(): void {
         this.tooltip = d3.select('body').append('div')
             .attr('id', 'ui-chart-tooltip' + this.hash)
-            .attr('class', 'ui-chart-tooltip')
-            .style('opacity', 0);
+            .attr('class', 'ui-chart-tooltip ui-chart-tooltip-hidden')
     }
     protected cleanTooltip(): void {
         const selectorTooltip = d3.select('#ui-chart-tooltip' + this.hash);

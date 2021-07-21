@@ -1,5 +1,8 @@
 <app-header [title] = "title" [subTitle] = "subTitle">
     <div appHeaderTitleOptions class = "ui-header-title-options">
+        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+            <span class = "far fa-file"></span>
+        </button>
         <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
             <span class = "fas fa-history"></span>
         </button>

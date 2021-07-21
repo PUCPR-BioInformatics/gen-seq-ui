@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 import { GenericChart } from '../generic-chart';
 import { ChartDataModel } from '../../model/chart-data.model';
-import { GaugeGenericPlotDataModel } from './model/ui-gauge-plot-data.model';
+import { GaugeGenericPlotDataModel } from './model/gauge-plot-data.model';
 import { PlotTooltip } from '../../model/plot-tooltip.model';
 
 export class GaugeChart extends GenericChart {

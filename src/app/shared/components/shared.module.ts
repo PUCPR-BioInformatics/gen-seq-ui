@@ -26,8 +26,12 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { SpinnerModule } from './spinner/spinner.module';
 import { HeaderModule } from './header/header.module';
+import { StringNormalizePipe } from './pipe/string-normalize.pipe';
 
 @NgModule({
+    declarations: [
+        StringNormalizePipe
+    ],
     imports: [
         CommonModule,
         FormsModule,
@@ -83,7 +87,8 @@ import { HeaderModule } from './header/header.module';
         MatStepperModule,
         MatSliderModule,
         SpinnerModule,
-        HeaderModule
+        HeaderModule,
+        StringNormalizePipe
     ]
 })
 export class SharedModule {

@@ -37,6 +37,8 @@ export class GenesisProcessService {
         }
         if (sort) {
             queryParam.append('sort', sort);
+        } else {
+            queryParam.append('sort', 'creationDate,-1');
         }
 
         const queryParamUrl = (queryParam.toString() !== '') ? '?' + queryParam.toString() : ''

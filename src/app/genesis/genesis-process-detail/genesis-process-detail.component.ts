@@ -10,6 +10,7 @@ import { MessageBoxService } from '../../shared/components/message-box/message-b
 import { GenesisProcessService } from '../genesis-process.service';
 import { GenesisProcessModel } from '../shared/model/genesis-process.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { GenesisStates } from '../genesis.states';
 
 @Component({
     selector: 'app-genesis-process-detail',
@@ -42,11 +43,15 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             relativeTo: this.route
         });
     }
+    public eventNewExecution(): void {
+        this.router.navigate(['./' + GenesisStates.genesis.subStates.creation.path ], {
+            relativeTo: this.route
+        });
+    }
     private handleGenesisProcess(genesisProcess: GenesisProcessModel): void {
         this.genesisProcess = genesisProcess;
         this.title = 'Detalhes da Execução';
         this.subTitle = this.genesisProcess._id;
-        console.log(genesisProcess)
     }
     private initialize(): void {
         this.title = 'Buscando a execução';

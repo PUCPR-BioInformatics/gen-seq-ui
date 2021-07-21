@@ -62,7 +62,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
         }
     }
     public ngOnDestroy(): void {
-        const chartTooltip = document.getElementById('ui-chart-tooltip-' + this.hash);
+        const chartTooltip = document.getElementById('ui-chart-tooltip' + this.hash);
 
         if (chartTooltip) {
             chartTooltip.remove();

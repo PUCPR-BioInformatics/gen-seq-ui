@@ -7,6 +7,7 @@ export interface GenesisProcessModel {
     reference: string;
     dnaResource: GenesisResourceModel;
     rnaResource: GenesisResourceModel;
+    completeness: number;
     step?: GenesisProcessStepEnum;
     creationDate?: Date;
     completedDate?: Date | null;
