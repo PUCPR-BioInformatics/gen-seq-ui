@@ -85,13 +85,20 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
             )
         ];
         if (execution.step !== GenesisProcessStepEnum.WAITING) {
-            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? 'ui-linear-gradient-orange-initial' :
-                'ui-linear-gradient-success-initial';
+            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? ['ui-linear-gradient-orange-initial', 'ui-linear-gradient-orange-endless'] :
+                ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
+            const effect = ChartHelper.buildGradientEffect(
+                'gradient-execution-' + new Date().getTime() + execution._id,
+                { class: cssClass[0], offset: '0%' },
+                { class: cssClass[1], offset: '100%'},
+                ['stroke', 'fill']
+            );
             plots.push(
                 ChartHelper.buildGaugeGenericPlotDataModel(
                     total, 0, 1 * execution.completeness,
-                    50, 56, cssClass,
-                    executedTooltip
+                    50, 56, 'ui-chart-gauge-meter-path',
+                    executedTooltip,
+                    [effect]
                 )
             );
         }

@@ -10,5 +10,33 @@
 </app-header>
 <div class = "ui-component-container">
     <app-spinner *ngIf = "!genesisProcess" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
-    <div *ngIf = "genesisProcess">Em construção</div>
+    <div class = "ui-process-detail-container" *ngIf = "genesisProcess">
+        <app-chart class = "ui-chart-container" [data] = "genesisProcessChartData" type = "gauge"></app-chart>
+        <div class = "ui-process-general-information">
+            <app-field-view label = "Sra DNA" [value] = "genesisProcess.dnaResource.sra"></app-field-view>
+            <app-field-view label = "Sra RNA" [value] = "genesisProcess.rnaResource.sra"></app-field-view>
+            <app-field-view label = "Referência" [value] = "genesisProcess.reference"></app-field-view>
+            <app-field-view label = "Executa Em" [value] = "getExecutionTime()"></app-field-view>
+        </div>
+        <div class = "ui-process-analyses-container ui-process-empty">
+            Em Construção
+        </div>
+        <div class = "ui-process-executions">
+            <div [class] = "getCssClass(execution)" *ngFor = "let execution of genesisProcess.executions">
+                <div class = "ui-process-execution-step-container">
+                   <div class = "ui-process-execution-step-information">
+                       <!--<span [class] = "getExecutionIcon(execution)"></span>-->
+                       {{execution.step | StringNormalizePipe}}
+                       <div class = "ui-process-execution-status">
+                           {{ getExecutionStatus(execution) }}
+                       </div>
+                   </div>
+                </div>
+                <div class = "ui-process-execution-time">
+                    <app-field-view label = "Data Início" [value] = "execution.startDate" [isDate] = "true"></app-field-view>
+                    <app-field-view label = "Data Fim" [value] = "execution.endDate" [isDate] = "true"></app-field-view>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

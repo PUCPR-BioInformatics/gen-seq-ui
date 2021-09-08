@@ -27,6 +27,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { SpinnerModule } from './spinner/spinner.module';
 import { HeaderModule } from './header/header.module';
 import { StringNormalizePipe } from './pipe/string-normalize.pipe';
+import { FieldViewModule } from './field-view/field-view.module';
 
 @NgModule({
     declarations: [
@@ -59,7 +60,8 @@ import { StringNormalizePipe } from './pipe/string-normalize.pipe';
         MatStepperModule,
         MatSliderModule,
         SpinnerModule,
-        HeaderModule
+        HeaderModule,
+        FieldViewModule
     ],
     exports: [
         FormsModule,
@@ -88,7 +90,8 @@ import { StringNormalizePipe } from './pipe/string-normalize.pipe';
         MatSliderModule,
         SpinnerModule,
         HeaderModule,
-        StringNormalizePipe
+        StringNormalizePipe,
+        FieldViewModule
     ]
 })
 export class SharedModule {

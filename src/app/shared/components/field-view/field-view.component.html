@@ -1,0 +1,11 @@
+<div class = "ui-field-view-label">{{label}}</div>
+<div class = "ui-field-view-value" *ngIf = "type === 'string' || type === 'number'">{{value}}</div>
+<div class = "ui-field-view-value" *ngIf = "type === 'icon'">
+    <span [class] = "value"></span>
+</div>
+<div class = "ui-field-view-value" *ngIf = "type === 'date'">
+    {{getDateFromValue(value) | date:'dd/MM/yyyy HH:mm:ss'}}
+</div>
+<div class = "ui-field-view-value" *ngIf = "type === 'boolean'">
+    {{(value) ? 'Verdadeiro' : 'falso'}}
+</div>

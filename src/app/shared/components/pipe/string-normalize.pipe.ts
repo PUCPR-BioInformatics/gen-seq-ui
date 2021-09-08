@@ -12,13 +12,13 @@ import { GenesisProcessStepEnum } from '../../../genesis/shared/enum/genesis-pro
 @Pipe({name: 'StringNormalizePipe'})
 export class StringNormalizePipe implements PipeTransform {
     private translator = {
-        WAITING: "Aguardando",
-        FASTQ_DUMP_DNA: "Buscando amostra DNA",
-        FASTQ_DUMP_RNA: "Buscando amostra RNA",
-        ALIGNING_DNA: "Alinhando: DNA",
-        ALIGNING_RNA: "Alinhando: RNA",
-        ANALYSING: "Analisando",
-        COMPLETE: "Concluído"
+        WAITING: "Aguardar",
+        FASTQ_DUMP_DNA: "Buscar: amostra DNA",
+        FASTQ_DUMP_RNA: "Buscar: amostra RNA",
+        ALIGNING_DNA: "Alinhar: DNA",
+        ALIGNING_RNA: "Alinhar: RNA",
+        ANALYSING: "Análise",
+        COMPLETE: "Encerramento"
     }
     public transform(value: string): string {
         if (GenesisProcessStepEnum[value]) {
