@@ -15,6 +15,7 @@ import { GenesisStates } from '../genesis.states';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-genesis-process-summary',
@@ -185,6 +186,9 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
                 this.handleGenesisProcessContainer(genesisProcess);
                 this.FORCE_UPDATE.next(false);
                 this.REQUESTING = false;
+            },
+            (error: HttpErrorResponse) => {
+                this.openErrorMessageBox(error);
             }
         ));
     }

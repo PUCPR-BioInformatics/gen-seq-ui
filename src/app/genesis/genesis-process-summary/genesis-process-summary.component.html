@@ -8,7 +8,7 @@
 <div class = "ui-component-container ui-genesis-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
     <div class = "ui-genesis-executions-container">
         <div class = "ui-card ui-card-zoomed" *ngFor = "let execution of genesisProcess.process; trackBy: trackById" (click) = "eventNavigateToDetail(execution)" >
-            <app-chart [data] = "getExecutionData(execution)" type = "gauge"></app-chart>
+            <app-chart class = "ui-card-chart" [data] = "getExecutionData(execution)" type = "gauge"></app-chart>
             <div class = "ui-genesis-informations">
                 <app-field-view label = "Sra DNA" [value] = "execution.dnaResource.sra"></app-field-view>
                 <app-field-view label = "Alinhador DNA" [value] = "execution.dnaResource.alignmentParameters?.toolName"></app-field-view>
@@ -23,7 +23,7 @@
                 'ui-execution-footer-completed': execution.completedDate,
                 'ui-execution-footer-waiting': execution.step === 'WAITING'
             }">
-                {{ execution.step | StringNormalizePipe }}
+                {{ (!execution.completedDate) ? (execution.step | StringNormalizePipe) : 'Encerrado' }}
             </div>
         </div>
     </div>

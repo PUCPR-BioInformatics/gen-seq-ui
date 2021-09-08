@@ -1,0 +1,8 @@
+.ui-array-editor-container {
+    @include themify {
+        .ui-circle-button {
+            margin-top: -10px;
+            color: themed('tertiary-color');
+        }
+    }
+}

@@ -86,6 +86,14 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             plots
         } as ChartDataModel;
     }
+    public eventDuplicateExecution(): void {
+        this.router.navigate(['../creation'], {
+            relativeTo: this.route,
+            queryParams: {
+                from: this.genesisProcess._id
+            }
+        });
+    }
     public eventGenesisSummary(): void {
         this.router.navigate(['../'], {
             relativeTo: this.route

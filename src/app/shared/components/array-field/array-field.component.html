@@ -1,0 +1,32 @@
+<div class = "ui-component-container">
+    <form class = "ui-array-add-container" [formGroup] = "addableForm" (ngSubmit) = "eventAddValue()">
+        <mat-form-field class = "ui-field">
+            <input [placeholder] = "label" matInput [type] = "(type === 'string') ? 'text' : type"  formControlName = "addable">
+        </mat-form-field>
+        <button mat-button class = "ui-circle-button ui-add-button" *ngIf = "!disabled" type = "submit">
+            <span class = "fas fa-check" matTooltip = "Adicionar"></span>
+        </button>
+    </form>
+    <button #arrayItemsTrigger="matMenuTrigger" [matMenuTriggerFor] = "arrayItems" mat-button class = "ui-array-editor-button" [disabled] = "!valueAsArray || valueAsArray.length === 0"
+    (menuOpened) = "eventArrayItemsOpened()" (menuClosed) = "eventArrayItemsClosed()">
+        <span class = "ui-array-editor-count">
+            {{ (valueAsArray.length > 0) ? 'Adicionado(s) ' + valueAsArray.length : 'Nenhum valor adicionado'}}
+        </span>
+        <span *ngIf = "valueAsArray && valueAsArray.length > 0" [ngClass] = "{
+            'fas': true,
+            'fa-edit': !editing && !disabled,
+            'fa-eye': !editing && disabled,
+            'fa-times': editing
+        }"></span>
+    </button>
+    <mat-menu #arrayItems="matMenu"  panelId = "ui-array-menu" class = "ui-menu">
+        <div class = "ui-array-items-container">
+            <div class = "ui-array-item" *ngFor = "let value of valueAsArray; let i = index">
+                <span class = "ui-array-item-value">{{ value }}</span>
+                <button mat-button class = "ui-circle-button ui-remove-button" *ngIf = "!disabled" (click) = "eventRemoveValue(i, $event)">
+                    <span class = "fas fa-trash" matTooltip = "Remover"></span>
+                </button>
+            </div>
+        </div>
+    </mat-menu>
+</div>
