@@ -133,10 +133,10 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             reference: creationParametersRaw.reference,
             dnaResource: {
                 sra: creationParametersRaw.dnaSraId as string,
-                fastqDumpParameters: creationDnaAlignmentRaw.dumpParameters.split(','),
+                fastqDumpParameters: creationDnaAlignmentRaw.dumpParameters?.split(','),
                 alignmentParameters: {
                     toolName: creationDnaAlignmentRaw.toolName,
-                    parameters: creationDnaAlignmentRaw.parameters,
+                    parameters: creationDnaAlignmentRaw.parameters?.split(',')
                 }
             },
             rnaResource: {
@@ -144,7 +144,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
                 fastqDumpParameters: [],
                 alignmentParameters: {
                     toolName: creationRnaAlignmentRaw.toolName,
-                    parameters: creationRnaAlignmentRaw.parameters,
+                    parameters: creationRnaAlignmentRaw.parameters?.split(',')
                 }
             }
         } as GenesisProcessModel;
