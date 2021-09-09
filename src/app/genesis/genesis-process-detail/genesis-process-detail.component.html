@@ -15,7 +15,7 @@
     <app-spinner *ngIf = "!genesisProcess" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
     <div class = "ui-process-detail-container" *ngIf = "genesisProcess">
         <app-chart class = "ui-chart-container" [data] = "genesisProcessChartData" type = "gauge"></app-chart>
-        <span class = "ui-process-result">{{ genesisProcess.result.description }}</span>
+        <span class = "ui-process-result">{{ (genesisProcess.result) ? genesisProcess.result.description : 'Em Execução...' }}</span>
         <div class = "ui-process-general-information">
             <app-field-view label = "Sra DNA" [value] = "genesisProcess.dnaResource.sra"></app-field-view>
             <app-field-view label = "Sra RNA" [value] = "genesisProcess.rnaResource.sra"></app-field-view>
