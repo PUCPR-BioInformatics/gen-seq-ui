@@ -111,6 +111,8 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             cssClass += 'ui-process-execution-waiting';
         } else if (!execution.endDate) {
             cssClass += 'ui-process-execution-executing';
+        } else if (execution.result.status === 'fail') {
+            cssClass += 'ui-process-execution-fail';
         } else {
             cssClass += 'ui-process-execution-done';
         }
@@ -119,11 +121,11 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
     }
     public getExecutionStatus(execution: GenesisExecutionTimerModel): string {
         if (!execution.startDate) {
-            return 'Agurdando';
+            return (this.genesisProcess.result?.status === 'fail') ? 'Não executado' : 'Agurdando';
         } else if (!execution.endDate) {
             return 'Em Execução';
         } else {
-            return 'Concluído';
+            return (execution.result.status === 'fail') ? 'Falhou' : 'Concluído';
         }
     }
     public getExecutionIcon(execution: GenesisExecutionTimerModel): string {
@@ -157,6 +159,9 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         this.subTitle = 'Aguarde';
 
         this.watchGenesisProcess();
+    }
+    public trackExecutionByStep(index: number, execution: GenesisExecutionTimerModel): string {
+        return execution.step;
     }
     private watchGenesisProcess(): void {
         this.subscriptions$.add(this.TIMER.pipe(

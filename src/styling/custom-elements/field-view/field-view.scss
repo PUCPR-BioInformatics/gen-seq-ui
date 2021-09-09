@@ -1,9 +1,15 @@
 .ui-field-view-label {
     font-size: 10px;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    text-align: center;
+    opacity: 0.8;
+
+    @include themify {
+        color: themed('primary-text-color');
+    }
 }
 
 .ui-field-view-value {
@@ -12,4 +18,9 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    text-align: center;
+
+    @include themify {
+        color: themed('primary-text-color');
+    }
 }

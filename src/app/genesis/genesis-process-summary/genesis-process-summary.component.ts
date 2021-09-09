@@ -16,6 +16,7 @@ import { ChartDataModel } from '../../shared/components/chart/model/chart-data.m
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
 import { HttpErrorResponse } from '@angular/common/http';
+import { GenesisExecutionTimerModel } from '../shared/model/genesis-execution-timer.model';
 
 @Component({
     selector: 'app-genesis-process-summary',
@@ -71,6 +72,9 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
     private forceUpdate(): void {
         this.FORCE_UPDATE.next(true);
         this.pushPaginationState();
+    }
+    public getExecutionCompleteState(genesisExecution: GenesisProcessModel): string {
+        return this.isFailed(genesisExecution) ? 'Falhou' : 'Executado';
     }
     public getExecutionData(execution: GenesisProcessModel): ChartDataModel {
         const total = execution.executions.length;
@@ -128,13 +132,12 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
     }
     private handleGenesisProcessContainer(genesisProcess: GenesisProcessContainerModel): void {
         this.genesisProcess = genesisProcess;
+        this.title = 'Execuções';
 
         if (this.genesisProcess.size > 0) {
-            this.title = 'Execuções';
             this.subTitle = 'Encontradas ' + this.genesisProcess.size;
         } else {
-            this.title = 'Sem Execuções';
-            this.subTitle = '';
+            this.subTitle = 'Nenhuma Execução Encontrada';
         }
     }
     private initialize(): void {
@@ -155,6 +158,9 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
         } else {
             this.pushPaginationState(true);
         }
+    }
+    private isFailed(genesisExecution: GenesisProcessModel): boolean {
+        return genesisExecution.result.status === 'fail';
     }
     private pushPaginationState(replace = false): void {
         this.router.navigate([], {

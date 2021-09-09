@@ -17,7 +17,8 @@
     margin: 5px;
     width: 220px;
     max-width: 230px;
-    height: 320px;
+    height: 330px;
+    position: relative;
 }
 
 .ui-card-chart {
@@ -26,9 +27,11 @@
 
 .ui-genesis-informations {
     display: flex;
+    flex: 1;
     flex-flow: row wrap;
     align-items: unset;
-    padding: 10px;
+    padding: 10px 5px;
+    padding-bottom: 20px;
 }
 
 .ui-genesis-information {
@@ -47,10 +50,34 @@
 }
 
 .ui-execution-footer {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px;
+    height: 20px;
+    width: calc(100% + 2px);
+    left: -1px;
+    bottom: -2px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.ui-empty-container {
+    flex-flow: column;
+
+    .ui-create-button {
+        height: 35px;
+        min-height: 35px;
+        max-height: 35px;
+        width: 35px;
+        min-width: 35px;
+        max-width: 35px;
+        margin-top: 10px;
+        font-size: 20px;
+        align-items: center;
+        justify-content: center;
+        line-height: unset;
+    }
 }
 
 :host {
@@ -69,12 +96,31 @@
             color: themed('white-color');
         }
 
+        .ui-execution-footer-failed {
+            background: themed('red-color');
+            color: themed('white-color');
+        }
+
         .ui-execution-footer-waiting {
             background: themed('gray-color');
             color: themed('white-color');
         }
+
+        .ui-empty-container {
+            .ui-create-button {
+                background: themed('tertiary-color');
+                color: themed('tertiary-text-color');
+            }
+        }
     }
 }
+
+::ng-deep {
+    .ui-genesis-information-field-view {
+        margin: 5px;
+    }
+}
+
 :host-context(.ui-container-mobile) {
     .ui-genesis-container {
         justify-content: center;

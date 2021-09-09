@@ -12,7 +12,7 @@
     @include themify {
         background: themed('nav-bar-color');
         color: themed('nav-bar-text-color');
-        box-shadow: 0 0 4px -1px themed('nav-bar-shadow-color');
+        box-shadow: 0 0 3px -1px themed('nav-bar-shadow-color');
     }
 }
 
@@ -115,7 +115,7 @@
         @include themify {
             color: themed('nav-bar-selected-text-color');
             background: themed('nav-bar-color');
-            box-shadow: 2px 0 3px -1px themed('nav-bar-shadow-color');
+            box-shadow: 2px 0 2px -1px themed('nav-bar-shadow-color');
         }
     }
 }

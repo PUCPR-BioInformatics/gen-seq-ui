@@ -12,15 +12,10 @@
     cursor: pointer;
 
     @include themify {
-        box-shadow: 4px 4px 5px -4px themed('primary-shadow-color');
+        box-shadow: 0 0 1px 0 themed('primary-shadow-color');
     }
 }
 
-.ui-card:hover {
-    @include themify {
-        box-shadow: 5px 5px 5px -3px themed('primary-shadow-color');
-    }
-}
 
 .ui-card-selected {
     .ui-card {

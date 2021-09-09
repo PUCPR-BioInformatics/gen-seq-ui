@@ -142,7 +142,7 @@ $default-colors: (
     blue-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
     dark-green-color: map-get(map-get($ui-colors, 'light-sea-green-palette'), 900),
     dark-red-color:  map-get(map-get($ui-colors, 'light-coral-palette'), 700),
-    light-gray-color:map-get(map-get($ui-colors, 'light-slate-gray-palette'), 200),
+    light-gray-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 200),
     dark-orange-color: map-get(map-get($ui-colors, 'light-orange-palette'), 700),
     yellow-color: map-get(map-get($ui-colors, 'light-yellow-palette'), 700),
 );
