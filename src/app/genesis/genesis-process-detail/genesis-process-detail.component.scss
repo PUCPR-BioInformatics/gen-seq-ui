@@ -8,7 +8,7 @@
 }
 
 .ui-process-result {
-    margin-top: -10px;
+    margin-top: -20px;
     text-align: center;
 }
 
@@ -22,7 +22,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 30px;
 }
 
 .ui-process-executions,
@@ -30,8 +30,12 @@
     display: flex;
     flex-flow: row wrap;
     width: 100%;
-    padding: 20px 10px 0 10px;
+    padding: 20px 10px 0 13px;
     justify-content: center;
+}
+
+.ui-process-executions {
+    justify-content: start;
 }
 
 .ui-process-empty {

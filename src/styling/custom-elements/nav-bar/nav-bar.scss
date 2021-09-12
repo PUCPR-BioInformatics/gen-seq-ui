@@ -4,7 +4,7 @@
 
 .ui-nav-bar {
     display: flex;
-    width: 250px;
+    width: 230px;
     height: 100%;
     flex-flow: column;
     z-index: 2;
@@ -49,8 +49,8 @@
     border-left: 3px solid transparent;
 
     .ui-nav-bar-state-alias {
-        font-size: 16px;
-        margin-left: 10px;
+        font-size: 15px;
+        margin-left: 15px;
     }
 }
 
@@ -62,8 +62,6 @@
 }
 
 .ui-nav-bar-state-selected {
-    font-weight: bold;
-
     @include themify {
         background: themed('nav-bar-selected-color') !important;
         color: themed('nav-bar-selected-text-color') !important;
@@ -72,7 +70,7 @@
 }
 
 .ui-nav-bar-retracted {
-    width: 70px;
+    width: 65px;
 
     .ui-nav-bar-system {
         padding: 18px 10px 18px 10px;
@@ -81,7 +79,6 @@
         .ui-nav-bar-system-logo {
             width: 42px;
             height: 42px;
-            margin-left: -8px;
         }
 
         .ui-nav-bar-system-name {
@@ -141,9 +138,18 @@
 .ui-nav-bar-horizontal {
     flex-flow: row;
     height: auto;
+    min-height: 60px;
     width: 100%;
     overflow: unset;
     box-shadow: unset !important;
+
+    @include themify {
+        background: themed('application-background');
+
+        .ui-circle-button {
+            background: themed('application-background');
+        }
+    }
 
     .ui-nav-bar-state-selected {
         border-left: unset;
@@ -160,19 +166,20 @@
 
     .ui-nav-bar-system {
         flex-flow: row;
-        padding: 0 20px 0 20px;
+        padding: 0 10px;
         align-items: center;
-        height: 60px;
+        height: 100%;
+        margin-left: 15px;
 
         .ui-nav-bar-system-logo {
-            width: 40px !important;
-            height: 40px !important;
+            width: 42px !important;
+            height: 42px !important;
         }
 
         .ui-nav-bar-system-name {
             display: flex;
             align-items: center;
-            padding-left: 10px;
+            padding-left: 15px;
             padding-top: 0;
             margin-left: 0;
         }
@@ -184,6 +191,8 @@
         flex: 1;
         min-width: 0;
         overflow: unset;
+        padding-left: 10px;
+        padding-top: 0;
 
         .ui-nav-bar-states {
             flex-flow: row;
@@ -251,16 +260,14 @@
 .ui-nav-bar-system {
     display: flex;
     align-items: center;
-    flex-flow: column;
     padding: 18px 10px 18px 10px;
     cursor: pointer;
-    margin-left: 10px;
 
     .ui-nav-bar-system-name {
         font-size: 20px;
         padding: 0;
-        padding-top: 10px;
         font-weight: bold;
+        margin-left: 10px;
 
         @include themify {
             color: themed('logo-color');
@@ -268,8 +275,8 @@
     }
 
     .ui-nav-bar-system-logo {
-        width: 100px;
-        height: 100px;
+        width: 42px;
+        height: 42px;
         background-size: 100% 100%;
 
         @include themify {
@@ -283,6 +290,7 @@
     align-items: flex-start;
     flex: 1;
     overflow-y: auto;
+    padding-top: 20px;
 }
 
 .ui-nav-bar-states-container,

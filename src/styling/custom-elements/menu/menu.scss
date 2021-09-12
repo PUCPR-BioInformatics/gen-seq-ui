@@ -32,7 +32,6 @@
     @include themify {
         color: themed('primary-text-color') !important;
         box-shadow: 1px 1px 2px 0 themed('primary-shadow-color');
-        border: 1px solid themed('primary-border-color');
     }
 }
 

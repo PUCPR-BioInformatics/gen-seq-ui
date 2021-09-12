@@ -12,7 +12,7 @@
     cursor: pointer;
 
     @include themify {
-        box-shadow: 0 0 1px 0 themed('primary-shadow-color');
+        box-shadow: 1px 0 3px -2px themed('primary-shadow-color');
     }
 }
 

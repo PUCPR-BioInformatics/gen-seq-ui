@@ -2,7 +2,7 @@ import { Component, Input, HostBinding, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
 
-import { timer, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { AbstractComponent } from '../core/abstract.component';
 import { AppState } from '../shared/model/app-state';
