@@ -31,6 +31,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
     public genesisProcessChartData: ChartDataModel;
     public title: string;
     public subTitle: string;
+    public lastUpdate = new Date();
 
     constructor(
         public systemService: SystemService,
@@ -178,6 +179,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         this.title = 'Detalhes da Execução';
         this.subTitle = this.genesisProcess._id;
         this.buildGenesisChartData(genesisProcess);
+        this.lastUpdate = new Date();
     }
     private initialize(): void {
         this.title = 'Buscando a execução';

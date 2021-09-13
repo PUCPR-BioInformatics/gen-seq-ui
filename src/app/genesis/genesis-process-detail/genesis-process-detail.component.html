@@ -15,6 +15,9 @@
             <span class = "fas fa-times"></span>
         </button>
     </div>
+    <div appHeaderAdditionalContent class = "ui-updated-time">
+        Atualizado em {{ lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}
+    </div>
 </app-header>
 <div class = "ui-component-container">
     <app-spinner *ngIf = "!genesisProcess" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
