@@ -48,7 +48,7 @@ export class MessageBoxService {
         if (options.type !== 'loading' || this.opens.length === 0) {
             this.closed = false;
             this.messageBox = this.dialog.open(MessageBoxComponent, {
-                backdropClass: (options.type === 'loading') ? 'ui-genesis-process-execution-detail-backdrop' : 'ui-genesis-process-execution-detail-dark-backdrop',
+                backdropClass: (options.type === 'loading') ? 'ui-modal-backdrop' : 'ui-modal-dark-backdrop',
                 panelClass: (options.type === 'loading') ? 'ui-loading-panel' : undefined,
                 data: options,
                 disableClose: options.disableClose,

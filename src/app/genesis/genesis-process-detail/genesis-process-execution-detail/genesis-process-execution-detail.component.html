@@ -3,7 +3,7 @@
     <div class = "ui-execution-detail-container" *ngIf = "data.execution.startDate">
         <div class = "ui-information-container">
             <div class = "ui-information-label">
-                Executado Em
+                {{ (data.execution.endDate) ? 'Executado Em' : 'Executando' }}
             </div>
             <div class = "ui-information-value">
                 {{ getExecutionTime() }}
