@@ -24,6 +24,11 @@
                 <mat-form-field class = "ui-field">
                     <input type = "text" matInput placeholder = "Amostra do RNA(SRA)" formControlName = "rnaSraId">
                 </mat-form-field>
+                <duv class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "force">
+                        Baixar quando já existir?
+                    </mat-slide-toggle>
+                </duv>
                 <div class = "ui-fields-options">
                     <button mat-button class = "ui-button" [disabled] = "parametersForm.invalid" matStepperNext>
                         Próximo

@@ -89,7 +89,8 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         this.parametersForm = new FormGroup({
             reference: new FormControl('', Validators.required),
             dnaSraId: new FormControl('', Validators.required),
-            rnaSraId: new FormControl('', Validators.required)
+            rnaSraId: new FormControl('', Validators.required),
+            force: new FormControl(false, Validators.required)
         });
         this.dnaAlignmentForm = new FormGroup({
             alignmentParameters: new FormControl(''),
@@ -111,7 +112,8 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             this.parametersForm.setValue({
                 reference: this.fromGenesisExecution.reference,
                 dnaSraId: this.fromGenesisExecution.dnaResource.sra,
-                rnaSraId: this.fromGenesisExecution.rnaResource.sra
+                rnaSraId: this.fromGenesisExecution.rnaResource.sra,
+                force: false
             });
             this.dnaAlignmentForm.setValue({
                 alignmentParameters: (dnaAlignmentParameters) ? dnaAlignmentParameters.toString() : '',
@@ -132,23 +134,25 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         const genesisProcess = {
             reference: creationParametersRaw.reference,
             dnaResource: {
-                sra: creationParametersRaw.dnaSraId as string,
-                fastqDumpParameters: creationDnaAlignmentRaw.dumpParameters?.split(','),
                 alignmentParameters: {
                     toolName: creationDnaAlignmentRaw.toolName,
                     parameters: creationDnaAlignmentRaw.parameters?.split(',')
-                }
+                },
+                fastqDumpParameters: creationDnaAlignmentRaw.dumpParameters?.split(','),
+                sra: creationParametersRaw.dnaSraId as string,
+                force: creationParametersRaw.force
             },
             rnaResource: {
-                sra: creationParametersRaw.rnaSraId as string,
-                fastqDumpParameters: [],
                 alignmentParameters: {
                     toolName: creationRnaAlignmentRaw.toolName,
                     parameters: creationRnaAlignmentRaw.parameters?.split(',')
-                }
+                },
+                fastqDumpParameters: [],
+                sra: creationParametersRaw.rnaSraId as string,
+                force: creationParametersRaw.force
             }
         } as GenesisProcessModel;
-
+        console.log(genesisProcess)
         this.genesisService.createProcess(genesisProcess).subscribe(
             (genesisProcess: GenesisProcessModel) => {
                 const link = GenesisStates.genesis.path + '/' + genesisProcess._id;

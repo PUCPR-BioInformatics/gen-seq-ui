@@ -86,6 +86,18 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             plots
         } as ChartDataModel;
     }
+    public eventCancelGenesisProcess(): void {
+        this.loadingState('Cancelando o process...');
+        this.genesisService.cancelProcess(this.genesisProcess).subscribe(
+            (genesisProcess: GenesisProcessModel) => {
+                this.genesisProcess = genesisProcess;
+                this.loadingStateDone();
+            }, (error: HttpErrorResponse) => {
+                this.openErrorMessageBox(error);
+                this.loadingStateDone();
+            }
+        );
+    }
     public eventDuplicateExecution(): void {
         this.router.navigate(['../creation'], {
             relativeTo: this.route,
@@ -146,7 +158,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             time = new Date(this.genesisProcess.completedDate).getTime() - new Date(this.genesisProcess.creationDate).getTime();
         }
 
-        return (time / 1000 / 60).toFixed(2) + ' segundos'
+        return ((time / 1000) / 60).toFixed(2) + ' minutos'
     }
     private handleGenesisProcess(genesisProcess: GenesisProcessModel): void {
         this.genesisProcess = genesisProcess;

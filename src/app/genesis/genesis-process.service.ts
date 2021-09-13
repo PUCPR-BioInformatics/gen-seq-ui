@@ -17,6 +17,9 @@ export class GenesisProcessService {
         private http: HttpClient
     ) { }
 
+    public cancelProcess(genesisProcess: GenesisProcessModel): Observable<GenesisProcessModel> {
+        return this.http.delete<GenesisProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process/' + genesisProcess._id);
+    }
     public createProcess(genesisProcess: GenesisProcessModel): Observable<GenesisProcessModel> {
         return this.http.post<GenesisProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process', genesisProcess);
     }

@@ -103,6 +103,9 @@
 
 :host {
     @include themify {
+        .ui-cancel-process-button {
+            color: themed('red-color') !important;
+        }
         .ui-process-execution {
             background: themed('primary-color');
             color: themed('primary-text-color');

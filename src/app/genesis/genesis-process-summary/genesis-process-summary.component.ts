@@ -128,7 +128,7 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
             time = new Date(execution.completedDate).getTime() - new Date(execution.creationDate).getTime();
         }
 
-        return (time / 1000 / 60).toFixed(2) + ' segundos'
+        return (time / 1000 / 60).toFixed(2) + ' minutos'
     }
     private handleGenesisProcessContainer(genesisProcess: GenesisProcessContainerModel): void {
         this.genesisProcess = genesisProcess;

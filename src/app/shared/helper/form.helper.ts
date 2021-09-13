@@ -6,14 +6,19 @@ export class FormHelper {
         const values: any = {};
         for (const field in form.controls) {
             if (form.get(field) !== null && form.get(field) !== undefined) {
-
                 const control: AbstractControl = form.get(field);
                 const controlValue: any = control.value;
-                if (!excludes.includes(field) && control.enabled && controlValue && controlValue !== '') {
+                console.log(field, form.get(field), controlValue)
+                if (
+                    !excludes.includes(field) && control.enabled &&
+                    controlValue !== null && controlValue !== undefined &&
+                    controlValue !== ''
+                ) {
                     values[field] = controlValue;
                 }
             }
         }
+        console.log(values)
         return values;
     }
 
