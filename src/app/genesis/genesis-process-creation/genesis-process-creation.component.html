@@ -24,11 +24,6 @@
                 <mat-form-field class = "ui-field">
                     <input type = "text" matInput placeholder = "Amostra do RNA(SRA)" formControlName = "rnaSraId">
                 </mat-form-field>
-                <duv class = "ui-force-toggle ui-field ui-field-toggle">
-                    <mat-slide-toggle formControlName = "force">
-                        Baixar quando já existir?
-                    </mat-slide-toggle>
-                </duv>
                 <div class = "ui-fields-options">
                     <button mat-button class = "ui-button" [disabled] = "parametersForm.invalid" matStepperNext>
                         Próximo
@@ -43,6 +38,16 @@
                         <mat-option *ngFor = "let tool of getDnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceDump">
+                        Forçar download do SRA?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceAlignment">
+                        Forçar alinhamento do fastQ?
+                    </mat-slide-toggle>
+                </div>
                 <div class = "ui-fields-options">
                     <button mat-button class = "ui-button" matStepperPrevious>
                         Voltar
@@ -56,10 +61,20 @@
         <mat-step label = "Parâmetros: Alinhamento Rna" state = "input" [stepControl] = "rnaAlignmentForm">
             <form class = "ui-fields" [formGroup] = "rnaAlignmentForm">
                 <mat-form-field class = "ui-field">
-                <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
-                    <mat-option *ngFor = "let tool of getRnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                    <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
+                        <mat-option *ngFor = "let tool of getRnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceDump">
+                        Forçar download do SRA?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceAlignment">
+                        Forçar alinhamento do fastQ?
+                    </mat-slide-toggle>
+                </div>
                 <div class = "ui-fields-options">
                     <button mat-button class = "ui-button" matStepperPrevious>
                         Voltar

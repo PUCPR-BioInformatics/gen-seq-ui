@@ -15,6 +15,9 @@ import { ChartDataModel } from '../../shared/components/chart/model/chart-data.m
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
 import { GenesisExecutionTimerModel } from '../shared/model/genesis-execution-timer.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageBoxComponent } from '../../shared/components/message-box/message-box.component';
+import { GenesisProcessExecutionDetailComponent } from './genesis-process-execution-detail/genesis-process-execution-detail.component';
 
 @Component({
     selector: 'app-genesis-process-detail',
@@ -31,6 +34,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
 
     constructor(
         public systemService: SystemService,
+        public dialog: MatDialog,
         public messageBoxService: MessageBoxService,
         public genesisService: GenesisProcessService,
         public router: Router,
@@ -110,6 +114,15 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         this.router.navigate(['../'], {
             relativeTo: this.route
         });
+    }
+    public eventExecutionDetail(execution: GenesisExecutionTimerModel): void {
+        this.dialog.open(GenesisProcessExecutionDetailComponent, {
+            data: {
+                execution,
+                process: this.genesisProcess
+            },
+            maxWidth: '100%'
+        })
     }
     public eventNewExecution(): void {
         this.router.navigate(['../' + GenesisStates.genesis.subStates.creation.path ], {

@@ -90,40 +90,46 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             reference: new FormControl('', Validators.required),
             dnaSraId: new FormControl('', Validators.required),
             rnaSraId: new FormControl('', Validators.required),
-            force: new FormControl(false, Validators.required)
         });
         this.dnaAlignmentForm = new FormGroup({
             alignmentParameters: new FormControl(''),
             dumpParameters: new FormControl(''),
+            forceDump: new FormControl(false, Validators.required),
+            forceAlignment: new FormControl(false, Validators.required),
             toolName: new FormControl('', Validators.required)
         });
         this.rnaAlignmentForm = new FormGroup({
             alignmentParameters: new FormControl(''),
             dumpParameters: new FormControl(''),
+            forceDump: new FormControl(false, Validators.required),
+            forceAlignment: new FormControl(false, Validators.required),
             toolName: new FormControl('', Validators.required)
         });
 
         if (this.fromGenesisExecution) {
-            const dnaAlignmentParameters = this.fromGenesisExecution.dnaResource.alignmentParameters;
-            const dnaDumpParameters = this.fromGenesisExecution.dnaResource.fastqDumpParameters;
-            const rnaAlignmentParameters = this.fromGenesisExecution.rnaResource.alignmentParameters;
-            const rnaDumpParameters = this.fromGenesisExecution.rnaResource.fastqDumpParameters;
+            const dnaAlignmentParameters = this.fromGenesisExecution.dnaResource.alignmentParameters.parameters;
+            const dnaDumpParameters = this.fromGenesisExecution.dnaResource.fastqDumpParameters.parameters;
+            const rnaAlignmentParameters = this.fromGenesisExecution.rnaResource.alignmentParameters.parameters;
+            const rnaDumpParameters = this.fromGenesisExecution.rnaResource.fastqDumpParameters.parameters;
 
             this.parametersForm.setValue({
                 reference: this.fromGenesisExecution.reference,
                 dnaSraId: this.fromGenesisExecution.dnaResource.sra,
                 rnaSraId: this.fromGenesisExecution.rnaResource.sra,
-                force: false
             });
             this.dnaAlignmentForm.setValue({
                 alignmentParameters: (dnaAlignmentParameters) ? dnaAlignmentParameters.toString() : '',
                 dumpParameters: (dnaDumpParameters) ? dnaDumpParameters.toString() : '',
-                toolName: this.fromGenesisExecution.dnaResource.alignmentParameters.toolName
+                toolName: this.fromGenesisExecution.dnaResource.alignmentParameters.toolName,
+                forceDump: false,
+                forceAlignment: false
             });
             this.rnaAlignmentForm.setValue({
                 alignmentParameters: (rnaAlignmentParameters) ? rnaAlignmentParameters.toString() : '',
                 dumpParameters:  (rnaDumpParameters) ? rnaDumpParameters.toString() : '',
-                toolName: this.fromGenesisExecution.rnaResource.alignmentParameters.toolName
+                toolName: this.fromGenesisExecution.rnaResource.alignmentParameters.toolName,
+                forceDump: false,
+                forceAlignment: false
             });
         }
     }
@@ -136,20 +142,27 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             dnaResource: {
                 alignmentParameters: {
                     toolName: creationDnaAlignmentRaw.toolName,
-                    parameters: creationDnaAlignmentRaw.parameters?.split(',')
+                    parameters: (creationDnaAlignmentRaw.alignmentParameters) ? creationDnaAlignmentRaw.alignmentParameters.split(',') : [],
+                    force: creationDnaAlignmentRaw.forceAlignment
                 },
-                fastqDumpParameters: creationDnaAlignmentRaw.dumpParameters?.split(','),
+                fastqDumpParameters: {
+                    parameters: (creationDnaAlignmentRaw.dumpParameters) ? creationDnaAlignmentRaw.dumpParameters?.split(',') : [],
+                    force: creationDnaAlignmentRaw.forceDump
+                },
                 sra: creationParametersRaw.dnaSraId as string,
-                force: creationParametersRaw.force
+
             },
             rnaResource: {
                 alignmentParameters: {
                     toolName: creationRnaAlignmentRaw.toolName,
-                    parameters: creationRnaAlignmentRaw.parameters?.split(',')
+                    parameters: (creationRnaAlignmentRaw.alignmentParameters) ? creationRnaAlignmentRaw.alignmentParameters.split(',') : [],
+                    force: creationRnaAlignmentRaw.forceAlignment
                 },
-                fastqDumpParameters: [],
+                fastqDumpParameters: {
+                    parameters: (creationRnaAlignmentRaw.dumpParameters) ? creationRnaAlignmentRaw.dumpParameters.split(',') : [],
+                    force: creationRnaAlignmentRaw.forceDump
+                },
                 sra: creationParametersRaw.rnaSraId as string,
-                force: creationParametersRaw.force
             }
         } as GenesisProcessModel;
         console.log(genesisProcess)

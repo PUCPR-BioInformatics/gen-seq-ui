@@ -15,7 +15,7 @@ export class UserComponentService {
     public openUserProfilePanel(): void {
         this.dialog.open(UserModalComponent, {
             panelClass: 'ui-user-profile-panel',
-            backdropClass: 'ui-modal-dark-backdrop'
+            backdropClass: 'ui-genesis-process-execution-detail-dark-backdrop'
         });
     }
 }

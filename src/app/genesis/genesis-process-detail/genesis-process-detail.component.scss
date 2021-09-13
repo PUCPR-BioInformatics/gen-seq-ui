@@ -101,6 +101,19 @@
     }
 }
 
+@media (max-width: 550px) {
+    .ui-process-executions {
+        flex-flow: column;
+        padding-right: 20px;
+
+        .ui-process-execution {
+            min-height: 150px;
+            width: 100%;
+            max-width: unset;
+        }
+    }
+}
+
 :host {
     @include themify {
         .ui-cancel-process-button {

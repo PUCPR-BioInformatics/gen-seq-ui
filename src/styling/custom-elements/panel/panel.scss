@@ -1,5 +1,6 @@
 .ui-panel,
 .ui-panel-normal,
+.ui-panel-executing,
 .ui-panel-warning,
 .ui-panel-success,
 .ui-panel-error {
@@ -18,6 +19,13 @@
     @include themify {
         background: themed('red-color');
         color: themed('white-color');
+    }
+}
+
+.ui-panel-executing {
+    @include themify {
+        background: themed('tertiary-color');
+        color: themed('tertiary-text-color');
     }
 }
 
@@ -45,7 +53,7 @@
 
 .ui-panel-normal {
     @include themify {
-        background: themed('primary-color');
-        color: themed('primary-text-color');
+        background: themed('gray-color');
+        color: themed('white-color');
     }
 }

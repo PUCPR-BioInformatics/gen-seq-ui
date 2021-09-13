@@ -9,7 +9,7 @@
         <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
             <span class = "fas fa-history"></span>
         </button>
-        <button mat-button *ngIf = "!genesisProcess.completedDate"
+        <button mat-button *ngIf = "!genesisProcess?.completedDate"
         class = "ui-circle-button ui-header-title-button ui-cancel-process-button"
         matTooltip = "Cancelar execução" (click) = "eventCancelGenesisProcess()">
             <span class = "fas fa-times"></span>
@@ -31,7 +31,7 @@
             Em Construção
         </div>
         <div class = "ui-process-executions">
-            <div [class] = "getCssClass(execution)" *ngFor = "let execution of genesisProcess.executions; trackBy: trackExecutionByStep">
+            <div [class] = "getCssClass(execution)" *ngFor = "let execution of genesisProcess.executions; trackBy: trackExecutionByStep" (click) = "eventExecutionDetail(execution)">
                 <div class = "ui-process-execution-step-container">
                    <div class = "ui-process-execution-step-information">
                        <span>{{execution.step | StringNormalizePipe}}</span>

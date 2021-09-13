@@ -1,0 +1,32 @@
+<div class = "ui-modal-container">
+    <app-header [title] = "data.execution.step | StringNormalizePipe"></app-header>
+    <div class = "ui-execution-detail-container" *ngIf = "data.execution.startDate">
+        <div class = "ui-information-container">
+            <div class = "ui-information-label">
+                Executado Em
+            </div>
+            <div class = "ui-information-value">
+                {{ getExecutionTime() }}
+            </div>
+        </div>
+        <div class = "ui-information-container" *ngIf = "data.execution.result">
+            <div class = "ui-information-label">
+                Descrição
+            </div>
+            <div class = "ui-information-value">
+                {{ data.execution.result.description }}
+            </div>
+        </div>
+    </div>
+    <div [ngClass] = "{
+            'ui-panel-success': data.execution.result?.status === 'success',
+            'ui-panel-error': data.execution.result?.status === 'fail',
+            'ui-panel-waiting': !data.execution.result && data.execution.startDate,
+            'ui-panel-normal': !data.execution.result && !data.execution.startDate
+        }">
+        {{ getExecutionDetailStatus() }}
+    </div>
+    <div class = "ui-modal-footer">
+        <button mat-button class = "ui-button" (click) = "eventDismiss()">Fechar</button>
+    </div>
+</div>

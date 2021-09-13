@@ -1,11 +1,12 @@
-import { ExecutionParameterModel } from './execution-parameter.model';
-
 export interface GenesisResourceModel {
     alignmentParameters: {
         toolName: string;
-        parameters: Array<ExecutionParameterModel>;
+        parameters: Array<string>;
+        force: boolean;
     };
-    fastqDumpParameters: Array<ExecutionParameterModel>;
+    fastqDumpParameters: {
+        parameters: Array<string>;
+        force: boolean;
+    };
     sra: string;
-    force: boolean;
 }
