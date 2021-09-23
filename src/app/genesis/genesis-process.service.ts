@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PaginationModel } from '../shared/model/pagination.model';
 import { Observable } from 'rxjs';
-import { GenesisProcessContainerModel } from './shared/model/genesis-process-container.model';
+import { GenesisProcessPaginatedModel } from './shared/model/genesis-process-paginated.model';
 import { SystemService } from '../core/system.service';
 import { GenesisProcessModel } from './shared/model/genesis-process.model';
 import { GeneomeReferenceModel } from './shared/model/geneome-reference.model';
@@ -31,7 +31,7 @@ export class GenesisProcessService {
         const url = this.systemService.getApiPath('gen-seq-api') + 'genesis/genome/references';
         return this.http.get<Array<GeneomeReferenceModel>>(url)
     }
-    public getProcess(filter: any = {}, pagination?: PaginationModel, sort?: any): Observable<GenesisProcessContainerModel> {
+    public getProcess(filter: any = {}, pagination?: PaginationModel, sort?: any): Observable<GenesisProcessPaginatedModel> {
         const queryParam = new URLSearchParams(filter);
 
         if (pagination) {
@@ -46,7 +46,7 @@ export class GenesisProcessService {
 
         const queryParamUrl = (queryParam.toString() !== '') ? '?' + queryParam.toString() : ''
 
-        return this.http.get<GenesisProcessContainerModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process' + queryParamUrl);
+        return this.http.get<GenesisProcessPaginatedModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process' + queryParamUrl);
     }
     public getProcessById(processId: string): Observable<GenesisProcessModel> {
         return this.http.get<GenesisProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process/' + processId);

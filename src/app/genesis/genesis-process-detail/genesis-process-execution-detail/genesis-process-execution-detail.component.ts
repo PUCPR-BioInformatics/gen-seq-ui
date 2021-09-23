@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { GenesisExecutionTimerModel } from '../../shared/model/genesis-execution-timer.model';
+import { GenesisProcessStepExecutionModel } from '../../shared/model/genesis-process-step-execution.model';
 import { GenesisProcessModel } from '../../shared/model/genesis-process.model';
 
 @Component({
@@ -15,7 +15,7 @@ export class GenesisProcessExecutionDetailComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<GenesisProcessExecutionDetailComponent>,
         private router: Router,
-        @Inject(MAT_DIALOG_DATA) public data: { execution: GenesisExecutionTimerModel, process: GenesisProcessModel }
+        @Inject(MAT_DIALOG_DATA) public data: { execution: GenesisProcessStepExecutionModel, process: GenesisProcessModel }
     ) {}
 
     public ngOnInit(): void {

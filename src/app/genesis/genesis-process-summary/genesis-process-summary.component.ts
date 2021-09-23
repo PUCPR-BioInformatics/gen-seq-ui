@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 
@@ -8,15 +9,13 @@ import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
 import { AbstractComponent } from '../../core/abstract.component';
 import { GenesisProcessService } from '../genesis-process.service';
-import { GenesisProcessContainerModel } from '../shared/model/genesis-process-container.model';
+import { GenesisProcessPaginatedModel } from '../shared/model/genesis-process-paginated.model';
 import { PaginationModel } from '../../shared/model/pagination.model';
 import { GenesisProcessModel } from '../shared/model/genesis-process.model';
 import { GenesisStates } from '../genesis.states';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
-import { HttpErrorResponse } from '@angular/common/http';
-import { GenesisExecutionTimerModel } from '../shared/model/genesis-execution-timer.model';
 
 @Component({
     selector: 'app-genesis-process-summary',
@@ -31,7 +30,7 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
 
     public title: string;
     public subTitle: string;
-    public genesisProcess: GenesisProcessContainerModel;
+    public genesisProcess: GenesisProcessPaginatedModel;
     public pagination = {
         limit: 5,
         page: 1
@@ -130,7 +129,7 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
 
         return (time / 1000 / 60).toFixed(2) + ' minutos'
     }
-    private handleGenesisProcessContainer(genesisProcess: GenesisProcessContainerModel): void {
+    private handleGenesisProcessContainer(genesisProcess: GenesisProcessPaginatedModel): void {
         this.genesisProcess = genesisProcess;
         this.title = 'Execuções';
 
@@ -188,7 +187,7 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
                 return this.genesisProcessService.getProcess({}, this.pagination);
             })
         ).subscribe(
-            (genesisProcess: GenesisProcessContainerModel) => {
+            (genesisProcess: GenesisProcessPaginatedModel) => {
                 this.handleGenesisProcessContainer(genesisProcess);
                 this.FORCE_UPDATE.next(false);
                 this.REQUESTING = false;

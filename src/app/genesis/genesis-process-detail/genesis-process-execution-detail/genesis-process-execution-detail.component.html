@@ -17,10 +17,19 @@
                 {{ data.execution.result.description }}
             </div>
         </div>
+        <div class = "ui-information-container" *ngFor = "let outputParemeter of data.execution.result?.outputParameters">
+            <div class = "ui-information-label">
+                {{ outputParemeter.alias }}
+            </div>
+            <div class = "ui-information-value">
+                {{ outputParemeter.value }}
+            </div>
+        </div>
     </div>
     <div [ngClass] = "{
             'ui-panel-success': data.execution.result?.status === 'success',
             'ui-panel-error': data.execution.result?.status === 'fail',
+            'ui-panel-warning': data.execution.result?.status === 'skiped',
             'ui-panel-executing': !data.execution.result && data.execution.startDate,
             'ui-panel-normal': !data.execution.result && !data.execution.startDate
         }">

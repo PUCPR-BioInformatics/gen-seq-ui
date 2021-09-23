@@ -146,6 +146,12 @@
             }
         }
 
+        .ui-process-execution-spiked {
+            .ui-divisor {
+                background: themed('yellow-color');
+            }
+        }
+
         .ui-process-execution-done {
             .ui-divisor {
                 background: themed('green-color');

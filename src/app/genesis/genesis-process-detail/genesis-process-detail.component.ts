@@ -14,10 +14,10 @@ import { GenesisStates } from '../genesis.states';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
-import { GenesisExecutionTimerModel } from '../shared/model/genesis-execution-timer.model';
+import { GenesisProcessStepExecutionModel } from '../shared/model/genesis-process-step-execution.model';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageBoxComponent } from '../../shared/components/message-box/message-box.component';
 import { GenesisProcessExecutionDetailComponent } from './genesis-process-execution-detail/genesis-process-execution-detail.component';
+import { GenesisProcessStepExecutionStatusEnum } from '../shared/enum/genesis-process-step-execution-status.enum';
 
 @Component({
     selector: 'app-genesis-process-detail',
@@ -116,7 +116,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             relativeTo: this.route
         });
     }
-    public eventExecutionDetail(execution: GenesisExecutionTimerModel): void {
+    public eventExecutionDetail(execution: GenesisProcessStepExecutionModel): void {
         this.dialog.open(GenesisProcessExecutionDetailComponent, {
             data: {
                 execution,
@@ -130,22 +130,26 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             relativeTo: this.route
         });
     }
-    public getCssClass(execution: GenesisExecutionTimerModel): string {
+    public getCssClass(execution: GenesisProcessStepExecutionModel): string {
         let cssClass = 'ui-process-execution ui-card ui-card-zoomed ';
 
         if (!execution.startDate) {
             cssClass += 'ui-process-execution-waiting';
         } else if (!execution.endDate) {
             cssClass += 'ui-process-execution-executing';
-        } else if (execution.result.status === 'fail') {
+        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.FAIL) {
             cssClass += 'ui-process-execution-fail';
-        } else {
+        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SUCCESS) {
             cssClass += 'ui-process-execution-done';
+        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SKIPED) {
+            cssClass += 'ui-process-execution-spiked';
+        } else {
+            console.warn(`Status não conhecido ${execution.result.status}`);
         }
 
         return cssClass;
     }
-    public getExecutionStatus(execution: GenesisExecutionTimerModel): string {
+    public getExecutionStatus(execution: GenesisProcessStepExecutionModel): string {
         if (!execution.startDate) {
             return (this.genesisProcess.result?.status === 'fail') ? 'Não executado' : 'Agurdando';
         } else if (!execution.endDate) {
@@ -154,7 +158,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             return (execution.result.status === 'fail') ? 'Falhou' : 'Concluído';
         }
     }
-    public getExecutionIcon(execution: GenesisExecutionTimerModel): string {
+    public getExecutionIcon(execution: GenesisProcessStepExecutionModel): string {
         if (!execution.startDate) {
             return 'far fa-clock';
         } else if (!execution.endDate) {
@@ -187,7 +191,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
 
         this.watchGenesisProcess();
     }
-    public trackExecutionByStep(index: number, execution: GenesisExecutionTimerModel): string {
+    public trackExecutionByStep(index: number, execution: GenesisProcessStepExecutionModel): string {
         return execution.step;
     }
     private watchGenesisProcess(): void {

@@ -28,7 +28,7 @@
             <app-field-view label = "Sra DNA" [value] = "genesisProcess.dnaResource.sra"></app-field-view>
             <app-field-view label = "Sra RNA" [value] = "genesisProcess.rnaResource.sra"></app-field-view>
             <app-field-view label = "Referência" [value] = "genesisProcess.reference"></app-field-view>
-            <app-field-view label = "Executa Em" [value] = "getExecutionTime()"></app-field-view>
+            <app-field-view [label] = "(!genesisProcess.completedDate) ? 'Executando' : 'Executado Em'" [value] = "getExecutionTime()"></app-field-view>
         </div>
         <div class = "ui-process-analyses-container ui-process-empty">
             Em Construção
