@@ -29,7 +29,7 @@
     <div [ngClass] = "{
             'ui-panel-success': data.execution.result?.status === 'success',
             'ui-panel-error': data.execution.result?.status === 'fail',
-            'ui-panel-warning': data.execution.result?.status === 'skiped',
+            'ui-panel-warning': data.execution.result?.status === 'skipped',
             'ui-panel-executing': !data.execution.result && data.execution.startDate,
             'ui-panel-normal': !data.execution.result && !data.execution.startDate
         }">

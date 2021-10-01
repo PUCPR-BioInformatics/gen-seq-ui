@@ -13,8 +13,9 @@ import { GenesisProcessStepEnum } from '../../../genesis/shared/enum/genesis-pro
 export class StringNormalizePipe implements PipeTransform {
     private translator = {
         WAITING: "Aguardar",
-        FASTQ_DUMP_DNA: "Buscar: amostra DNA",
-        FASTQ_DUMP_RNA: "Buscar: amostra RNA",
+        REFERENCE: "Download: Genoma",
+        FASTQ_DUMP_DNA: "Download: Amostra DNA",
+        FASTQ_DUMP_RNA: "Download: Amostra RNA",
         ALIGNING_DNA: "Alinhar: DNA",
         ALIGNING_RNA: "Alinhar: RNA",
         ANALYSING: "Análise",

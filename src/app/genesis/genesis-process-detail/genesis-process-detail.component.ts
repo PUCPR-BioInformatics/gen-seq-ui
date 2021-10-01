@@ -141,8 +141,8 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             cssClass += 'ui-process-execution-fail';
         } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SUCCESS) {
             cssClass += 'ui-process-execution-done';
-        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SKIPED) {
-            cssClass += 'ui-process-execution-spiked';
+        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SKIPPED) {
+            cssClass += 'ui-process-execution-skipped';
         } else {
             console.warn(`Status não conhecido ${execution.result.status}`);
         }

@@ -1,5 +1,6 @@
 export enum GenesisProcessStepEnum {
     WAITING = "WAITING",
+    REFERENCE = "REFERENCE",
     FASTQ_DUMP_DNA = "FASTQ_DUMP_DNA",
     FASTQ_DUMP_RNA = "FASTQ_DUMP_RNA",
     ALIGNING_DNA = "ALIGNING_DNA",
