@@ -1,23 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { GenesisProcessStepEnum } from '../../../genesis/shared/enum/genesis-process-step.enum';
-/*
- * Raise the value exponentially
- * Takes an exponent argument that defaults to 1.
- * Usage:
- *   value | exponentialStrength:exponent
- * Example:
- *   {{ 2 | exponentialStrength:10 }}
- *   formats to: 1024
-*/
+
 @Pipe({name: 'StringNormalizePipe'})
 export class StringNormalizePipe implements PipeTransform {
     private translator = {
         WAITING: "Aguardar",
-        REFERENCE: "Download: Genoma",
-        FASTQ_DUMP_DNA: "Download: Amostra DNA",
-        FASTQ_DUMP_RNA: "Download: Amostra RNA",
-        ALIGNING_DNA: "Alinhar: DNA",
-        ALIGNING_RNA: "Alinhar: RNA",
+        REFERENCE: "Download do Genoma",
+        FASTQ_DUMP_DNA: "Download da amostra de DNA",
+        FASTQ_DUMP_RNA: "Download da amostra de RNA",
+        ALIGNING_DNA: "Alinhamento do DNA",
+        ALIGNING_RNA: "Alinhamento do RNA",
+        EXTRACT_DNA: "Extrair diferenças do DNA",
+        EXTRACT_RNA: "Extrair diferenças do RNA",
         ANALYSING: "Análise",
         COMPLETE: "Encerramento"
     }
