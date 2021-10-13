@@ -31,7 +31,7 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step label = "Parâmetros: Alinhamento DNA" state = "input" [stepControl] = "dnaAlignmentForm">
+        <mat-step label = "Parâmetros: Análise DNA" state = "input" [stepControl] = "dnaAlignmentForm">
             <form class = "ui-fields" [formGroup] = "dnaAlignmentForm">
                 <mat-form-field class = "ui-field">
                     <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
@@ -45,7 +45,17 @@
                 </div>
                 <div class = "ui-force-toggle ui-field ui-field-toggle">
                     <mat-slide-toggle formControlName = "forceAlignment">
-                        Forçar alinhamento do fastQ?
+                        Forçar alinhamento?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceIndex" [disabled] = "dnaAlignmentForm.get('forceAlignment').value !== true">
+                        Forçar indexamento (para o alinhamento)?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceExtraction">
+                        Forçar extração?
                     </mat-slide-toggle>
                 </div>
                 <div class = "ui-fields-options">
@@ -58,7 +68,7 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step label = "Parâmetros: Alinhamento Rna" state = "input" [stepControl] = "rnaAlignmentForm">
+        <mat-step label = "Parâmetros: Análise RNA" state = "input" [stepControl] = "rnaAlignmentForm">
             <form class = "ui-fields" [formGroup] = "rnaAlignmentForm">
                 <mat-form-field class = "ui-field">
                     <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
@@ -72,7 +82,17 @@
                 </div>
                 <div class = "ui-force-toggle ui-field ui-field-toggle">
                     <mat-slide-toggle formControlName = "forceAlignment">
-                        Forçar alinhamento do fastQ?
+                        Forçar alinhamento?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceIndex" [disabled] = "rnaAlignmentForm.get('forceAlignment').value !== true">
+                        Forçar indexamento (para o alinhamento)?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "forceExtraction">
+                        Forçar extração?
                     </mat-slide-toggle>
                 </div>
                 <div class = "ui-fields-options">

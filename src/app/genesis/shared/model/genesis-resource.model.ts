@@ -1,10 +1,18 @@
 export interface GenesisResourceModel {
-    alignmentParameters: {
+    alignment: {
         toolName: string;
         parameters: Array<string>;
         force: boolean;
-    };
-    fastqDumpParameters: {
+    },
+    extraction: {
+        parameters: Array<string>;
+        force: boolean;
+    }
+    index: {
+        parameters: Array<string>;
+        force: boolean;
+    },
+    fastqDump: {
         parameters: Array<string>;
         force: boolean;
     };

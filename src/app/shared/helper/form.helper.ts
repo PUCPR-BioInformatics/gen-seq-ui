@@ -8,7 +8,6 @@ export class FormHelper {
             if (form.get(field) !== null && form.get(field) !== undefined) {
                 const control: AbstractControl = form.get(field);
                 const controlValue: any = control.value;
-                console.log(field, form.get(field), controlValue)
                 if (
                     !excludes.includes(field) && control.enabled &&
                     controlValue !== null && controlValue !== undefined &&
@@ -18,7 +17,6 @@ export class FormHelper {
                 }
             }
         }
-        console.log(values)
         return values;
     }
 

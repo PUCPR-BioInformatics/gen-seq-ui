@@ -11,7 +11,7 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: AppStates.home.path
+        redirectTo: AppStates.genesis.path
     }, {
         path: AppStates.home.path,
         pathMatch: 'full',

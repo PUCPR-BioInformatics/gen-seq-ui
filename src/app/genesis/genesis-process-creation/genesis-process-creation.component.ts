@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { from, Observable, of, zip } from 'rxjs';
+import { Observable, of, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
@@ -14,7 +15,7 @@ import { FormHelper } from '../../shared/helper/form.helper';
 import { GenesisStates } from '../genesis.states';
 import { AlignmentToolModel } from '../shared/model/alignment-tool.model';
 import { GeneomeReferenceModel } from '../shared/model/geneome-reference.model';
-import { map } from 'rxjs/operators';
+import validate = WebAssembly.validate;
 
 @Component({
     selector: 'app-genesis-process-creation',
@@ -52,6 +53,79 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         );
     }
 
+    public buildGenesis(creationParametersRaw: any, creationRnaAlignmentRaw: any, creationDnaAlignmentRaw: any): GenesisProcessModel {
+        const dnaAlignmentParameters = (creationDnaAlignmentRaw.alignmentParameters) ? creationDnaAlignmentRaw.alignmentParameters.split(',') : [];
+        const dnaDumpParameters = (creationDnaAlignmentRaw.dumpParameters) ? creationDnaAlignmentRaw.dumpParameters.split(',') : [];
+        const dnaExtractionParameters = (creationDnaAlignmentRaw.extractionParameters) ? creationDnaAlignmentRaw.extractionParameters.split(',') : [];
+        const dnaIndexParameters = (creationDnaAlignmentRaw.indexParameters) ? creationDnaAlignmentRaw.indexParameters.split(',') : [];
+
+        const rnaAlignmentParameters = (creationRnaAlignmentRaw.alignmentParameters) ? creationRnaAlignmentRaw.alignmentParameters.split(',') : [];
+        const rnaDumpParameters = (creationRnaAlignmentRaw.dumpParameters) ? creationRnaAlignmentRaw.dumpParameters.split(',') : [];
+        const rnaExtractionParameters = (creationRnaAlignmentRaw.extractionParameters) ? creationRnaAlignmentRaw.extractionParameters.split(',') : [];
+        const rnaIndexParameters = (creationRnaAlignmentRaw.indexParameters) ? creationRnaAlignmentRaw.indexParameters.split(',') : [];
+
+        return {
+            dnaResource: {
+                alignment: {
+                    toolName: creationDnaAlignmentRaw.toolName,
+                    parameters: dnaAlignmentParameters,
+                    force: creationDnaAlignmentRaw.forceAlignment,
+                },
+                extraction: {
+                    parameters: dnaExtractionParameters,
+                    force: creationDnaAlignmentRaw.forceExtraction
+                },
+                fastqDump: {
+                    parameters: dnaDumpParameters,
+                    force: creationDnaAlignmentRaw.forceDump
+                },
+                index: {
+                    parameters: dnaIndexParameters,
+                    force: creationDnaAlignmentRaw.forceIndex
+                },
+                sra: creationParametersRaw.dnaSraId as string
+            },
+            rnaResource: {
+                alignment: {
+                    toolName: creationRnaAlignmentRaw.toolName,
+                    parameters: rnaAlignmentParameters,
+                    force: creationRnaAlignmentRaw.forceAlignment
+                },
+                extraction: {
+                    parameters: rnaExtractionParameters,
+                    force: creationRnaAlignmentRaw.forceExtraction
+                },
+                fastqDump: {
+                    parameters: rnaDumpParameters,
+                    force: creationRnaAlignmentRaw.forceDump
+                },
+                index: {
+                    parameters: rnaIndexParameters,
+                    force: creationRnaAlignmentRaw.forceIndex
+                },
+                sra: creationParametersRaw.rnaSraId as string
+            },
+            reference: creationParametersRaw.reference
+        } as GenesisProcessModel;
+    }
+    public eventCreateGenesisProcess(): void {
+        const creationParametersRaw = FormHelper.getRawValueNotNull(this.parametersForm);
+        const creationDnaAlignmentRaw = FormHelper.getRawValueNotNull(this.dnaAlignmentForm);
+        const creationRnaAlignmentRaw = FormHelper.getRawValueNotNull(this.rnaAlignmentForm);
+        const genesisProcess = this.buildGenesis(creationParametersRaw, creationRnaAlignmentRaw, creationDnaAlignmentRaw);
+        this.genesisService.createProcess(genesisProcess).subscribe(
+            (genesisProcess: GenesisProcessModel) => {
+                const link = GenesisStates.genesis.path + '/' + genesisProcess._id;
+                this.openSuccessMessageBox(
+                    'O Processo começou!', 'Sucesso',  link, 'Clique para Acompanhar'
+                ).afterClosed().subscribe(() => {
+                    this.router.navigate(['../'], {
+                        relativeTo: this.route
+                    });
+                })
+            }, (error: HttpErrorResponse) => this.openErrorMessageBox(error)
+        );
+    }
     public eventGenesisSummary(): void {
         this.router.navigate(['../'], {
             relativeTo: this.route
@@ -94,23 +168,36 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         this.dnaAlignmentForm = new FormGroup({
             alignmentParameters: new FormControl(''),
             dumpParameters: new FormControl(''),
+            extractionParameters: new FormControl(''),
+            indexParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
+            forceExtraction: new FormControl(false, Validators.required),
+            forceIndex: new FormControl(false, Validators.required),
             toolName: new FormControl('', Validators.required)
         });
         this.rnaAlignmentForm = new FormGroup({
             alignmentParameters: new FormControl(''),
             dumpParameters: new FormControl(''),
+            extractionParameters: new FormControl(''),
+            indexParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
+            forceExtraction: new FormControl(false, Validators.required),
+            forceIndex: new FormControl(false, Validators.required),
             toolName: new FormControl('', Validators.required)
         });
 
         if (this.fromGenesisExecution) {
-            const dnaAlignmentParameters = this.fromGenesisExecution.dnaResource.alignmentParameters.parameters;
-            const dnaDumpParameters = this.fromGenesisExecution.dnaResource.fastqDumpParameters.parameters;
-            const rnaAlignmentParameters = this.fromGenesisExecution.rnaResource.alignmentParameters.parameters;
-            const rnaDumpParameters = this.fromGenesisExecution.rnaResource.fastqDumpParameters.parameters;
+            const dnaAlignmentParameters = this.fromGenesisExecution.dnaResource.alignment.parameters;
+            const dnaDumpParameters = this.fromGenesisExecution.dnaResource.fastqDump.parameters;
+            const dnaExtractionParameters = this.fromGenesisExecution.dnaResource.extraction.parameters;
+            const dnaIndexParameters = this.fromGenesisExecution.dnaResource.index.parameters;
+
+            const rnaAlignmentParameters = this.fromGenesisExecution.rnaResource.alignment.parameters;
+            const rnaDumpParameters = this.fromGenesisExecution.rnaResource.fastqDump.parameters;
+            const rnaExtractionParameters = this.fromGenesisExecution.rnaResource.extraction.parameters;
+            const rnaIndexParameters = this.fromGenesisExecution.rnaResource.index.parameters;
 
             this.parametersForm.setValue({
                 reference: this.fromGenesisExecution.reference,
@@ -120,63 +207,27 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             this.dnaAlignmentForm.setValue({
                 alignmentParameters: (dnaAlignmentParameters) ? dnaAlignmentParameters.toString() : '',
                 dumpParameters: (dnaDumpParameters) ? dnaDumpParameters.toString() : '',
-                toolName: this.fromGenesisExecution.dnaResource.alignmentParameters.toolName,
+                extractionParameters: (dnaExtractionParameters) ? dnaExtractionParameters.toString() : '',
+                indexParameters: (dnaIndexParameters) ? dnaIndexParameters.toString() : '',
+                toolName: this.fromGenesisExecution.dnaResource.alignment.toolName,
+
+                forceAlignment: false,
                 forceDump: false,
-                forceAlignment: false
+                forceExtraction: false,
+                forceIndex: false
             });
             this.rnaAlignmentForm.setValue({
                 alignmentParameters: (rnaAlignmentParameters) ? rnaAlignmentParameters.toString() : '',
                 dumpParameters:  (rnaDumpParameters) ? rnaDumpParameters.toString() : '',
-                toolName: this.fromGenesisExecution.rnaResource.alignmentParameters.toolName,
+                extractionParameters: (rnaExtractionParameters) ? rnaExtractionParameters.toString() : '',
+                indexParameters: (rnaIndexParameters) ? rnaIndexParameters.toString() : '',
+                toolName: this.fromGenesisExecution.rnaResource.alignment.toolName,
+
+                forceAlignment: false,
                 forceDump: false,
-                forceAlignment: false
+                forceExtraction: false,
+                forceIndex: false
             });
         }
-    }
-    public eventCreateGenesisProcess(): void {
-        const creationParametersRaw = FormHelper.getRawValueNotNull(this.parametersForm);
-        const creationDnaAlignmentRaw = FormHelper.getRawValueNotNull(this.dnaAlignmentForm);
-        const creationRnaAlignmentRaw = FormHelper.getRawValueNotNull(this.rnaAlignmentForm);
-        const genesisProcess = {
-            reference: creationParametersRaw.reference,
-            dnaResource: {
-                alignmentParameters: {
-                    toolName: creationDnaAlignmentRaw.toolName,
-                    parameters: (creationDnaAlignmentRaw.alignmentParameters) ? creationDnaAlignmentRaw.alignmentParameters.split(',') : [],
-                    force: creationDnaAlignmentRaw.forceAlignment
-                },
-                fastqDumpParameters: {
-                    parameters: (creationDnaAlignmentRaw.dumpParameters) ? creationDnaAlignmentRaw.dumpParameters?.split(',') : [],
-                    force: creationDnaAlignmentRaw.forceDump
-                },
-                sra: creationParametersRaw.dnaSraId as string,
-
-            },
-            rnaResource: {
-                alignmentParameters: {
-                    toolName: creationRnaAlignmentRaw.toolName,
-                    parameters: (creationRnaAlignmentRaw.alignmentParameters) ? creationRnaAlignmentRaw.alignmentParameters.split(',') : [],
-                    force: creationRnaAlignmentRaw.forceAlignment
-                },
-                fastqDumpParameters: {
-                    parameters: (creationRnaAlignmentRaw.dumpParameters) ? creationRnaAlignmentRaw.dumpParameters.split(',') : [],
-                    force: creationRnaAlignmentRaw.forceDump
-                },
-                sra: creationParametersRaw.rnaSraId as string,
-            }
-        } as GenesisProcessModel;
-        console.log(genesisProcess)
-        this.genesisService.createProcess(genesisProcess).subscribe(
-            (genesisProcess: GenesisProcessModel) => {
-                const link = GenesisStates.genesis.path + '/' + genesisProcess._id;
-               this.openSuccessMessageBox(
-                   'O Processo começou!', 'Sucesso',  link, 'Clique para Acompanhar'
-               ).afterClosed().subscribe(() => {
-                   this.router.navigate(['../'], {
-                       relativeTo: this.route
-                   });
-               })
-            }, (error: HttpErrorResponse) => this.openErrorMessageBox(error)
-        );
     }
 }
