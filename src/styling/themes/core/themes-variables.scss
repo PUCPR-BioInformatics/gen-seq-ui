@@ -1,45 +1,38 @@
 $themes: (
     ui-default-theme: (
-        logo-color:  map-get(map-get($ui-colors, 'light-blue-palette'), 400),
+        logo-color:  map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         loading-color: map-get(map-get($ui-colors, 'white-palette'), 700),
-        application-background: map-get(map-get($ui-colors, 'white-palette'), 700),
-
-        login-background: map-get(map-get($ui-colors, 'white-palette'), 700),
+        application-background: map-get(map-get($ui-colors, 'white-palette'), 500),
+        login-background: map-get(map-get($ui-colors, 'white-palette'), 500),
         login-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
-
         nav-bar-color: map-get(map-get($ui-colors, 'white-palette'), 800),
         nav-bar-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
         nav-bar-shadow-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 400),
         nav-bar-border-color: map-get(map-get($ui-colors, 'white-palette'), 800),
         nav-bar-selected-color: map-get(map-get($ui-colors, 'white-palette'), 500),
-        nav-bar-selected-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
-        nav-bar-selected-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
+        nav-bar-selected-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
+        nav-bar-selected-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         nav-bar-selection-color: map-get(map-get($ui-colors, 'white-palette'), 500),
-        nav-bar-selection-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
+        nav-bar-selection-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         nav-bar-selection-border-color: map-get(map-get($ui-colors, 'white-palette'), 700),
-
         selected-color: map-get(map-get($ui-colors, 'white-palette'), 600),
-        selected-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
-        selected-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
+        selected-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
+        selected-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         selection-color: map-get(map-get($ui-colors, 'white-palette'), 500),
-        selection-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
+        selection-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         selection-border-color: map-get(map-get($ui-colors, 'white-palette'), 700),
-
         primary-color: map-get(map-get($ui-colors, 'white-palette'), 800),
         primary-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
         primary-border-color: map-get(map-get($ui-colors, 'white-palette'), 600),
         primary-shadow-color: map-get(map-get($ui-colors, 'light-gray-palette'), 300),
-
         secondary-color: map-get(map-get($ui-colors, 'white-palette'), 500),
         secondary-gradient-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 200),
         secondary-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
         secondary-border-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 200),
-
-        tertiary-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
-        tertiary-gradient-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
+        tertiary-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
+        tertiary-gradient-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         tertiary-text-color: map-get(map-get($ui-colors, 'white-palette'), 800),
-        tertiary-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 400),
-
+        tertiary-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
         disabled-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 300),
         disabled-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 100)
     ), ui-dark-theme: (
@@ -86,10 +79,8 @@ $default-colors: (
     logo-color:  map-get(map-get($ui-colors, 'light-blue-palette'), 500),
     loading-color: map-get(map-get($ui-colors, 'white-palette'), 800),
     application-background: map-get(map-get($ui-colors, 'white-palette'), 700),
-
     login-background: map-get(map-get($ui-colors, 'white-palette'), 700),
     login-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
-
     nav-bar-color: map-get(map-get($ui-colors, 'white-palette'), 800),
     nav-bar-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
     nav-bar-shadow-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 50),
@@ -100,33 +91,27 @@ $default-colors: (
     nav-bar-selection-color: map-get(map-get($ui-colors, 'white-palette'), 500),
     nav-bar-selection-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 600),
     nav-bar-selection-border-color: map-get(map-get($ui-colors, 'white-palette'), 700),
-
     selected-color: map-get(map-get($ui-colors, 'white-palette'), 400),
     selected-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
     selected-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
     selection-color: map-get(map-get($ui-colors, 'white-palette'), 500),
     selection-text-color: map-get(map-get($ui-colors, 'light-blue-palette'), 600),
     selection-border-color: map-get(map-get($ui-colors, 'white-palette'), 700),
-
     primary-color: map-get(map-get($ui-colors, 'white-palette'), 800),
     primary-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 800),
     primary-border-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 100),
     primary-shadow-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 400),
-
     secondary-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
     secondary-gradient-color: map-get(map-get($ui-colors, 'light-blue-palette'), 600),
     secondary-text-color: map-get(map-get($ui-colors, 'white-palette'), 800),
     secondary-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 800),
-
     tertiary-color: map-get(map-get($ui-colors, 'light-blue-palette'), 500),
     tertiary-gradient-color: map-get(map-get($ui-colors, 'light-blue-palette'), 600),
     tertiary-text-color: map-get(map-get($ui-colors, 'white-palette'), 800),
     tertiary-border-color: map-get(map-get($ui-colors, 'light-blue-palette'), 800),
-
     disabled-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 500),
     modal-background: rgba(255, 255, 255, 0.9),
     modal-dark-background: rgba(68, 68, 68, 0.8),
-
     green-color: map-get(map-get($ui-colors, 'light-sea-green-palette'), 500),
     light-green-color: map-get(map-get($ui-colors, 'light-sea-green-palette'), 300),
     red-color:  map-get(map-get($ui-colors, 'light-coral-palette'), 500),
@@ -143,8 +128,9 @@ $default-colors: (
     dark-green-color: map-get(map-get($ui-colors, 'light-sea-green-palette'), 900),
     dark-red-color:  map-get(map-get($ui-colors, 'light-coral-palette'), 700),
     light-gray-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 200),
+    slate-gray-color: map-get(map-get($ui-colors, 'blue-palette'), 200),
     dark-orange-color: map-get(map-get($ui-colors, 'light-orange-palette'), 700),
-    yellow-color: map-get(map-get($ui-colors, 'light-yellow-palette'), 700),
+    yellow-color: map-get(map-get($ui-colors, 'light-yellow-palette'), 300),
 );
 
 $theme-colors: map-get($themes, 'ui-default-theme');
