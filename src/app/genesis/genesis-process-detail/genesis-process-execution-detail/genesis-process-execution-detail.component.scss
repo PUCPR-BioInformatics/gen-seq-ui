@@ -3,6 +3,8 @@
 .ui-panel-executing,
 .ui-panel-success {
     border-radius: 0;
+    overflow: auto;
+    align-items: unset;
 }
 
 .ui-execution-detail-container {

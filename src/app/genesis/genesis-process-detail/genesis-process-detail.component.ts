@@ -122,7 +122,8 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
                 execution,
                 process: this.genesisProcess
             },
-            maxWidth: '100%'
+            maxWidth: '90vw',
+            maxHeight: '90vh'
         })
     }
     public eventNewExecution(): void {
