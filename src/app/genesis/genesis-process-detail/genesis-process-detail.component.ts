@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { interval } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { filter, startWith, switchMap } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
@@ -126,6 +126,17 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             maxHeight: '90vh'
         })
     }
+    public eventRetryStep(step: GenesisProcessStepEnum, event: Event): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this.subscriptions$.add(this.genesisService.retryProcess(this.genesisProcess._id, step).subscribe(
+            (updatedProcess: GenesisProcessModel) => {
+                this.handleGenesisProcess(updatedProcess);
+            }, (error) => {
+                this.openErrorMessageBox(error);
+            }
+        ));
+    }
     public eventNewExecution(): void {
         this.router.navigate(['../' + GenesisStates.genesis.subStates.creation.path ], {
             relativeTo: this.route
@@ -159,15 +170,6 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             return (execution.result.status === 'fail') ? 'Falhou' : 'Concluído';
         }
     }
-    public getExecutionIcon(execution: GenesisProcessStepExecutionModel): string {
-        if (!execution.startDate) {
-            return 'far fa-clock';
-        } else if (!execution.endDate) {
-            return 'fab fa-telegram-plane';
-        } else {
-            return 'fab fa-telegram-plane';
-        }
-    }
     public getExecutionTime(): string {
         let time;
 
@@ -197,6 +199,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
     }
     private watchGenesisProcess(): void {
         this.subscriptions$.add(this.TIMER.pipe(
+            filter(() => !this.genesisProcess || this.genesisProcess.completedDate === null),
             switchMap(() => this.genesisService.getProcessById(this.route.snapshot.params.id))
         ).subscribe(
             (genesisProcess: GenesisProcessModel) => this.handleGenesisProcess(genesisProcess),

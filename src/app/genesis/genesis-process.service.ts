@@ -7,6 +7,7 @@ import { SystemService } from '../core/system.service';
 import { GenesisProcessModel } from './shared/model/genesis-process.model';
 import { GeneomeReferenceModel } from './shared/model/geneome-reference.model';
 import { AlignmentToolModel } from './shared/model/alignment-tool.model';
+import { GenesisProcessStepEnum } from './shared/enum/genesis-process-step.enum';
 
 @Injectable({
     providedIn: 'root'
@@ -50,5 +51,12 @@ export class GenesisProcessService {
     }
     public getProcessById(processId: string): Observable<GenesisProcessModel> {
         return this.http.get<GenesisProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process/' + processId);
+    }
+    public retryProcess(processId: string, step: GenesisProcessStepEnum): Observable<GenesisProcessModel> {
+        const retry = {
+            processId,
+            step
+        };
+        return this.http.put<GenesisProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'genesis/process/' + processId + '/retry', retry);
     }
 }
