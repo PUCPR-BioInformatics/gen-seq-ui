@@ -1,37 +1,29 @@
-<app-header [title] = "title" [subTitle] = "subTitle">
-    <div appHeaderTitleOptions class = "ui-header-title-options">
-        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
-            <span class = "far fa-file"></span>
-        </button>
-        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Duplicar parâmetros" (click) = "eventDuplicateExecution()">
-            <span class = "far fa-copy"></span>
-        </button>
-        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
-            <span class = "fas fa-history"></span>
-        </button>
-        <button mat-button *ngIf = "!genesisProcess?.completedDate"
-                class = "ui-circle-button ui-header-title-button ui-cancel-process-button"
-                matTooltip = "Cancelar execução" (click) = "eventCancelGenesisProcess()">
-            <span class = "fas fa-times"></span>
-        </button>
-    </div>
-    <div appHeaderAdditionalContent class = "ui-updated-time">
-        Atualizado em {{ lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}
-    </div>
-</app-header>
 <div class = "ui-component-container">
     <app-spinner *ngIf = "!genesisProcess" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
     <div class = "ui-process-detail-container" *ngIf = "genesisProcess">
-        <app-chart class = "ui-chart-container" [data] = "genesisProcessChartData" type = "gauge"></app-chart>
-        <span class = "ui-process-result">{{ (genesisProcess.result) ? genesisProcess.result.description : 'Em Execução...' }}</span>
-        <div class = "ui-process-general-information">
-            <app-field-view label = "Sra DNA" [value] = "genesisProcess.dnaResource.sra"></app-field-view>
-            <app-field-view label = "Sra RNA" [value] = "genesisProcess.rnaResource.sra"></app-field-view>
-            <app-field-view label = "Referência" [value] = "genesisProcess.reference"></app-field-view>
-            <app-field-view [label] = "(!genesisProcess.completedDate) ? 'Executando' : 'Executado Em'" [value] = "getExecutionTime()"></app-field-view>
+        <app-chart class = "ui-chart-container" [data] = "genesisProcessData$" type = "gauge"></app-chart>
+        <div class = "ui-process-detail-header">
+            <span class = "ui-process-detail-header-title">Detalhes da Execução</span>
+            <span class = "ui-process-detail-header-subtitle">{{ genesisProcess._id }}</span>
+            <div class = "ui-process-detail-header-options">
+                <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+                    <span class = "far fa-file"></span>
+                </button>
+                <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Duplicar parâmetros" (click) = "eventDuplicateExecution()">
+                    <span class = "far fa-copy"></span>
+                </button>
+                <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
+                    <span class = "fas fa-history"></span>
+                </button>
+                <button mat-button *ngIf = "!genesisProcess?.completedDate"
+                        class = "ui-circle-button ui-header-title-button ui-cancel-process-button"
+                        matTooltip = "Cancelar execução" (click) = "eventCancelGenesisProcess()">
+                    <span class = "fas fa-times"></span>
+                </button>
+            </div>
         </div>
-        <div class = "ui-process-analyses-container ui-process-empty">
-            Em Construção
+        <div class = "ui-process-analyses-container">
+            <span class = "ui-process-result">{{ (genesisProcess.result) ? genesisProcess.result.description : 'Executando...' }}</span>
         </div>
         <div class = "ui-process-executions">
             <div [class] = "getCssClass(execution)" *ngFor = "let execution of genesisProcess.executions" (click) = "eventExecutionDetail(execution)">

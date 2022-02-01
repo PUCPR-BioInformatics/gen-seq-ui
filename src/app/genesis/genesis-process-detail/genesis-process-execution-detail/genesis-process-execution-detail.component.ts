@@ -10,17 +10,13 @@ import { GenesisProcessModel } from '../../shared/model/genesis-process.model';
     templateUrl: './genesis-process-execution-detail.component.html',
     styleUrls: ['./genesis-process-execution-detail.component.scss']
 })
-export class GenesisProcessExecutionDetailComponent implements OnInit {
+export class GenesisProcessExecutionDetailComponent {
 
     constructor(
         public dialogRef: MatDialogRef<GenesisProcessExecutionDetailComponent>,
         private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: { execution: GenesisProcessStepExecutionModel, process: GenesisProcessModel }
     ) {}
-
-    public ngOnInit(): void {
-
-    }
 
     public eventDismiss(): void {
         this.dialogRef.close();

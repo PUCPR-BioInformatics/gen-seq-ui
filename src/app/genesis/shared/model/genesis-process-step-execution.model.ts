@@ -6,4 +6,5 @@ export interface GenesisProcessStepExecutionModel {
     endDate: Date | null;
     step: GenesisProcessStepEnum;
     result: GenesisProcessResultModel | null;
+    type: 'dna' | 'rna' | 'global';
 }

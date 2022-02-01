@@ -11,13 +11,13 @@
 
 .ui-linear-gradient-success-initial {
     @include themify {
-        stop-color: themed('green-color');
+        stop-color: themed('dark-blue-color');
     }
 }
 
 .ui-linear-gradient-success-endless {
     @include themify {
-        stop-color: themed('blue-color');
+        stop-color: themed('light-blue-color');
     }
 }
 
@@ -33,15 +33,16 @@
     }
 }
 
-.ui-linear-gradient-orange-initial {
+.ui-linear-gradient-default-initial {
     @include themify {
-        stop-color: themed('orange-color');
+        stop-color: themed('blue-color');
     }
 }
 
-.ui-linear-gradient-orange-endless {
+.ui-linear-gradient-default-endless {
     @include themify {
-        stop-color: themed('yellow-color');
+        stop-color: themed('dark-blue-color');
+        animation: ease infinite 2s lightEffect;
     }
 }
 
@@ -68,5 +69,17 @@
 .ui-chart-gauge-meter-text {
     @include themify {
         fill: themed('primary-text-color');
+    }
+}
+
+@keyframes lightEffect {
+    20% {
+        stop-color: themed('light-blue-color');
+    }
+    50% {
+        stop-color: themed('dark-blue-color');
+    }
+    80% {
+        filter: dropShadow(0, 0, 4px themed('blue-color'));
     }
 }

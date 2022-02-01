@@ -1,7 +1,10 @@
+import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
+
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { interval } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
@@ -9,15 +12,14 @@ import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
 import { GenesisProcessService } from '../genesis-process.service';
 import { GenesisProcessModel } from '../shared/model/genesis-process.model';
-import { HttpErrorResponse } from '@angular/common/http';
 import { GenesisStates } from '../genesis.states';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
 import { GenesisProcessStepExecutionModel } from '../shared/model/genesis-process-step-execution.model';
-import { MatDialog } from '@angular/material/dialog';
 import { GenesisProcessExecutionDetailComponent } from './genesis-process-execution-detail/genesis-process-execution-detail.component';
 import { GenesisProcessStepExecutionStatusEnum } from '../shared/enum/genesis-process-step-execution-status.enum';
+import { GenesisProcessResultParametersModel } from '../shared/model/genesis-process-result-parameters.model';
 
 @Component({
     selector: 'app-genesis-process-detail',
@@ -28,7 +30,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
 
     public TIMER = interval(2000).pipe(startWith(0));
     public genesisProcess: GenesisProcessModel;
-    public genesisProcessChartData: ChartDataModel;
+    public genesisProcessData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
     public title: string;
     public subTitle: string;
     public lastUpdate = new Date();
@@ -62,7 +64,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             )
         ];
         if (execution.step !== GenesisProcessStepEnum.WAITING) {
-            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? ['ui-linear-gradient-orange-initial', 'ui-linear-gradient-orange-endless'] :
+            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'] :
                 ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
             const effect = ChartHelper.buildGradientEffect(
                 'gradient-execution-' + new Date().getTime() + execution._id,
@@ -70,16 +72,17 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
                 { class: cssClass[1], offset: '100%'},
                 ['stroke', 'fill']
             );
+            const executionPloCssClass = (execution.completedDate) ? 'ui-chart-gauge-meter-path': 'ui-chart-gauge-meter-path ui-chart-gauge-pulse';
             plots.push(
                 ChartHelper.buildGaugeGenericPlotDataModel(
                     total, 0, 1 * execution.completeness,
-                    70, 76, 'ui-chart-gauge-meter-path',
+                    70, 76, executionPloCssClass,
                     executedTooltip,
                     [effect]
                 )
             );
         }
-        this.genesisProcessChartData = {
+        this.genesisProcessData$.next({
             tooltip: completenessTooltip,
             informations: {
                 progress: ChartHelper.buildContextInformation(completenessText, 0, 10)
@@ -89,7 +92,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
                 height: 160
             },
             plots
-        } as ChartDataModel;
+        } as ChartDataModel);
     }
     public eventCancelGenesisProcess(): void {
         this.loadingState('Cancelando o process...');
@@ -181,12 +184,27 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
 
         return ((time / 1000) / 60).toFixed(2) + ' minutos'
     }
+    public getFiles(type: 'dna' | 'rna'): Array<GenesisProcessResultParametersModel> {
+        const parameters = [];
+        const executions = this.genesisProcess.executions.filter((execution) => execution.type === type);
+
+        for (const execution of executions) {
+            for (const parameter of execution.result.outputParameters) {
+                if (parameter.type === 'file') {
+                    parameters.push(parameter);
+                }
+            }
+        }
+        return parameters;
+    }
     private handleGenesisProcess(genesisProcess: GenesisProcessModel): void {
-        this.genesisProcess = genesisProcess;
-        this.title = 'Detalhes da Execução';
-        this.subTitle = this.genesisProcess._id;
-        this.buildGenesisChartData(genesisProcess);
-        this.lastUpdate = new Date();
+        if (JSON.stringify(genesisProcess) !== JSON.stringify(this.genesisProcess)) {
+            this.genesisProcess = genesisProcess;
+            this.title = 'Detalhes da Execução';
+            this.subTitle = this.genesisProcess._id;
+            this.buildGenesisChartData(genesisProcess);
+            this.lastUpdate = new Date();
+        }
     }
     private initialize(): void {
         this.title = 'Buscando a execução';
