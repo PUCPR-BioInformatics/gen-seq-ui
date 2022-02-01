@@ -112,9 +112,9 @@ $default-colors: (
     disabled-text-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 500),
     modal-background: rgba(255, 255, 255, 0.9),
     modal-dark-background: rgba(68, 68, 68, 0.8),
-    green-color: map-get(map-get($ui-colors, 'light-sea-green-palette'), 500),
+    green-color: #00e7c6,
     light-green-color: map-get(map-get($ui-colors, 'light-sea-green-palette'), 300),
-    red-color:  map-get(map-get($ui-colors, 'light-coral-palette'), 500),
+    red-color: #ff7474,
     light-red-color:  map-get(map-get($ui-colors, 'light-coral-palette'), 400),
     gray-color:map-get(map-get($ui-colors, 'light-slate-gray-palette'), 500),
     orange-color: map-get(map-get($ui-colors, 'light-orange-palette'), 500),
@@ -132,7 +132,7 @@ $default-colors: (
     light-gray-color: map-get(map-get($ui-colors, 'light-slate-gray-palette'), 200),
     slate-gray-color: map-get(map-get($ui-colors, 'blue-palette'), 200),
     dark-orange-color: map-get(map-get($ui-colors, 'light-orange-palette'), 700),
-    yellow-color: map-get(map-get($ui-colors, 'light-yellow-palette'), 300),
+    yellow-color: #ffe279
 );
 
 $theme-colors: map-get($themes, 'ui-default-theme');
