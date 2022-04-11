@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, interval } from 'rxjs';
-import { filter, startWith, switchMap } from 'rxjs/operators';
+import { filter, retry, startWith, switchMap } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
@@ -31,6 +31,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
     public TIMER = interval(2000).pipe(startWith(0));
     public genesisProcess: GenesisProcessModel;
     public genesisProcessData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
+    public informations: { [key: string]: string | number | undefined } = {};
     public title: string;
     public subTitle: string;
     public lastUpdate = new Date();
@@ -94,6 +95,22 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             plots
         } as ChartDataModel);
     }
+    protected collectInformations(): void {
+        const extractedDna = this.getExtractionSizes('dna');
+        const extractedRna = this.getExtractionSizes('rna');
+
+        this.informations.dnaAlignmentSize = this.getAlignmentSize('dna');
+        this.informations.dnaVariantsSize = extractedDna[0];
+        this.informations.dnaSnpsSize = extractedDna[1];
+        this.informations.dnaIndelsSize = extractedDna[2];
+        this.informations.dnaExecutionTime = this.getExecutionTime('dna');
+
+        this.informations.rnaAlignmentSize = this.getAlignmentSize('rna');
+        this.informations.rnaVariantsSize = extractedRna[0];
+        this.informations.rnaSnpsSize = extractedRna[1];
+        this.informations.rnaIndelsSize = extractedRna[2];
+        this.informations.rnaExecutionTime = this.getExecutionTime('rna');
+    }
     public eventCancelGenesisProcess(): void {
         this.loadingState('Cancelando o process...');
         this.genesisService.cancelProcess(this.genesisProcess).subscribe(
@@ -145,6 +162,26 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             relativeTo: this.route
         });
     }
+    protected getAlignmentSize(type: 'dna' | 'rna'): number | undefined{
+        const step = (type === 'dna') ? GenesisProcessStepEnum.ALIGNING_DNA : GenesisProcessStepEnum.ALIGNING_RNA;
+        const execution = this.genesisProcess.executions.find((execution) => execution.step === step);
+        const parameter = execution.result?.outputParameters.find((parameter) => parameter.name === 'alignmentOutputSize');
+
+        return (parameter) ? parseInt(parameter.value as string) : undefined;
+    }
+    protected getExtractionSizes(type: 'dna' | 'rna'): [number | undefined, number | undefined, number | undefined]{
+        const step = (type === 'dna') ? GenesisProcessStepEnum.EXTRACT_DNA : GenesisProcessStepEnum.EXTRACT_RNA;
+        const execution = this.genesisProcess.executions.find((execution) => execution.step === step);
+        const parameterVariants = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedOutputSize');
+        const parameterSnps = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedSnpsOutputSize');
+        const parameterIndels = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedIndelsOutputSize');
+
+        return [
+            (parameterVariants) ? parseInt(parameterVariants.value as string) - 26 : undefined,
+            (parameterSnps) ? parseInt(parameterSnps.value as string) - 29 : undefined,
+            (parameterIndels) ? parseInt(parameterIndels.value as string) - 29 : undefined,
+        ];
+    }
     public getCssClass(execution: GenesisProcessStepExecutionModel): string {
         let cssClass = 'ui-process-execution ui-card ui-card-zoomed ';
 
@@ -173,16 +210,37 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             return (execution.result.status === 'fail') ? 'Falhou' : 'Concluído';
         }
     }
-    public getExecutionTime(): string {
-        let time;
+    public getExecutionTime(type?: 'dna' | 'rna'): string {
+        let time = 0;
 
-        if (!this.genesisProcess.completedDate) {
-            time = new Date().getTime() - new Date(this.genesisProcess.creationDate).getTime()
+        if (type) {
+            if (!this.genesisProcess.completedDate) {
+                return 'Executando';
+            }
+            this.genesisProcess.executions.filter((execution) => execution.type === type).forEach((execution) => {
+                time += new Date(execution.endDate).getTime() - new Date(execution.startDate).getTime()
+            });
         } else {
-            time = new Date(this.genesisProcess.completedDate).getTime() - new Date(this.genesisProcess.creationDate).getTime();
-        }
+            let initialTime = new Date(this.genesisProcess.creationDate).getTime();
+            let finalTime = new Date(this.genesisProcess.completedDate).getTime();
 
-        return ((time / 1000) / 60).toFixed(2) + ' minutos'
+            if (!this.genesisProcess.completedDate) {
+                finalTime = new Date().getTime();
+            }
+            if (this.genesisProcess.executionsHistory) {
+                initialTime = new Date(this.genesisProcess.executions[0].startDate).getTime();
+            }
+
+            time = finalTime - initialTime;
+        }
+        const seconds = (time / 1000);
+        if (seconds < 60) {
+            return seconds.toFixed(2) + ' segundo(s)';
+        } else if (seconds < 3600) {
+            return (seconds / 60).toFixed(2) + ' minuto(s)';
+        } else {
+            return (seconds / 60 / 60).toFixed(2) + ' hora(s)';
+        }
     }
     public getFiles(type: 'dna' | 'rna'): Array<GenesisProcessResultParametersModel> {
         const parameters = [];
@@ -204,6 +262,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             this.subTitle = this.genesisProcess._id;
             this.buildGenesisChartData(genesisProcess);
             this.lastUpdate = new Date();
+            this.collectInformations();
         }
     }
     private initialize(): void {

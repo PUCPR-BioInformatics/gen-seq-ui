@@ -89,7 +89,7 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
             )
         ];
         if (execution.step !== GenesisProcessStepEnum.WAITING) {
-            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? ['ui-linear-gradient-orange-initial', 'ui-linear-gradient-orange-endless'] :
+            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'] :
                 ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
             const effect = ChartHelper.buildGradientEffect(
                 'gradient-execution-' + new Date().getTime() + execution._id,
@@ -97,10 +97,11 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
                 { class: cssClass[1], offset: '100%'},
                 ['stroke', 'fill']
             );
+            const executionPloCssClass = (execution.completedDate) ? 'ui-chart-gauge-meter-path': 'ui-chart-gauge-meter-path ui-chart-gauge-pulse';
             plots.push(
                 ChartHelper.buildGaugeGenericPlotDataModel(
                     total, 0, 1 * execution.completeness,
-                    50, 56, 'ui-chart-gauge-meter-path',
+                    50, 56, executionPloCssClass,
                     executedTooltip,
                     [effect]
                 )

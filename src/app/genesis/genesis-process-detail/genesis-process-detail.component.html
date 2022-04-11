@@ -24,6 +24,81 @@
         </div>
         <div class = "ui-process-analyses-container">
             <span class = "ui-process-result">{{ (genesisProcess.result) ? genesisProcess.result.description : 'Executando...' }}</span>
+            <div class = "ui-process-analyses-informations">
+                <div class = "ui-process-analyses-body">
+                    <div class = "ui-process-analyses-header">
+                        {{ genesisProcess.dnaResource.sra }}
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaAlignmentSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaAlignmentSize !== undefined">{{ informations.dnaAlignmentSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">Alinhamento</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaVariantsSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaVariantsSize !== undefined">{{ informations.dnaVariantsSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">Variantes</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaSnpsSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaIndelsSize !== undefined">{{ informations.dnaIndelsSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">Indels</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaSnpsSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaSnpsSize !== undefined">{{ informations.dnaSnpsSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">SNP's</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <span class = "ui-process-analyses-information-value">DNA</span>
+                        <span class = "ui-process-analyses-information-alias">Tipo de Amostra</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <span class = "ui-process-analyses-information-value">{{ informations.dnaExecutionTime }}</span>
+                        <span class = "ui-process-analyses-information-alias">Executado Em</span>
+                    </div>
+                </div>
+                <div class = "ui-process-analyses-body ui-process-analyses-general">
+                    <div class = "ui-process-analyses-information">
+                        <span class = "ui-process-analyses-information-value">{{ genesisProcess.reference }}</span>
+                        <span class = "ui-process-analyses-information-alias">Referência</span>
+                        <span class = "ui-process-analyses-information-value ui-process-analyses-execution-time">{{ getExecutionTime() }}</span>
+                    </div>
+                </div>
+                <div class = "ui-process-analyses-body">
+                    <div class = "ui-process-analyses-header">
+                        {{ genesisProcess.rnaResource.sra }}
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaAlignmentSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaAlignmentSize !== undefined">{{ informations.rnaAlignmentSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">Alinhamento</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaVariantsSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaVariantsSize !== undefined">{{ informations.rnaVariantsSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">Variantes</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaSnpsSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaIndelsSize !== undefined">{{ informations.rnaIndelsSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">Indels</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaSnpsSize === undefined"></app-spinner>
+                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaSnpsSize !== undefined">{{ informations.rnaSnpsSize }}</span>
+                        <span class = "ui-process-analyses-information-alias">SNP's</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <span class = "ui-process-analyses-information-value">RNA</span>
+                        <span class = "ui-process-analyses-information-alias">Tipo de Amostra</span>
+                    </div>
+                    <div class = "ui-process-analyses-information">
+                        <span class = "ui-process-analyses-information-value">{{ informations.rnaExecutionTime }}</span>
+                        <span class = "ui-process-analyses-information-alias">Executado Em</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class = "ui-process-executions">
             <div [class] = "getCssClass(execution)" *ngFor = "let execution of genesisProcess.executions" (click) = "eventExecutionDetail(execution)">

@@ -26,6 +26,34 @@
             </div>
         </div>
     </div>
+    <mat-accordion class = "ui-minimalist-accordion" *ngIf = "data.execution.interactions.length > 0">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                Comandos Executados
+            </mat-expansion-panel-header>
+            <div class = "ui-interactions-container">
+                <div class = "ui-interaction-container" *ngFor = "let command of data.execution.interactions">
+                    <div class = "ui-interaction-alias">
+                        {{ command.alias }}
+                    </div>
+                    <div class = "ui-interaction-execution-container">
+                        <span class = "ui-interaction-command">
+                            {{ command.command }}
+                        </span>
+                        <ui-spinner width = "10px" height = "10px" type = "full" *ngIf = "command.status === 'executing'"></ui-spinner>
+                        <span *ngIf = "command.status !== 'executing'" [ngClass] = "{
+                            'ui-interaction-execution-status': true,
+                            'fas': true,
+                            'fa-times': command.status === 'fail',
+                            'fa-check': command.status === 'ok',
+                            'ui-interaction-with-error': command.status === 'fail',
+                            'ui-interaction-with-success': command.status === 'ok'
+                        }"></span>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
     <div [ngClass] = "{
             'ui-panel-success': data.execution.result?.status === 'success',
             'ui-panel-error': data.execution.result?.status === 'fail',

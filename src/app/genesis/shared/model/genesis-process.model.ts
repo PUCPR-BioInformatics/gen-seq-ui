@@ -10,6 +10,7 @@ export interface GenesisProcessModel {
     completedDate?: Date | null;
     creationDate?: Date;
     executions?: Array<GenesisProcessStepExecutionModel>;
+    executionsHistory?: Array<GenesisProcessStepExecutionModel>;
     reference: string;
     result: GenesisProcessResultModel | null;
     rnaResource: GenesisResourceModel;

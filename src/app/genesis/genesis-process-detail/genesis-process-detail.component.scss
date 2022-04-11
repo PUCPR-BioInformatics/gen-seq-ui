@@ -43,13 +43,6 @@
     flex: unset;
 }
 
-.ui-process-general-information {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    padding-top: 30px;
-}
-
 .ui-process-executions,
 .ui-process-analyses-container {
     display: flex;
@@ -59,23 +52,67 @@
     justify-content: center;
 }
 
-.ui-process-analyses-dna,
-.ui-process-analyses-rna {
+.ui-process-analyses-body {
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+    min-height: 100px;
+    flex-flow: row wrap;
+}
+
+.ui-process-analyses-header {
+    height: 25px;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.ui-process-analyses-general {
+    display: flex;
+    min-width: 200px;
+    max-width: 350px;
+    min-height: 100px;
+}
+
+.ui-process-analyses-container {
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+}
+
+.ui-process-analyses-informations {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-flow: row wrap;
+    flex: 1;
+    padding: 10px;
+}
+
+.ui-process-analyses-information {
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.ui-process-analyses-information-value {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.ui-process-analyses-information-alias {
+    padding-top: 2px;
+    font-size: 11px;
+}
+
+.ui-process-analyses-general {
     display: flex;
     margin: 10px;
     align-items: center;
-    flex-flow: column;
-    min-width: 300px;
-    max-width: 500px;
-    min-height: 300px;
-
-    .ui-process-analyses-header {
-        width: 100%;
-        padding: 10px 15px;
-        height: 40px;
-        font-size: 14px;
-        font-weight: bold;
-    }
 }
 
 .ui-process-executions {
@@ -90,8 +127,8 @@
 }
 
 .ui-process-execution {
-    width: 250px;
-    max-width: 260px;
+    width: 320px;
+    max-width: 320px;
     height: 150px;
     margin: 6px;
     position: relative;
@@ -137,6 +174,10 @@
     font-size: 12px;
     font-weight: bold;
     padding-top: 10px;
+}
+
+.ui-process-analyses-execution-time {
+    margin-top: 15px;
 }
 
 .ui-process-execution-time {
@@ -209,8 +250,7 @@
             }
         }
 
-        .ui-process-analyses-dna,
-        .ui-process-analyses-rna {
+        .ui-process-analyses-body {
             background: themed('primary-color');
             color: themed('primary-text-color');
             box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
@@ -230,12 +270,20 @@
                 padding-left: 10px;
             }
         }
+
+        .ui-process-analyses-general,
+        .ui-process-analyses-header {
+            background: themed('blue-color');
+            color: themed('white-color');
+        }
     }
 }
 
 :host-context(.ui-container-mobile) {
-    .ui-process-general-information {
-        justify-content: space-between;
-        padding-left: 40px;
+    .ui-process-analyses-body,
+    .ui-process-analyses-general {
+        width: 100%;
+        max-width: unset;
+        margin: 10px 0;
     }
 }
