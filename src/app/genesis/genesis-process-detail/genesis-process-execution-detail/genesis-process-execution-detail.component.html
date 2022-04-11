@@ -40,15 +40,16 @@
                         <span class = "ui-interaction-command">
                             {{ command.command }}
                         </span>
-                        <ui-spinner width = "10px" height = "10px" type = "full" *ngIf = "command.status === 'executing'"></ui-spinner>
-                        <span *ngIf = "command.status !== 'executing'" [ngClass] = "{
-                            'ui-interaction-execution-status': true,
-                            'fas': true,
-                            'fa-times': command.status === 'fail',
-                            'fa-check': command.status === 'ok',
-                            'ui-interaction-with-error': command.status === 'fail',
-                            'ui-interaction-with-success': command.status === 'ok'
-                        }"></span>
+                        <div class = "ui-interaction-execution-status">
+                            <app-spinner width = "15px" height = "15px" type = "full" *ngIf = "command.status === 'executing'"></app-spinner>
+                            <span *ngIf = "command.status !== 'executing'" [ngClass] = "{
+                                'fas': true,
+                                'fa-times': command.status === 'fail',
+                                'fa-check': command.status === 'ok',
+                                'ui-interaction-with-error': command.status === 'fail',
+                                'ui-interaction-with-success': command.status === 'ok'
+                            }"></span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -59,10 +59,15 @@
         .ui-interaction-command {
             display: flex;
             flex: 1;
+            flex-flow: row wrap;
+            word-break: break-word;
         }
 
         .ui-interaction-execution-status {
-            min-width: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
         }
     }
 }
@@ -76,6 +81,10 @@
     .ui-minimalist-accordion {
         max-width: 800px;
         margin-top: 10px;
+
+        .mat-expansion-panel-body {
+            max-height: unset !important;
+        }
 
         .mat-expansion-panel-header {
             padding: 0 20px !important;
