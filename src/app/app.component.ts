@@ -8,7 +8,6 @@ import { filter } from 'rxjs/operators';
 import { AppState } from './shared/model/app-state';
 import { SystemService } from './core/system.service';
 import { MessageBoxService } from './shared/components/message-box/message-box.service';
-import { AppStates } from './app.states';
 import { StateGuardService } from './core/security/state-guard.service';
 
 @Component({

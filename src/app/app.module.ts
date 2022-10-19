@@ -6,7 +6,6 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/components/shared.module';
 import { MessageBoxModule } from './shared/components/message-box/message-box.module';
 import { NavBarModule } from './nav-bar/nav-bar.module';
@@ -19,8 +18,7 @@ const providers: Array<any> = [
 @NgModule({
     providers,
     declarations: [
-        AppComponent,
-        HomeComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -29,7 +27,8 @@ const providers: Array<any> = [
         HttpClientModule,
         SharedModule,
         MessageBoxModule,
-        NavBarModule
+        NavBarModule,
+        UserModule
     ],
     bootstrap: [AppComponent]
 })

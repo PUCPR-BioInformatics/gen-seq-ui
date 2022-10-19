@@ -19,7 +19,8 @@ import { MessageBoxModule } from '../shared/components/message-box/message-box.m
         SharedModule,
         MessageBoxModule
     ], exports: [
-        UserModalComponent
+        UserModalComponent,
+        UserExhibitionComponent
     ], entryComponents: [
         UserModalComponent
     ]
