@@ -12,6 +12,13 @@
     width: auto;
 }
 
+.ui-datepicker-field.mat-form-field:disabled {
+    @include themify {
+        background: themed('disabled-color');
+        color: themed('disabled-text-color');
+    }
+}
+
 .mat-calendar-body-selected {
     @include themify {
         background-color: themed('selected-color');
@@ -21,7 +28,48 @@
 
 .mat-datepicker-content {
     @include themify {
-        background: themed('primary-color');
-        color: themed('primary-text-color');
+        background: themed('secondary-color');
+        color: themed('secondary-text-color');
+
+        .mat-icon-button {
+            background: themed('secondary-color');
+            color: themed('secondary-text-color');
+        }
+
+        .mat-calendar-arrow {
+            fill: themed('secondary-text-color');
+        }
+
+        .mat-calendar-table {
+            .mat-calendar-table-header > tr > th {
+                color: themed('secondary-text-color');
+            }
+
+            .mat-calendar-table-header-divider {
+                color: themed('secondary-border-color') !important;
+            }
+
+            .mat-calendar-body > tr > td {
+                .mat-calendar-body-cell {
+                    background: themed('secondary-color');
+                    color: themed('secondary-text-color');
+                }
+
+                .mat-calendar-body-cell-content {
+                    color: unset;
+                }
+
+                .mat-calendar-body-active {
+                    .mat-calendar-body-cell-content {
+                        background: themed('selected-color');
+                        color: themed('selected-text-color');
+                    }
+                }
+            }
+
+            .mat-calendar-body .mat-calendar-body-label {
+                color: themed('secondary-text-color') !important;
+            }
+        }
     }
 }

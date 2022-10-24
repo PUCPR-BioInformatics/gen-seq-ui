@@ -1,0 +1,45 @@
+.ui-captcha-container {
+    @include themify {
+        .ui-captcha-puzzle-piece-backdrop {
+            box-shadow: inset -1px 2px 16px 2px #000000a8;
+        }
+
+        .ui-loading-container {
+            background: themed('primary-color');
+            color: themed('primary-text-color');
+        }
+
+        .ui-captcha-slider-backdrop {
+            background: themed('secondary-color');
+            color: themed('secondary-text-color');
+            border: 1px solid themed('secondary-border-color');
+        }
+
+        .ui-captcha-slider-button {
+            background: themed('tertiary-color');
+            color: themed('tertiary-text-color');
+        }
+
+        .ui-captcha-slider-button:hover {
+            box-shadow: 0 0 3px -1px themed('primary-shadow-color');
+        }
+
+        .ui-captcha-slider-button-error {
+            background: themed('red-color') !important;
+            color: themed('white-color') !important;
+        }
+
+        .ui-captcha-slider-button-success {
+            background: themed('green-color') !important;
+            color: themed('white-color') !important;
+        }
+
+        .ui-captcha-slider-backdrop-error {
+            color: themed('red-color') !important;
+        }
+
+        .ui-captcha-slider-backdrop-success {
+            color: themed('green-color') !important;
+        }
+    }
+}

@@ -60,6 +60,14 @@
             box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
             border: 1px solid themed('primary-border-color');
         }
+
+        .mat-expansion-panel-header:not(.mat-expanded):hover {
+            background: themed('selection-color') !important;
+        }
+
+        .mat-expansion-panel-header:disabled {
+            background: themed('disabled-text-color');
+        }
     }
 }
 
@@ -118,6 +126,14 @@
 
         .mat-expansion-panel-header {
             color: themed('primary-text-color');
+        }
+
+        .mat-expansion-panel-header:not(:disabled):hover {
+            background: themed('selection-color');
+        }
+
+        .mat-expansion-panel-header:disabled {
+            background: themed('disabled-text-color');
         }
     }
 }

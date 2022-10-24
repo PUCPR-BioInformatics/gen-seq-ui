@@ -1,19 +1,54 @@
-.mat-select-value {
+
+.ui-field-smaller.mat-form-field,
+.ui-field.mat-form-field {
     @include themify {
-        color: themed('primary-text-color') !important;
+        .mat-select-arrow,
+        .mat-select-value {
+            color: themed('primary-text-color') !important;
+        }
     }
 }
 
-mat-option.mat-selected {
+.ui-field-smaller.mat-form-field.mat-form-field-disabled,
+.ui-field.mat-form-field.mat-form-field-disabled {
     @include themify {
-        color: themed('selected-text-color') !important;
-        background: themed('selected-color') !important;
+        .mat-select-arrow,
+        .mat-select-value {
+            color: themed('disabled-text-color') !important;
+        }
     }
 }
 
-mat-option:hover {
+.mat-autocomplete-panel,
+.mat-select-panel {
+    margin-top: 20px;
+
     @include themify {
-        color: themed('selection-text-color') !important;
-        background: themed('selection-color') !important;
+        color: themed('secondary-text-color') !important;
+        background: themed('secondary-color') !important;
+        box-shadow: 1px 1px 3px -1px themed('primary-shadow-color');
+
+        .mat-option:not(:disabled) {
+            color: themed('secondary-text-color') !important;
+        }
+
+        .mat-option:disabled {
+            color: themed('disabled-text-color') !important;
+        }
+
+        .mat-option.mat-active:not(.mat-selected) {
+            background: transparent;
+        }
+
+        .mat-option:not(.mat-selected):hover {
+            color: themed('selection-text-color') !important;
+            background: transparent;
+        }
+
+        .mat-option.mat-selected,
+        .mat-option.mat-selected:hover {
+            color: themed('selected-text-color') !important;
+            background: themed('selected-color') !important;
+        }
     }
 }

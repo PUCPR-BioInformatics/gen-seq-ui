@@ -49,7 +49,7 @@ export class SystemService {
         return '/error';
     }
     public getHomePath(): string {
-        return '/home';
+        return '/';
     }
     public getNavBarMode(): 'vertical' | 'horizontal' | 'mobile' {
         return this.navBarMode$.getValue();

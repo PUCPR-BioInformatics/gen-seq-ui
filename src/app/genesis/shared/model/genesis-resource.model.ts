@@ -15,6 +15,7 @@ export interface GenesisResourceModel {
     fastqDump: {
         parameters: Array<string>;
         force: boolean;
+        isPaired: boolean;
     };
     sra: string;
 }

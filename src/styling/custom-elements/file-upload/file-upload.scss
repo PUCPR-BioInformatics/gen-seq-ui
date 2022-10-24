@@ -1,18 +1,72 @@
+.ui-file-upload-description {
+    display: flex;
+    text-align: center;
+    font-size: 16px;
+}
+
+.ui-file-upload-button {
+    margin-top: 5px !important;
+}
+
+.ui-file-upload-file {
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.ui-file-upload-informations {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding-left: 10px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.ui-file-upload-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ui-file-upload-file-empty {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
 .ui-file-upload-container {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    overflow: hidden;
+
     @include themify {
         background: themed('secondary-color');
     }
 }
 
 .ui-file-upload-container-mobile {
+    flex-flow: column;
+
     @include themify {
         .ui-file-upload {
+            width: 100%;
             border: 1px solid themed('primary-border-color');
             border-bottom: unset;
         }
 
         .ui-file-upload-files-container {
             border: 1px solid themed('primary-border-color');
+            width: 100%;
+            min-height: 100px;
+            max-height: unset;
+            overflow-y: unset;
         }
     }
 }
@@ -35,6 +89,13 @@
 }
 
 .ui-file-upload {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: 300px;
+
     @include themify {
         background: themed('primary-color');
         border: 1px solid themed('primary-border-color');
@@ -43,12 +104,22 @@
 }
 
 .ui-file-upload-icon {
+    padding-bottom: 10px;
+    font-size: 35px;
+
     @include themify {
         color: themed('tertiary-color');
     }
 }
 
 .ui-file-upload-files-container {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    max-height: 350px;
+    min-width: 250px;
+    overflow-y: auto;
+
     @include themify {
         border: 1px solid themed('primary-border-color');
         border-left: unset;
@@ -56,6 +127,14 @@
 }
 
 .ui-file-upload-format {
+    border-radius: 20px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+
     @include themify {
         border: 1px solid themed('tertiary-color');
         color: themed('tertiary-color');
@@ -70,6 +149,15 @@
 }
 
 .ui-file-upload-invalid {
+    display: flex;
+    width: 100%;
+    padding-top: 5px;
+    padding-left: 45px;
+
+    :nth-child(1) {
+        margin-right: 10px;
+    }
+
     @include themify {
         color: themed('red-color');
     }

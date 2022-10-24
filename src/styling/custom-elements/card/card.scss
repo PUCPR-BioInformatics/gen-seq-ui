@@ -12,10 +12,15 @@
     cursor: pointer;
 
     @include themify {
-        box-shadow: 1px 0 3px -2px themed('primary-shadow-color');
+        box-shadow: 4px 4px 5px -4px themed('primary-shadow-color');
     }
 }
 
+.ui-card:hover {
+    @include themify {
+        box-shadow: 5px 5px 5px -3px themed('primary-shadow-color');
+    }
+}
 
 .ui-card-selected {
     .ui-card {
@@ -34,6 +39,17 @@
 
 .ui-card-zoomed:hover {
     animation: card-zoomed-animation 0.5s ease-in alternate forwards;
+}
+
+.mat-card {
+    @include themify {
+        color: themed('secondary-text-color') !important;
+        background: themed('secondary-color') !important;
+
+        .mat-card-subtitle {
+            color: themed('secondary-text-color');
+        }
+    }
 }
 
 @keyframes card-freak-animation {

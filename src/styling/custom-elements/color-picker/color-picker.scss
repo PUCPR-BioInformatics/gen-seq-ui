@@ -1,5 +1,5 @@
 .ui-field-color {
-    padding-bottom: 20px;
+    padding-bottom: 27px;
 }
 
 .ui-fields {
@@ -10,30 +10,55 @@
     display: flex;
     flex-flow: row;
     align-items: center;
+    position: relative;
+}
+
+.ui-color-picker-divisor {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    top: 45px;
+
+    @include themify {
+        background: themed('primary-text-color');
+    }
+}
+
+.ui-color-picker-container:not(:disabled):hover .ui-color-picker-divisor {
+    height: 2px;
+    top: 44px;
+
+    @include themify {
+        background: themed('normal-color');
+    }
 }
 
 .ui-color-picker {
     display: flex;
     flex-flow: row;
     min-width: 179px;
-    padding: 10px;
-    border-radius: 4px;
+    align-items: center;
+    height: 45px;
+    padding: 5px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     cursor: pointer;
     outline: unset;
     flex: 1;
 
     @include themify {
-        background: themed('primary-color');
-        color: themed('primary-text-color');
-        box-shadow: 0 0 0 0 themed('primary-shadow-color');
-        border: 1px solid themed('primary-border-color');
+        background: themed('secondary-color');
+        color: themed('secondary-text-color');
+        box-shadow: 0 0 0 0 themed('secondary-shadow-color');
+        border: unset;
     }
 }
 
 .ui-color-picker:not(:disabled):hover {
     @include themify {
-        box-shadow: inset 0 0 100px -100px themed('primary-shadow-color');
-        border: 1px solid themed('primary-border-color');
+        box-shadow: inset 0 0 10px -10px themed('primary-shadow-color');
+        background: themed('selection-color');
+        border: unset;
     }
 }
 
@@ -107,7 +132,7 @@
         width: 100%;
 
         @include themify {
-            background: themed('secondary-color');
+            background: themed('primary-color');
         }
     }
 

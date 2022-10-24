@@ -1,3 +1,11 @@
+.ui-primary-button.mat-button-base,
+.ui-secondary-button.mat-button-base,
+.ui-tertiary-button.mat-button-base,
+.ui-button.mat-button-base {
+    border-radius: 2px;
+}
+
+.ui-primary-circle-button.mat-button,
 .ui-header-title-button.mat-button-base,
 .ui-circle-button.mat-button-base {
     min-width: 30px !important;
@@ -13,22 +21,196 @@
     align-items: center;
 }
 
-.ui-header-title-button.mat-button-base {
-    font-size: 18px;
-}
-
-.ui-button-icon {
-    font-size: 18px;
-}
-
-.ui-button-icon-small {
-    font-size: 18px;
-}
-
 .ui-button.mat-button-base,
-.ui-secondary-button.mat-button-base,
+.ui-button.mat-menu-item,
+.ui-button.mat-button {
+    @include themify {
+        box-shadow: unset !important;
+        background: transparent !important;
+        color: themed('primary-text-color');
+        border-color: themed('primary-border-color') !important;
+    }
+}
+
+.ui-button.mat-button:not(:disabled):hover {
+    @include themify {
+        background: themed('selection-color');
+        color: themed('selection-text-color');
+    }
+}
+
+.ui-button.mat-button:disabled {
+    @include themify {
+        background: unset;
+        color: themed('disabled-text-color') !important;
+    }
+}
+
+.ui-button.mat-stroked-button {
+    @include themify {
+        box-shadow: unset !important;
+        background: transparent !important;
+        border-color: themed('primary-border-color') !important;
+    }
+}
+
+.ui-button.mat-stroked-button:disabled {
+    box-shadow: unset !important;
+    border-color: transparent !important;
+
+    @include themify {
+        color: themed('disabled-text-color');
+    }
+}
+
+.ui-button.mat-raised-button {
+    @include themify {
+        border: 1px solid themed('primary-border-color');
+        color: themed('primary-text-color');
+        background: themed('primary-color') !important;
+        box-shadow: unset;
+    }
+}
+
+.ui-button.mat-raised-button:hover {
+    @include themify {
+        background: themed('selection-color') !important;
+    }
+}
+
+.ui-button.mat-raised-button:disabled {
+    @include themify {
+        background: themed('disabled-color') !important;
+        color: themed('disabled-text-color') !important;
+        border: unset;
+    }
+}
+
+.ui-button.mat-raised-button:not(.mat-button-disabled):active {
+    box-shadow: unset !important;
+}
+
+.ui-primary-button.mat-stroked-button {
+    @include themify {
+        box-shadow: unset !important;
+        background: themed('primary-color') !important;
+        border-color: themed('primary-border-color') !important;
+    }
+}
+
+.ui-primary-button.mat-stroked-button:not(:disabled):hover {
+    @include themify {
+        background: themed('selection-color') !important;
+    }
+}
+
+.ui-primary-button.mat-stroked-button:disabled {
+    @include themify {
+        background: transparent;
+        border: unset;
+        color: themed('disabled-text-color');
+    }
+}
+
+.ui-primary-circle-button.mat-button,
+.ui-primary-button.mat-button-base {
+    @include themify {
+        background: themed('primary-color');
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-primary-circle-button.mat-button:not(:disabled):hover,
+.ui-primary-button.mat-button-base:not(:disabled):hover {
+    @include themify {
+        color: themed('selection-text-color');
+        background: themed('selection-color');
+    }
+}
+
+.ui-primary-circle-button.mat-button:disabled,
+.ui-primary-button.mat-button-base:disabled {
+    @include themify {
+        color: themed('disabled-text-color');
+        background: themed('disabled-color');
+    }
+}
+
+.ui-secondary-button.mat-button-base {
+    font-size: 13px;
+
+    @include themify {
+        background: themed('secondary-color');
+        color: themed('secondary-text-color');
+    }
+}
+
 .ui-tertiary-button.mat-button-base {
-    border-radius: 2px;
+    font-size: 13px;
+
+    @include themify {
+        color: themed('tertiary-text-color');
+        background: themed('tertiary-color');
+    }
+}
+
+.ui-tertiary-button.mat-button-base:disabled {
+    @include themify {
+        color: themed('disabled-text-color');
+        background: transparent;
+    }
+}
+
+.ui-tertiary-button.mat-stroked-button {
+    @include themify {
+        box-shadow: unset !important;
+        color: themed('tertiary-color') !important;
+        border-color: themed('tertiary-border-color') !important;
+    }
+}
+
+.ui-tertiary-text-button.mat-button:not(:disabled) {
+    font-weight: bold;
+
+    @include themify {
+        color: themed('tertiary-color');
+        background: unset;
+    }
+}
+
+.ui-tertiary-text-button.mat-button:not(:disabled):hover {
+    @include themify {
+        color: themed('tertiary-color');
+        background: themed('selection-color');
+    }
+}
+
+.ui-tertiary-text-button.mat-button:disabled {
+    @include themify {
+        color: themed('disabled-text-color');
+        background: unset;
+    }
+}
+
+.ui-circle-button.mat-button-base {
+    @include themify {
+        background: unset;
+        color: themed('primary-text-color');
+    }
+}
+
+.ui-circle-button.mat-button:not(:disabled):hover {
+    @include themify {
+        color: themed('selection-text-color');
+        background: unset;
+    }
+}
+
+.ui-circle-button.mat-button:disabled {
+    @include themify {
+        color: themed('disabled-text-color');
+        background: unset;
+    }
 }
 
 .ui-theme-button.mat-button-base {
@@ -39,11 +221,8 @@
     font-size: 20px !important;
 }
 
-.mat-stroked-button {
-    @include themify {
-        box-shadow: 0 0 2px 0 themed('primary-shadow-color') !important;
-        border-color: themed('primary-border-color') !important;
-    }
+.ui-theme-button.mat-button-base span {
+    margin-top: -2px;
 }
 
 .ui-add-button:hover {
@@ -55,42 +234,6 @@
 .ui-remove-button:hover {
     @include themify {
         color: themed('red-color') !important;
-    }
-}
-
-.ui-theme-button.mat-button-base span {
-    margin-top: -2px;
-}
-
-.ui-secondary-button.mat-button-base {
-    @include themify {
-        background: themed('secondary-color');
-        color: themed('secondary-text-color');
-    }
-
-    font-size: 13px;
-}
-
-.mat-button-disabled {
-    @include themify {
-        background: themed('disabled-color') !important;
-        color: themed('disabled-text-color') !important;
-    }
-}
-
-.ui-tertiary-button.mat-button-base {
-    @include themify {
-        color: themed('tertiary-text-color');
-        background: themed('tertiary-color');
-    }
-
-    font-size: 13px;
-}
-
-.ui-circle-button.mat-button-base,
-.ui-button.mat-button-base {
-    @include themify {
-        color: themed('primary-text-color');
     }
 }
 
@@ -121,4 +264,12 @@
     @include themify {
         color: themed('tertiary-color') !important;
     }
+}
+
+.ui-button-icon {
+    font-size: 20px;
+}
+
+.ui-button-icon-small {
+    font-size: 18px;
 }

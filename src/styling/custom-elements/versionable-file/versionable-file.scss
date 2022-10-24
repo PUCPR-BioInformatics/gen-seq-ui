@@ -1,0 +1,273 @@
+.ui-versionable-file-disable {
+    @include themify {
+        .ui-versionable-file-drag-space {
+            border-width: 2px !important;
+            border-color: themed('disabled-color') !important;
+        }
+
+        .ui-versionable-file-button {
+            color: themed('disabled-text-color') !important;
+        }
+
+        .ui-versionable-file-body-options {
+            .ui-circle-button:disabled {
+                color: themed('disabled-text-color') !important;
+            }
+        }
+
+        .ui-versionable-file-body-name-and-size {
+            color: themed('disabled-text-color') !important;
+        }
+    }
+}
+
+.ui-versionable-file-drop-zone-hover {
+    .ui-versionable-file-drag-space {
+        border-width: 3px !important;
+    }
+
+    @include themify {
+        .ui-versionable-file-drag-space {
+            border-color: themed('tertiary-color') !important;
+        }
+    }
+}
+
+.ui-versionable-file-container {
+    .ui-versionable-file {
+        padding: 10px;
+        max-width: 450px;
+    }
+
+    .ui-versionable-file-header {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .ui-versionable-file-header-title {
+        font-size: 16px;
+    }
+
+    .ui-versionable-file-header-sub-title {
+        font-size: 11px;
+    }
+
+    .ui-versionable-file-body {
+        display: flex;
+        flex-flow: column;
+        padding-top: 10px;
+    }
+
+    .ui-versionable-file-drag-space {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        height: 40px;
+        padding: 0 10px;
+        margin-top: 10px;
+    }
+
+    .ui-versionable-file-button {
+        background: unset;
+        outline: unset;
+        font-weight: bold;
+        text-decoration: unset;
+        padding-left: 5px;
+        cursor: pointer;
+    }
+
+    .ui-versionable-file-body-container {
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+        padding: 5px 0 10px 0;
+        min-height: 70px;
+    }
+
+    .ui-versionable-file-body-informations {
+        display: flex;
+        flex-flow: row;
+        width: 100%;
+    }
+
+    .ui-versionable-file-body-name {
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .ui-versionable-file-body-options {
+        display: flex;
+        flex-flow: row;
+        padding-left: 10px;
+        flex: 1;
+        margin-top: -8px;
+        justify-content: flex-end;
+    }
+
+    .ui-versionable-file-body-name-and-size {
+        display: flex;
+        flex-flow: column;
+        padding-left: 10px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .ui-versionable-file-body-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        min-height: 30px;
+        width: 30px;
+        min-width: 30px;
+        border-radius: 15px;
+        font-size: 20px;
+
+        span:not(.fa-solid) {
+            font-size: 11px;
+        }
+    }
+
+    .ui-versionable-file-body-state {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        margin-top: -2px;
+        padding-left: 5px;
+    }
+
+    .ui-versionable-file-body-downloading,
+    .ui-versionable-file-body-versioning {
+        position: relative;
+        border-radius: 4px;
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        height: 15px;
+        margin-top: 5px;
+    }
+
+    .ui-versionable-file-body-event-label {
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .ui-versionable-file-body-event-message {
+        margin-top: 5px;
+        font-size: 11px;
+    }
+
+    .ui-versionable-file-body-event-completeness {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    @include themify {
+        color: themed('primary-text-color');
+
+        .ui-versionable-file-body-validation-message {
+            font-size: 12px;
+            color: themed('red-color');
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .ui-versionable-file-body-informations-with-error {
+            .ui-versionable-file-body-icon {
+                background: themed('red-color');
+            }
+
+            .ui-versionable-file-body-name {
+                color: themed('red-color');
+            }
+
+            .ui-circle-button:disabled {
+                color: themed('disabled-color');
+            }
+        }
+
+        .ui-versionable-file-body-downloading,
+        .ui-versionable-file-body-versioning {
+            background: themed('gray-color');
+            color: themed('white-color');
+        }
+
+        .ui-versionable-file-body-downloading {
+            .ui-versionable-file-body-event-completeness {
+                background: themed('green-color');
+            }
+
+            .ui-versionable-file-body-event-message {
+                color: themed('green-color');
+            }
+        }
+
+        .ui-versionable-file-body-versioning {
+            .ui-versionable-file-body-event-completeness {
+                background: themed('tertiary-color');
+            }
+
+            .ui-versionable-file-body-event-message {
+                color: themed('tertiary-color');
+            }
+        }
+
+        .ui-versionable-file-drag-space {
+            border: 2px dashed themed('secondary-border-color');
+            border-radius: 4px;
+        }
+
+        .ui-versionable-file-body-options .ui-circle-button,
+        .ui-versionable-file-body-name,
+        .ui-versionable-file-body-to-upload-name,
+        .ui-versionable-file-button,
+        .ui-versionable-file-header-title {
+            color: themed('tertiary-color');
+        }
+
+        .ui-versionable-file-body-icon {
+            background: themed('tertiary-color');
+            color: themed('tertiary-text-color');
+        }
+
+        .ui-versionable-file-body-not-versionated,
+        .ui-versionable-file-body-versionated {
+            padding-left: 5px;
+            font-size: 14px;
+            color: themed('orange-color');
+        }
+
+        .ui-versionable-file-body-versionated {
+            color: themed('green-color');
+        }
+    }
+}
+
+.ui-versionable-file-container.ng-invalid:not(.ng-untouched) {
+    @include themify {
+        .ui-versionable-file-button,
+        .ui-versionable-file-header {
+            .ui-versionable-file-header-title {
+                color: themed('red-color') !important;
+            }
+        }
+
+        .ui-versionable-file-drag-space {
+            color: themed('red-color') !important;
+            border-color: themed('red-color') !important;
+        }
+    }
+}

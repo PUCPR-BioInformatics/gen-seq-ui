@@ -4,3 +4,11 @@
         color: themed('secondary-text-color');
     }
 }
+
+.mat-tooltip {
+    @include themify {
+        background: themed('secondary-color');
+        color: themed('secondary-text-color');
+        border: 1px solid themed('primary-border-color');
+    }
+}

@@ -8,7 +8,7 @@
     position: relative;
 
     .ui-header {
-        padding: 15px 20px 10px 30px;
+        padding: 15px 20px 10px 20px;
     }
 
     @include themify {
@@ -17,16 +17,24 @@
     }
 }
 
+.ui-component-container-overflow,
 .ui-component-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-flow: row wrap;
+    flex-flow: column;
     flex: 1;
+    width: 100%;
 
     @include themify {
         color: themed('primary-text-color');
     }
+}
+
+.ui-component-container-overflow {
+    justify-content: unset;
+    align-items: unset;
+    overflow-y: auto;
 }
 
 .ui-container-mobile,
@@ -35,7 +43,7 @@
     flex-flow: column;
 
     .ui-header {
-        padding: 0 20px 0 30px !important;
+        padding: 10px 20px 0 20px !important;
     }
 }
 

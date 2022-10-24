@@ -1,18 +1,30 @@
-.mat-slide-toggle.mat-checked .mat-ripple-element {
+.ui-field-toggle .mat-slide-toggle.mat-checked {
     @include themify {
-        background-color: themed('tertiary-color') !important;
+        .mat-ripple-element {
+            background-color: themed('normal-color') !important;
+        }
+
+        .mat-slide-toggle-bar {
+            background-color: themed('normal-color') !important;
+        }
+
+        .mat-slide-toggle-thumb {
+            background-color: themed('normal-color') !important;
+            border: 1px solid themed('primary-border-color');
+        }
     }
 }
 
-.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+.ui-field-toggle .mat-slide-toggle.mat-disabled {
     @include themify {
-        background-color: themed('tertiary-color') !important;
-    }
-}
+        opacity: 1;
 
-.mat-slide-toggle-thumb {
-    @include themify {
-        background-color: themed('tertiary-color') !important;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        .mat-slide-toggle-content {
+            color: themed('disabled-text-color');
+        }
+
+        .mat-slide-toggle-bar {
+            opacity: 0.48;
+        }
     }
 }

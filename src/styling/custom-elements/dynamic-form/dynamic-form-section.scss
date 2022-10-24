@@ -1,0 +1,39 @@
+.ui-dynamic-section-header {
+    font-size: 14px;
+    padding-left: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+
+    @include themify {
+        color: themed('tertiary-color');
+    }
+}
+
+.ui-container-mobile {
+    .ui-dynamic-section-container {
+        .ui-fields {
+            padding-top: unset !important;
+            padding-left: 20px;
+
+            .mat-form-field-infix {
+                width: inherit;
+            }
+
+            .ui-field-container {
+                width: 100% !important;
+                flex: unset !important;
+                max-width: 100% !important;
+
+                .ui-field-smaller,
+                .ui-field {
+                    width: 100%;
+                }
+
+                .ui-field-toggle {
+                    padding-left: 10px;
+                    width: auto;
+                }
+            }
+        }
+    }
+}

@@ -1,16 +1,17 @@
 .ui-table-simple {
     font-size: 12px;
 
-    tr {
-        @include themify {
+    @include themify {
+        border: 1px solid themed('primary-border-color');
+        box-shadow: 1px 1px 2px 0 themed('primary-shadow-color');
+        background: themed('primary-color');
+
+        tr {
             border: 1px solid themed('primary-border-color');
         }
-    }
 
-    td {
-        padding: 10px;
-
-        @include themify {
+        td {
+            padding: 10px;
             border: 1px solid themed('primary-border-color');
         }
     }
@@ -28,6 +29,7 @@
     .mat-header-cell {
         @include themify {
             font-weight: bold;
+            border-bottom-color: themed('secondary-border-color');
             color: themed('primary-text-color');
         }
     }
@@ -36,6 +38,7 @@
         @include themify {
             font-size: 12px;
             color: themed('primary-text-color');
+            border-bottom-color: themed('secondary-border-color');
         }
     }
 }

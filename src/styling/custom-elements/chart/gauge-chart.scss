@@ -10,10 +10,6 @@
     cursor: pointer;
 }
 
-.ui-chart-gauge-pulse {
-    animation: ease infinite 2s pulse;
-}
-
 .ui-chart-gauge-meter-default {
     opacity: 0.3;
     stroke-width: 1;
@@ -24,7 +20,7 @@
 .ui-chart-gauge-meter-detail,
 .ui-chart-gauge-meter-text {
     text-anchor: middle;
-    font-size: 35px;
+    font-size: 40px;
 }
 
 .ui-chart-gauge-meter-detail {
@@ -53,11 +49,4 @@
 
 .ui-chart-gauge-meter-default:hover {
     stroke-width: 3px;
-}
-
-
-@keyframes pulse {
-    50% {
-        filter: drop-shadow(0 0 2px themed('blue-color'));
-    }
 }

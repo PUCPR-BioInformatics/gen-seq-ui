@@ -1,0 +1,382 @@
+.ui-system-context-container {
+    .ui-component-container {
+        padding-top: 30px;
+    }
+}
+
+.ui-system-context-user-photo {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    span {
+        font-size: 80px;
+    }
+
+    .ui-system-context-user-photo-change {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.2);
+        display: none;
+        color: white;
+        top: 0;
+        font-size: 12px;
+        border-radius: 100px;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+
+    .ui-system-context-user-photo-change-under-construction {
+        font-size: 10px;
+    }
+}
+
+.ui-system-context-user-photo:hover {
+    .ui-system-context-user-photo-change {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+    }
+}
+
+.ui-system-context-user-information-container {
+    display: flex;
+    flex-flow: column;
+    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-system-context-user-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ui-system-context-user-title {
+    font-size: 11px;
+}
+
+.ui-system-context-user-department {
+    font-size: 10px;
+}
+
+.ui-system-context-user-informations-inline-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 12px;
+}
+
+.ui-system-context-user-separator {
+    padding: 0 10px;
+}
+
+.ui-system-context-user-options-container {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.ui-system-context-user-option-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.ui-system-context-user-option-container:hover {
+    @include themify {
+        background: themed('selection-color');
+        color: themed('selection-text-color');
+    }
+}
+
+.ui-system-context-user-option {
+    display: flex;
+    flex-flow: row;
+    min-width: 180px;
+    align-items: center;
+    height: 100%;
+}
+
+.ui-system-context-user-option-icon {
+    width: 25px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.ui-system-context-user-option-alias {
+    font-size: 12px;
+    text-align: left;
+    line-height: 12px;
+    flex: 1;
+    padding-left: 15px;
+}
+
+.ui-system-context-state-tree {
+    display: flex;
+    flex-flow: row;
+    padding: 10px 0 0 10px;
+}
+
+.ui-system-context-state {
+    font-size: 12px;
+    padding-left: 10px;
+
+    .ui-system-context-state-alias {
+        cursor: pointer;
+        padding-right: 10px;
+    }
+
+    @include themify {
+        .ui-system-context-state-alias {
+            color: themed('selection-text-color');
+        }
+
+        .ui-system-context-state-alias:hover {
+            color: themed('selected-text-color');
+            text-shadow: 0 0 1px themed('secondary-shadow-color');
+        }
+    }
+}
+
+.ui-system-context-modal-information-header {
+    margin: -10px 0 0 10px;
+}
+
+.ui-system-context-access-request-container {
+    display: flex;
+    flex-flow: column;
+
+    .ui-system-context-access-request-dynamic-form {
+        .ui-dynamic-options {
+            flex-flow: row-reverse !important;
+
+            .ui-dynamic-button {
+                width: 100px !important;
+                max-width: 100px !important;
+                margin: 0 5px;
+
+                @include themify {
+                    border: unset !important;
+                }
+            }
+        }
+    }
+}
+
+.ui-system-context-detail-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+
+    .ui-system-context-logo {
+        width: 100px;
+        height: 100px;
+        background-size: 100% 100%;
+
+        @include themify {
+            @include background-logo(themed('logo-color'));
+        }
+    }
+
+    .ui-system-context-information-container {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 10px;
+    }
+
+    .ui-system-context-alias {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .ui-system-context-description {
+        padding-top: 10px;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    .ui-system-context-name {
+        font-size: 13px;
+    }
+
+    .ui-system-context-version {
+        font-size: 15px;
+
+        @include themify {
+            color: themed('tertiary-color');
+        }
+    }
+
+    .ui-system-context-contact {
+        padding-top: 5px;
+        text-decoration: unset;
+
+        @include themify {
+            color: themed('tertiary-color');
+        }
+    }
+
+    .ui-system-context-dependencies-container {
+        display: flex;
+        flex-flow: column;
+        padding: 30px;
+        overflow-y: auto;
+        justify-content: center;
+        align-items: center;
+
+        .ui-system-context-dependencies-title {
+            font-weight: bold;
+            font-size: 16px;
+            padding-bottom: 10px;
+        }
+
+        .ui-system-context-dependency-container {
+            display: flex;
+            flex-flow: row;
+
+            .ui-system-context-dependency-name {
+                font-size: 14px;
+            }
+
+            .ui-system-context-dependency-version {
+                font-size: 12px;
+                font-weight: bold;
+                padding-left: 10px;
+            }
+        }
+    }
+}
+
+.ui-system-context-user-profiles-container {
+    display: flex;
+    flex-flow: column;
+    padding: 10px;
+
+    .ui-system-context-user-profiles {
+        display: flex;
+        flex-flow: column;
+
+        .ui-system-context-user-profile-header {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .ui-system-context-user-profile-information-row,
+        .ui-system-context-user-profile-header {
+            display: flex;
+            flex-flow: row;
+            flex: 1;
+        }
+
+        .ui-system-context-user-profile-information-value,
+        .ui-system-context-user-profile-header-label {
+            padding: 2px 20px;
+            flex: 1;
+        }
+
+        .ui-system-context-user-profile-small-field {
+            width: 85px;
+            flex: unset;
+        }
+
+        .ui-system-context-user-profile-information-value {
+            font-size: 12px;
+            padding-bottom: 10px;
+
+            @include themify {
+                .fa-check {
+                    color: themed('green-color');
+                }
+
+                .fa-times {
+                    color: themed('red-color');
+                }
+            }
+        }
+    }
+
+    .ui-system-context-user-profile {
+        display: flex;
+        flex-flow: row;
+    }
+
+    .ui-system-context-user-profiles-empty {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.ui-system-context-user-sessions-container {
+    display: flex;
+    flex-flow: column;
+    padding: 10px;
+    width: 100%;
+
+    .ui-system-context-user-session-container {
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+
+        .ui-system-context-user-session-information-row,
+        .ui-system-context-user-session-header {
+            display: flex;
+            flex-flow: row;
+            width: 100%;
+        }
+
+        .ui-system-context-user-session-information-value,
+        .ui-system-context-user-session-header-label {
+            flex: 1;
+            padding: 0 5px;
+        }
+
+        .ui-system-context-user-session-header-label {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .ui-system-context-user-session-information-value {
+            display: flex;
+            font-size: 12px;
+        }
+
+        .ui-system-context-sign-out-button {
+            cursor: pointer;
+            font-weight: bold;
+
+            @include themify {
+                color: themed('red-color');
+            }
+        }
+
+        .ui-system-context-sign-out-button:hover {
+            @include themify {
+                text-shadow: 0 0 16px themed('primary-shadow-color');
+            }
+        }
+
+        .ui-system-context-user-session-id {
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}

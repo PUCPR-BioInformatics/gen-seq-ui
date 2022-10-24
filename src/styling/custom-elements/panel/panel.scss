@@ -1,8 +1,8 @@
 .ui-panel,
 .ui-panel-normal,
-.ui-panel-executing,
 .ui-panel-warning,
 .ui-panel-success,
+.ui-panel-executing,
 .ui-panel-error {
     height: auto;
     min-height: 40px;
@@ -53,7 +53,7 @@
 
 .ui-panel-normal {
     @include themify {
-        background: themed('gray-color');
-        color: themed('white-color');
+        background: themed('primary-color');
+        color: themed('primary-text-color');
     }
 }

@@ -1,5 +1,5 @@
-@import './gauge-chart/gauge-chart.scss';
-@import './tooltip/tooltip.scss';
+@import 'gauge-chart';
+@import 'tooltip';
 
 .ui-chart-tooltip {
     @include themify {

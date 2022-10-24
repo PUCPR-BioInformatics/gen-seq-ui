@@ -5,8 +5,8 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 
-@import 'themes/core/theme-core.scss';
 @import 'themes/theming.scss';
+@import 'themes/core/theme-core.scss';
 
 @import 'custom-elements/custom-elements.scss';
 @import 'loading.scss';

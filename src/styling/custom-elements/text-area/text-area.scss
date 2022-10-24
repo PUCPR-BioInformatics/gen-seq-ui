@@ -1,0 +1,74 @@
+.ui-field-textarea.mat-form-field:not(.mat-form-field-disabled) {
+    font-size: 13px;
+
+    .mat-form-field-infix {
+        height: auto !important;
+    }
+
+    @include themify {
+        .mat-form-field-label {
+            color: themed('primary-text-color');
+        }
+
+        .mat-input-element {
+            caret-color: themed('normal-color');
+            color: themed('primary-text-color');
+        }
+
+        .mat-input-element::placeholder {
+            opacity: 0.3;
+            color: themed('primary-text-color');
+        }
+
+        .mat-form-field-underline {
+            background: themed('primary-text-color');
+
+            .mat-form-field-ripple {
+                background-color: themed('normal-color');
+            }
+        }
+    }
+}
+
+.ui-field-textarea.mat-form-field.mat-form-field-invalid:not(.mat-form-field-disabled) {
+    @include themify {
+        .mat-form-field-label {
+            color: themed('error-color');
+        }
+
+        .mat-input-element {
+            caret-color: themed('error-color');
+        }
+
+        .mat-input-element::placeholder {
+            opacity: 0.3;
+            color: themed('primary-text-color');
+        }
+
+        .mat-form-field-underline {
+            .mat-form-field-ripple {
+                background-color: themed('error-color');
+            }
+        }
+    }
+}
+
+.ui-field-textarea.mat-form-field.mat-form-field-disabled {
+    @include themify {
+        .mat-form-field-label {
+            color: themed('disabled-text-color');
+        }
+
+        .mat-input-element {
+            caret-color: themed('disabled-text-color');
+            color: themed('disabled-text-color');
+        }
+
+        .mat-form-field-underline {
+            background: unset;
+            border-bottom-width: 1px;
+            border-bottom-style: dashed;
+            border-bottom-color: themed('disabled-text-color');
+        }
+    }
+}

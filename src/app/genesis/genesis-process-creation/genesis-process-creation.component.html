@@ -39,6 +39,11 @@
                     </mat-select>
                 </mat-form-field>
                 <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "pairedDump">
+                        É uma amostra emparelhada (paired)?
+                    </mat-slide-toggle>
+                </div>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
                     <mat-slide-toggle formControlName = "forceDump">
                         Forçar download do SRA?
                     </mat-slide-toggle>
@@ -75,6 +80,11 @@
                         <mat-option *ngFor = "let tool of getRnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <div class = "ui-force-toggle ui-field ui-field-toggle">
+                    <mat-slide-toggle formControlName = "pairedDump">
+                        É uma amostra emparelhada (paired)?
+                    </mat-slide-toggle>
+                </div>
                 <div class = "ui-force-toggle ui-field ui-field-toggle">
                     <mat-slide-toggle formControlName = "forceDump">
                         Forçar download do SRA?

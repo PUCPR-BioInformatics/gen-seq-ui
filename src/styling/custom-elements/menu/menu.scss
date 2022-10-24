@@ -31,7 +31,8 @@
 
     @include themify {
         color: themed('primary-text-color') !important;
-        box-shadow: 1px 1px 2px 0 themed('primary-shadow-color');
+        box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
+        border: 1px solid themed('primary-border-color');
     }
 }
 
@@ -55,8 +56,13 @@
 }
 
 .ui-menu-option:hover {
+    .mat-button-focus-overlay {
+        background: unset !important;
+    }
+
     @include themify {
-        color: themed('selected-text-color') !important;
+        color: themed('selection-text-color') !important;
+        background: themed('selection-color') !important;
     }
 }
 

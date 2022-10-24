@@ -77,11 +77,12 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
                 },
                 fastqDump: {
                     parameters: dnaDumpParameters,
-                    force: creationDnaAlignmentRaw.forceDump
+                    force: creationDnaAlignmentRaw.forceDump,
+                    isPaired: creationDnaAlignmentRaw.pairedDump
                 },
                 index: {
                     parameters: dnaIndexParameters,
-                    force: creationDnaAlignmentRaw.forceIndex
+                    force: creationDnaAlignmentRaw.forceIndex,
                 },
                 sra: creationParametersRaw.dnaSraId as string
             },
@@ -97,7 +98,8 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
                 },
                 fastqDump: {
                     parameters: rnaDumpParameters,
-                    force: creationRnaAlignmentRaw.forceDump
+                    force: creationRnaAlignmentRaw.forceDump,
+                    isPaired: creationRnaAlignmentRaw.pairedDump
                 },
                 index: {
                     parameters: rnaIndexParameters,
@@ -171,6 +173,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             extractionParameters: new FormControl(''),
             indexParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
+            pairedDump: new FormControl(false, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
             forceExtraction: new FormControl(false, Validators.required),
             forceIndex: new FormControl(false, Validators.required),
@@ -182,6 +185,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             extractionParameters: new FormControl(''),
             indexParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
+            pairedDump: new FormControl(false, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
             forceExtraction: new FormControl(false, Validators.required),
             forceIndex: new FormControl(false, Validators.required),
@@ -210,7 +214,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
                 extractionParameters: (dnaExtractionParameters) ? dnaExtractionParameters.toString() : '',
                 indexParameters: (dnaIndexParameters) ? dnaIndexParameters.toString() : '',
                 toolName: this.fromGenesisExecution.dnaResource.alignment.toolName,
-
+                pairedDump: this.fromGenesisExecution.dnaResource.fastqDump.isPaired,
                 forceAlignment: false,
                 forceDump: false,
                 forceExtraction: false,
@@ -222,7 +226,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
                 extractionParameters: (rnaExtractionParameters) ? rnaExtractionParameters.toString() : '',
                 indexParameters: (rnaIndexParameters) ? rnaIndexParameters.toString() : '',
                 toolName: this.fromGenesisExecution.rnaResource.alignment.toolName,
-
+                pairedDump: this.fromGenesisExecution.rnaResource.fastqDump.isPaired,
                 forceAlignment: false,
                 forceDump: false,
                 forceExtraction: false,
