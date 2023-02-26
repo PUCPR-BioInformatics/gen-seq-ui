@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { GenesisProcessStepEnum } from '../../../genesis/shared/enum/genesis-process-step.enum';
+import { ProcessStepEnum } from '../../../genesis/shared/enum/process-step-enum';
 
 @Pipe({name: 'StringNormalizePipe'})
 export class StringNormalizePipe implements PipeTransform {
@@ -16,7 +16,7 @@ export class StringNormalizePipe implements PipeTransform {
         COMPLETE: "Encerramento"
     }
     public transform(value: string): string {
-        if (GenesisProcessStepEnum[value]) {
+        if (ProcessStepEnum[value]) {
             return this.translator[value];
         } else {
             let valueAjusted = value.toLowerCase().replace(/_/g, ' ');

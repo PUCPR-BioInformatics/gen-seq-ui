@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { GenesisProcessStepExecutionModel } from '../../shared/model/genesis-process-step-execution.model';
-import { GenesisProcessModel } from '../../shared/model/genesis-process.model';
+import { ProcessModel } from '../../shared/model/process.model';
+import { CommandExecutionModel } from '../../shared/model/command-execution.model';
 
 @Component({
     selector: 'app-genesis-process-execution-detail',
@@ -15,7 +15,7 @@ export class GenesisProcessExecutionDetailComponent {
     constructor(
         public dialogRef: MatDialogRef<GenesisProcessExecutionDetailComponent>,
         private router: Router,
-        @Inject(MAT_DIALOG_DATA) public data: { execution: GenesisProcessStepExecutionModel, process: GenesisProcessModel }
+        @Inject(MAT_DIALOG_DATA) public data: { execution: CommandExecutionModel, process: ProcessModel }
     ) {}
 
     public eventDismiss(): void {

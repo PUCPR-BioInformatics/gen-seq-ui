@@ -1,4 +1,4 @@
-export enum GenesisProcessStepEnum {
+export enum ProcessStepEnum {
     WAITING = "WAITING",
     REFERENCE = "REFERENCE",
     FASTQ_DUMP_DNA = "FASTQ_DUMP_DNA",

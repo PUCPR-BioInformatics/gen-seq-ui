@@ -10,7 +10,7 @@ import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
 import { GenesisProcessService } from '../genesis-process.service';
-import { GenesisProcessModel } from '../shared/model/genesis-process.model';
+import { ProcessModel } from '../shared/model/process.model';
 import { FormHelper } from '../../shared/helper/form.helper';
 import { GenesisStates } from '../genesis.states';
 import { AlignmentToolModel } from '../shared/model/alignment-tool.model';
@@ -29,7 +29,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
     public rnaAlignmentForm: FormGroup;
     public dnaAlignmentForm: FormGroup;
     public genomeReferences: Array<GeneomeReferenceModel>;
-    public fromGenesisExecution: GenesisProcessModel
+    public fromGenesisExecution: ProcessModel
     public loading = true;
 
     constructor(
@@ -53,7 +53,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         );
     }
 
-    public buildGenesis(creationParametersRaw: any, creationRnaAlignmentRaw: any, creationDnaAlignmentRaw: any): GenesisProcessModel {
+    public buildGenesis(creationParametersRaw: any, creationRnaAlignmentRaw: any, creationDnaAlignmentRaw: any): ProcessModel {
         const dnaAlignmentParameters = (creationDnaAlignmentRaw.alignmentParameters) ? creationDnaAlignmentRaw.alignmentParameters.split(',') : [];
         const dnaDumpParameters = (creationDnaAlignmentRaw.dumpParameters) ? creationDnaAlignmentRaw.dumpParameters.split(',') : [];
         const dnaExtractionParameters = (creationDnaAlignmentRaw.extractionParameters) ? creationDnaAlignmentRaw.extractionParameters.split(',') : [];
@@ -108,7 +108,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
                 sra: creationParametersRaw.rnaSraId as string
             },
             reference: creationParametersRaw.reference
-        } as GenesisProcessModel;
+        } as ProcessModel;
     }
     public eventCreateGenesisProcess(): void {
         const creationParametersRaw = FormHelper.getRawValueNotNull(this.parametersForm);
@@ -116,7 +116,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         const creationRnaAlignmentRaw = FormHelper.getRawValueNotNull(this.rnaAlignmentForm);
         const genesisProcess = this.buildGenesis(creationParametersRaw, creationRnaAlignmentRaw, creationDnaAlignmentRaw);
         this.genesisService.createProcess(genesisProcess).subscribe(
-            (genesisProcess: GenesisProcessModel) => {
+            (genesisProcess: ProcessModel) => {
                 const link = GenesisStates.genesis.path + '/' + genesisProcess._id;
                 this.openSuccessMessageBox(
                     'O Processo começou!', 'Sucesso',  link, 'Clique para Acompanhar'
@@ -136,7 +136,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
     public getDnaAlignmentTools(): Array<AlignmentToolModel> {
         return this.aligmentTools.filter((aligmentTool: AlignmentToolModel) => aligmentTool.type === 'dna')
     }
-    protected getExecutionReference(): Observable<GenesisProcessModel> {
+    protected getExecutionReference(): Observable<ProcessModel> {
         const fromProcessId = this.route.snapshot.queryParams.from;
         if (fromProcessId) {
             return this.genesisService.getProcessById(fromProcessId);
@@ -153,7 +153,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
             this.genesisService.getGenomeReferences(),
             this.getExecutionReference()
         ).pipe(
-            map((result: [Array<AlignmentToolModel>, Array<GeneomeReferenceModel>, GenesisProcessModel]) => {
+            map((result: [Array<AlignmentToolModel>, Array<GeneomeReferenceModel>, ProcessModel]) => {
                 this.aligmentTools = result[0];
                 this.genomeReferences = result[1];
                 this.fromGenesisExecution = result[2];

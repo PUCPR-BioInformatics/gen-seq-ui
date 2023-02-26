@@ -1,10 +1,10 @@
 <div class = "ui-component-container">
-    <app-spinner *ngIf = "!genesisProcess" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
-    <div class = "ui-process-detail-container" *ngIf = "genesisProcess">
-        <app-chart class = "ui-chart-container" [data] = "genesisProcessData$" type = "gauge"></app-chart>
+    <app-spinner *ngIf = "!process" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
+    <div class = "ui-process-detail-container" *ngIf = "process">
+        <app-chart class = "ui-chart-container" [data] = "processData$" type = "gauge"></app-chart>
         <div class = "ui-process-detail-header">
             <span class = "ui-process-detail-header-title">Detalhes da Execução</span>
-            <span class = "ui-process-detail-header-subtitle">{{ genesisProcess._id }}</span>
+            <span class = "ui-process-detail-header-subtitle">{{ process._id }}</span>
             <div class = "ui-process-detail-header-options">
                 <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
                     <span class = "far fa-file"></span>
@@ -15,7 +15,7 @@
                 <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
                     <span class = "fas fa-history"></span>
                 </button>
-                <button mat-button *ngIf = "!genesisProcess?.completedDate"
+                <button mat-button *ngIf = "!process?.completedDate"
                         class = "ui-circle-button ui-header-title-button ui-cancel-process-button"
                         matTooltip = "Cancelar execução" (click) = "eventCancelGenesisProcess()">
                     <span class = "fas fa-times"></span>
@@ -23,11 +23,11 @@
             </div>
         </div>
         <div class = "ui-process-analyses-container">
-            <span class = "ui-process-result">{{ (genesisProcess.result) ? genesisProcess.result.description : 'Executando...' }}</span>
+            <span class = "ui-process-result">{{ (process.result) ? process.result.description : 'Executando...' }}</span>
             <div class = "ui-process-analyses-informations">
                 <div class = "ui-process-analyses-body">
                     <div class = "ui-process-analyses-header">
-                        {{ genesisProcess.dnaResource.sra }}
+                        {{ process.dnaResource.sra }}
                     </div>
                     <div class = "ui-process-analyses-information">
                         <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaAlignmentSize === undefined"></app-spinner>
@@ -60,14 +60,14 @@
                 </div>
                 <div class = "ui-process-analyses-body ui-process-analyses-general">
                     <div class = "ui-process-analyses-information">
-                        <span class = "ui-process-analyses-information-value">{{ genesisProcess.reference }}</span>
+                        <span class = "ui-process-analyses-information-value">{{ process.reference }}</span>
                         <span class = "ui-process-analyses-information-alias">Referência</span>
                         <span class = "ui-process-analyses-information-value ui-process-analyses-execution-time">{{ getExecutionTime() }}</span>
                     </div>
                 </div>
                 <div class = "ui-process-analyses-body">
                     <div class = "ui-process-analyses-header">
-                        {{ genesisProcess.rnaResource.sra }}
+                        {{ process.rnaResource.sra }}
                     </div>
                     <div class = "ui-process-analyses-information">
                         <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaAlignmentSize === undefined"></app-spinner>
@@ -101,21 +101,21 @@
             </div>
         </div>
         <div class = "ui-process-executions">
-            <div [class] = "getCssClass(execution)" *ngFor = "let execution of genesisProcess.executions" (click) = "eventExecutionDetail(execution)">
+            <div [class] = "getCssClass(command)" *ngFor = "let command of commands" (click) = "eventExecutionDetail(command)">
                 <div class = "ui-process-execution-step-container">
-                    <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(execution.step, $event)" *ngIf = "execution.startDate !== null">
+                    <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command.step, $event)" *ngIf = "command.startDate !== null">
                         <span class = "fas fa-redo"></span>
                     </button>
                     <div class = "ui-process-execution-step-information">
-                        <span>{{execution.step | StringNormalizePipe}}</span>
+                        <span>{{command.step | StringNormalizePipe}}</span>
                         <div class = "ui-process-execution-status">
-                            {{ getExecutionStatus(execution) }}
+                            {{ getExecutionStatus(command) }}
                         </div>
                     </div>
                 </div>
                 <div class = "ui-process-execution-time">
-                    <app-field-view class = "ui-process-field" label = "Data Início" [value] = "execution.startDate" [isDate] = "true"></app-field-view>
-                    <app-field-view class = "ui-process-field" label = "Data Fim" [value] = "execution.endDate" [isDate] = "true"></app-field-view>
+                    <app-field-view class = "ui-process-field" label = "Data Início" [value] = "command.startDate" [isDate] = "true"></app-field-view>
+                    <app-field-view class = "ui-process-field" label = "Data Fim" [value] = "command.endDate" [isDate] = "true"></app-field-view>
                 </div>
                 <div class = "ui-divisor"></div>
             </div>

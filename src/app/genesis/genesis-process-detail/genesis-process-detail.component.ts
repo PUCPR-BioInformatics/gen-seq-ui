@@ -4,22 +4,24 @@ import { Component } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject, interval } from 'rxjs';
-import { filter, retry, startWith, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, interval } from 'rxjs';
+import { filter, startWith, switchMap } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
 import { GenesisProcessService } from '../genesis-process.service';
-import { GenesisProcessModel } from '../shared/model/genesis-process.model';
+import { ProcessModel } from '../shared/model/process.model';
 import { GenesisStates } from '../genesis.states';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
-import { GenesisProcessStepEnum } from '../shared/enum/genesis-process-step.enum';
-import { GenesisProcessStepExecutionModel } from '../shared/model/genesis-process-step-execution.model';
-import { GenesisProcessExecutionDetailComponent } from './genesis-process-execution-detail/genesis-process-execution-detail.component';
-import { GenesisProcessStepExecutionStatusEnum } from '../shared/enum/genesis-process-step-execution-status.enum';
-import { GenesisProcessResultParametersModel } from '../shared/model/genesis-process-result-parameters.model';
+import {
+    GenesisProcessExecutionDetailComponent
+} from './genesis-process-execution-detail/genesis-process-execution-detail.component';
+import { CommandExecutionModel } from '../shared/model/command-execution.model';
+import { ProcessStepEnum } from '../shared/enum/process-step-enum';
+import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
+import { CommandResultOutputParameters } from '../shared/model/command-result-output.parameters';
 
 @Component({
     selector: 'app-genesis-process-detail',
@@ -29,8 +31,9 @@ import { GenesisProcessResultParametersModel } from '../shared/model/genesis-pro
 export class GenesisProcessDetailComponent extends AbstractComponent {
 
     public TIMER = interval(2000).pipe(startWith(0));
-    public genesisProcess: GenesisProcessModel;
-    public genesisProcessData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
+    public commands: Array<CommandExecutionModel>;
+    public process: ProcessModel;
+    public processData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
     public informations: { [key: string]: string | number | undefined } = {};
     public title: string;
     public subTitle: string;
@@ -51,9 +54,9 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         this.initialize();
     }
 
-    public buildGenesisChartData(execution: GenesisProcessModel): void {
-        const total = execution.executions.length;
-        const completeness = parseFloat((execution.completeness * 100).toFixed(0));
+    public buildGenesisChartData(process: ProcessModel): void {
+        const total = this.commands.length;
+        const completeness = parseFloat((process.completeness * 100).toFixed(0));
         const completenessText = isNaN(completeness) ? 'Sem dados' : completeness + '%';
         const completenessTooltip = ChartHelper.buildTooltip('Executado ' + completenessText, 'ui-chart-tooltip');
         const executedTooltip = ChartHelper.buildTooltip('Executado ' + completenessText, 'ui-chart-tooltip');
@@ -64,26 +67,25 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
                 completenessTooltip
             )
         ];
-        if (execution.step !== GenesisProcessStepEnum.WAITING) {
-            const cssClass = (execution.step !== GenesisProcessStepEnum.COMPLETE) ? ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'] :
-                ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
-            const effect = ChartHelper.buildGradientEffect(
-                'gradient-execution-' + new Date().getTime() + execution._id,
-                { class: cssClass[0], offset: '0%' },
-                { class: cssClass[1], offset: '100%'},
-                ['stroke', 'fill']
-            );
-            const executionPloCssClass = (execution.completedDate) ? 'ui-chart-gauge-meter-path': 'ui-chart-gauge-meter-path ui-chart-gauge-pulse';
-            plots.push(
-                ChartHelper.buildGaugeGenericPlotDataModel(
-                    total, 0, 1 * execution.completeness,
-                    70, 76, executionPloCssClass,
-                    executedTooltip,
-                    [effect]
-                )
-            );
-        }
-        this.genesisProcessData$.next({
+        const cssClass = (process.completedDate) ? ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'] :
+            ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
+        const effect = ChartHelper.buildGradientEffect(
+            'gradient-execution-' + new Date().getTime() + process._id,
+            { class: cssClass[0], offset: '0%' },
+            { class: cssClass[1], offset: '100%'},
+            ['stroke', 'fill']
+        );
+        const executionPloCssClass = (process.completedDate) ? 'ui-chart-gauge-meter-path': 'ui-chart-gauge-meter-path ui-chart-gauge-pulse';
+        plots.push(
+            ChartHelper.buildGaugeGenericPlotDataModel(
+                total, 0, 1 * process.completeness,
+                70, 76, executionPloCssClass,
+                executedTooltip,
+                [effect]
+            )
+        );
+
+        this.processData$.next({
             tooltip: completenessTooltip,
             informations: {
                 progress: ChartHelper.buildContextInformation(completenessText, 0, 10)
@@ -113,9 +115,9 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
     }
     public eventCancelGenesisProcess(): void {
         this.loadingState('Cancelando o process...');
-        this.genesisService.cancelProcess(this.genesisProcess).subscribe(
-            (genesisProcess: GenesisProcessModel) => {
-                this.genesisProcess = genesisProcess;
+        this.genesisService.cancelProcess(this.process).subscribe(
+            (genesisProcess: ProcessModel) => {
+                this.process = genesisProcess;
                 this.loadingStateDone();
             }, (error: HttpErrorResponse) => {
                 this.openErrorMessageBox(error);
@@ -127,7 +129,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         this.router.navigate(['../creation'], {
             relativeTo: this.route,
             queryParams: {
-                from: this.genesisProcess._id
+                from: this.process._id
             }
         });
     }
@@ -136,21 +138,21 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             relativeTo: this.route
         });
     }
-    public eventExecutionDetail(execution: GenesisProcessStepExecutionModel): void {
+    public eventExecutionDetail(execution: CommandExecutionModel): void {
         this.dialog.open(GenesisProcessExecutionDetailComponent, {
             data: {
                 execution,
-                process: this.genesisProcess
+                process: this.process
             },
             maxWidth: '90vw',
             maxHeight: '90vh'
         })
     }
-    public eventRetryStep(step: GenesisProcessStepEnum, event: Event): void {
+    public eventRetryStep(step: ProcessStepEnum, event: Event): void {
         event.preventDefault();
         event.stopPropagation();
-        this.subscriptions$.add(this.genesisService.retryProcess(this.genesisProcess._id, step).subscribe(
-            (updatedProcess: GenesisProcessModel) => {
+        this.subscriptions$.add(this.genesisService.retryProcess(this.process._id, step).subscribe(
+            (updatedProcess: ProcessModel) => {
                 this.handleGenesisProcess(updatedProcess);
             }, (error) => {
                 this.openErrorMessageBox(error);
@@ -163,15 +165,16 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         });
     }
     protected getAlignmentSize(type: 'dna' | 'rna'): number | undefined{
-        const step = (type === 'dna') ? GenesisProcessStepEnum.ALIGNING_DNA : GenesisProcessStepEnum.ALIGNING_RNA;
-        const execution = this.genesisProcess.executions.find((execution) => execution.step === step);
+        const step = (type === 'dna') ? ProcessStepEnum.ALIGNING_DNA : ProcessStepEnum.ALIGNING_RNA;
+        const execution = this.commands.find((execution) => execution.step === step);
         const parameter = execution.result?.outputParameters.find((parameter) => parameter.name === 'alignmentOutputSize');
 
         return (parameter) ? parseInt(parameter.value as string) : undefined;
     }
     protected getExtractionSizes(type: 'dna' | 'rna'): [number | undefined, number | undefined, number | undefined]{
-        const step = (type === 'dna') ? GenesisProcessStepEnum.EXTRACT_DNA : GenesisProcessStepEnum.EXTRACT_RNA;
-        const execution = this.genesisProcess.executions.find((execution) => execution.step === step);
+        const step = (type === 'dna') ? ProcessStepEnum.EXTRACT_DNA : ProcessStepEnum.EXTRACT_RNA;
+        const execution = this.commands.find((execution) => execution.step === step);
+        console.log(this.commands, step)
         const parameterVariants = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedOutputSize');
         const parameterSnps = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedSnpsOutputSize');
         const parameterIndels = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedIndelsOutputSize');
@@ -182,54 +185,54 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             (parameterIndels) ? parseInt(parameterIndels.value as string) - 29 : undefined,
         ];
     }
-    public getCssClass(execution: GenesisProcessStepExecutionModel): string {
+    public getCssClass(execution: CommandExecutionModel): string {
         let cssClass = 'ui-process-execution ui-card ui-card-zoomed ';
 
         if (!execution.startDate) {
             cssClass += 'ui-process-execution-waiting';
         } else if (!execution.endDate) {
             cssClass += 'ui-process-execution-executing';
-        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.FAIL) {
+        } else if (execution.status === CommandExecutionStatusEnum.FAIL) {
             cssClass += 'ui-process-execution-fail';
-        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SUCCESS) {
+        } else if (execution.status === CommandExecutionStatusEnum.SUCCESS) {
             cssClass += 'ui-process-execution-done';
-        } else if (execution.result.status === GenesisProcessStepExecutionStatusEnum.SKIPPED) {
+        } else if (execution.status === CommandExecutionStatusEnum.SKIPPED) {
             cssClass += 'ui-process-execution-skipped';
         } else {
-            console.warn(`Status não conhecido ${execution.result.status}`);
+            console.warn(`Status não conhecido ${execution.status}`);
         }
 
         return cssClass;
     }
-    public getExecutionStatus(execution: GenesisProcessStepExecutionModel): string {
+    public getExecutionStatus(execution: CommandExecutionModel): string {
         if (!execution.startDate) {
-            return (this.genesisProcess.result?.status === 'fail') ? 'Não executado' : 'Agurdando';
+            return 'Aguardando';
         } else if (!execution.endDate) {
             return 'Em Execução';
         } else {
-            return (execution.result.status === 'fail') ? 'Falhou' : 'Concluído';
+            return (execution.status === CommandExecutionStatusEnum.FAIL) ? 'Falhou' : 'Concluído';
         }
     }
     public getExecutionTime(type?: 'dna' | 'rna'): string {
         let time = 0;
 
         if (type) {
-            if (!this.genesisProcess.completedDate) {
+            if (!this.process.completedDate) {
                 return 'Executando';
             }
-            this.genesisProcess.executions.filter((execution) => execution.type === type).forEach((execution) => {
+            this.commands.filter((execution) => execution.type === type).forEach((execution) => {
                 time += new Date(execution.endDate).getTime() - new Date(execution.startDate).getTime()
             });
         } else {
-            let initialTime = new Date(this.genesisProcess.creationDate).getTime();
-            let finalTime = new Date(this.genesisProcess.completedDate).getTime();
+            let initialTime = new Date(this.process.creationDate).getTime();
+            let finalTime = new Date(this.process.completedDate).getTime();
 
-            if (!this.genesisProcess.completedDate) {
+            if (!this.process.completedDate) {
                 finalTime = new Date().getTime();
             }
-            if (this.genesisProcess.executionsHistory) {
-                initialTime = new Date(this.genesisProcess.executions[0].startDate).getTime();
-            }
+            // if (this.genesisProcess.executionsHistory) {
+            //     initialTime = new Date(this.genesisProcess.executions[0].startDate).getTime();
+            // }
 
             time = finalTime - initialTime;
         }
@@ -242,9 +245,9 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
             return (seconds / 60 / 60).toFixed(2) + ' hora(s)';
         }
     }
-    public getFiles(type: 'dna' | 'rna'): Array<GenesisProcessResultParametersModel> {
+    public getFiles(type: 'dna' | 'rna'): Array<CommandResultOutputParameters> {
         const parameters = [];
-        const executions = this.genesisProcess.executions.filter((execution) => execution.type === type);
+        const executions = this.commands.filter((execution) => execution.type === type);
 
         for (const execution of executions) {
             for (const parameter of execution.result.outputParameters) {
@@ -255,11 +258,11 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         }
         return parameters;
     }
-    private handleGenesisProcess(genesisProcess: GenesisProcessModel): void {
-        if (JSON.stringify(genesisProcess) !== JSON.stringify(this.genesisProcess)) {
-            this.genesisProcess = genesisProcess;
+    private handleGenesisProcess(genesisProcess: ProcessModel): void {
+        if (JSON.stringify(genesisProcess) !== JSON.stringify(this.process)) {
+            this.process = genesisProcess;
             this.title = 'Detalhes da Execução';
-            this.subTitle = this.genesisProcess._id;
+            this.subTitle = this.process._id;
             this.buildGenesisChartData(genesisProcess);
             this.lastUpdate = new Date();
             this.collectInformations();
@@ -271,15 +274,23 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
 
         this.watchGenesisProcess();
     }
-    public trackExecutionByStep(index: number, execution: GenesisProcessStepExecutionModel): string {
+    public trackExecutionByStep(index: number, execution: CommandExecutionModel): string {
         return execution.step;
     }
     private watchGenesisProcess(): void {
         this.subscriptions$.add(this.TIMER.pipe(
-            filter(() => !this.genesisProcess || this.genesisProcess.completedDate === null),
-            switchMap(() => this.genesisService.getProcessById(this.route.snapshot.params.id))
+            filter(() => !this.process || this.process.completedDate === null),
+            switchMap(() => {
+                return forkJoin([
+                    this.genesisService.getProcessById(this.route.snapshot.params.id),
+                    this.genesisService.getCommandsByProcessId(this.route.snapshot.params.id)
+                ])
+            })
         ).subscribe(
-            (genesisProcess: GenesisProcessModel) => this.handleGenesisProcess(genesisProcess),
+            (result: [ProcessModel, Array<CommandExecutionModel>]) => {
+                this.commands = result[1];
+                this.handleGenesisProcess(result[0]);
+            },
             (error: HttpErrorResponse) => {
                 this.openErrorMessageBox(error);
             }
