@@ -1,11 +1,11 @@
 {
     "production": {
-        "gen-seq-api": "http://localhost:9501/gen-seq-api/"
+        "genSeqWs": "ws://localhost:9501/gen-seq-api/ws/"
     },
     "qa": {
-        "gen-seq-api": "http://localhost:9501/gen-seq-api/"
+        "genSeqWs": "ws://localhost:9501/gen-seq-api/ws/"
     },
     "development": {
-        "gen-seq-api": "http://localhost:9501/gen-seq-api/"
+        "genSeqWs": "ws://localhost:9501/gen-seq-api/ws/"
     }
 }

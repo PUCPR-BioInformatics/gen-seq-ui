@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { PaginationModel } from '../shared/model/pagination.model';
+
 import { Observable } from 'rxjs';
+
+import { PaginationModel } from '../shared/model/pagination.model';
 import { ProcessPaginatedModel } from './shared/model/process-paginated.model';
 import { SystemService } from '../core/system.service';
 import { ProcessModel } from './shared/model/process.model';
@@ -9,29 +10,52 @@ import { GeneomeReferenceModel } from './shared/model/geneome-reference.model';
 import { AlignmentToolModel } from './shared/model/alignment-tool.model';
 import { ProcessStepEnum } from './shared/enum/process-step-enum';
 import { CommandExecutionModel } from './shared/model/command-execution.model';
+import { WsConnectorProvider } from '../core/ws/provider/ws-connector.service';
+import { AbstractWsService } from '../core/ws/service/abstract-ws-service';
+import { WsMessageModel } from '../core/ws/model/ws-message.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class GenesisProcessService {
+export class GenesisProcessService extends AbstractWsService {
     constructor(
-        private systemService: SystemService,
-        private http: HttpClient
-    ) { }
+        protected systemService: SystemService,
+        protected wsConnectorProvider: WsConnectorProvider
+    ) {
+        super(systemService, wsConnectorProvider);
+    }
+
+    protected getWsPath(): string {
+        return 'genSeqWs';
+    }
 
     public cancelProcess(genesisProcess: ProcessModel): Observable<ProcessModel> {
-        return this.http.delete<ProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'orchestrator/process/' + genesisProcess._id);
+        return this.sendRequest<ProcessModel>(new WsMessageModel({
+            name: 'orchestrator-process-delete',
+            version: '1.0',
+            body: genesisProcess
+        }));
     }
     public createProcess(genesisProcess: ProcessModel): Observable<ProcessModel> {
-        return this.http.post<ProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'orchestrator/process', genesisProcess);
+        return this.sendRequest<ProcessModel>(new WsMessageModel({
+            name: 'orchestrator-process-create',
+            version: '1.0',
+            body: genesisProcess
+        }));
     }
     public getAlignmentTools(): Observable<Array<AlignmentToolModel>> {
-        const url = this.systemService.getApiPath('gen-seq-api') + 'resources/alignment/tools';
-        return this.http.get<Array<AlignmentToolModel>>(url)
+        return this.sendRequest<Array<AlignmentToolModel>>(new WsMessageModel({
+            name: 'alignment-tools-search',
+            version: '1.0',
+            body: null
+        }));
     }
     public getGenomeReferences(): Observable<Array<GeneomeReferenceModel>> {
-        const url = this.systemService.getApiPath('gen-seq-api') + 'resources/genome/references';
-        return this.http.get<Array<GeneomeReferenceModel>>(url)
+        return this.sendRequest<Array<GeneomeReferenceModel>>(new WsMessageModel({
+            name: 'genome-references-search',
+            version: '1.0',
+            body: null
+        }));
     }
     public getProcess(filter: any = {}, pagination?: PaginationModel, sort?: any): Observable<ProcessPaginatedModel> {
         const queryParam = new URLSearchParams(filter);
@@ -48,19 +72,35 @@ export class GenesisProcessService {
 
         const queryParamUrl = (queryParam.toString() !== '') ? '?' + queryParam.toString() : ''
 
-        return this.http.get<ProcessPaginatedModel>(this.systemService.getApiPath('gen-seq-api') + 'orchestrator/process' + queryParamUrl);
+        return this.sendRequest<ProcessPaginatedModel>(new WsMessageModel({
+            name: 'orchestrator-process-search',
+            version: '1.0',
+            body: queryParamUrl
+        }));
     }
     public getCommandsByProcessId(processId): Observable<Array<CommandExecutionModel>> {
-        return this.http.get<Array<CommandExecutionModel>>(this.systemService.getApiPath('gen-seq-api') + 'orchestrator/command/' + processId);
+        return this.sendRequest<Array<CommandExecutionModel>>(new WsMessageModel({
+            name: 'orchestrator-process-commands',
+            version: '1.0',
+            body: processId
+        }));
     }
     public getProcessById(processId: string): Observable<ProcessModel> {
-        return this.http.get<ProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'orchestrator/process/' + processId);
+        return this.sendRequest<ProcessModel>(new WsMessageModel({
+            name: 'orchestrator-process',
+            version: '1.0',
+            body: processId
+        }));
     }
     public retryProcess(processId: string, step: ProcessStepEnum): Observable<ProcessModel> {
         const retry = {
             processId,
             step
         };
-        return this.http.put<ProcessModel>(this.systemService.getApiPath('gen-seq-api') + 'orchestrator/process/' + processId + '/retry', retry);
+        return this.sendRequest<ProcessModel>(new WsMessageModel({
+            name: 'orchestrator-process-retry',
+            version: '1.0',
+            body: retry
+        }));
     }
 }

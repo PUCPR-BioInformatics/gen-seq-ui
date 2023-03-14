@@ -18,14 +18,11 @@ import { ThemeModel } from '../shared/model/theme.model';
 export class SystemService {
 
     protected static NOT_CLEANABLE = ['current-theme', 'retracted', 'navBarMode'];
-    public TOKEN_VERIFICATION_TIME = 60000;
-    protected WS_RECONNECT_INTERVAL = 1000;
 
     protected currentState$: BehaviorSubject<AppState> = new BehaviorSubject(null);
     protected currentSubState$: BehaviorSubject<AppState> = new BehaviorSubject(null);
     protected currentTheme$: BehaviorSubject<string> = new BehaviorSubject(null);
     protected initialized$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(undefined);
-    protected isSigningOut = false;
     protected isDeviceMobile = false;
     protected retracted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(undefined);
     protected navBarMode$: BehaviorSubject<'vertical' | 'horizontal' | 'mobile'> = new BehaviorSubject(undefined);
