@@ -27,7 +27,6 @@ export class NavBarComponent extends AbstractComponent implements AfterViewInit 
     retracted: boolean;
     actualState: AppState;
     actualSubState: AppState;
-    isNotificationClicked = false;
     menu: MatMenuTrigger;
 
     constructor(
@@ -78,26 +77,14 @@ export class NavBarComponent extends AbstractComponent implements AfterViewInit 
         this.actualState = state;
         this.router.navigate([state.path]);
     }
-    public eventNavigationModeChange(mode: 'vertical' | 'horizontal' | 'mobile'): void {
-        this.systemService.setNavBarMode(mode);
-    }
-    public eventNotificationClicked(): void {
-        this.isNotificationClicked = true;
-    }
     public eventRetract(): void {
         this.systemService.setRetraction(!this.retracted);
-    }
-    public eventThemeChange(theme: ThemeModel): void {
-        this.systemService.setTheme(theme.themeClass);
     }
     public eventUserProfilePanel(): void {
         this.userComponentService.openUserProfilePanel();
     }
     public getSystemName(): string {
         return this.systemService.getSystemName();
-    }
-    public getThemes(): Array<ThemeModel> {
-        return this.systemService.getThemes();
     }
     protected watchNavBarMode(): void {
         this.subscriptions$.add(this.systemService.watchNavBarMode().subscribe(

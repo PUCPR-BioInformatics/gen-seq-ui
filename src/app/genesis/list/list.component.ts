@@ -17,11 +17,11 @@ import { ChartDataModel } from '../../shared/components/chart/model/chart-data.m
 import { ChartHelper } from '../../shared/helper/chart.helper';
 
 @Component({
-    selector: 'app-genesis-process-summary',
-    templateUrl: './genesis-process-summary.component.html',
-    styleUrls: ['./genesis-process-summary.component.scss']
+    selector: 'app-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss']
 })
-export class GenesisProcessSummaryComponent extends AbstractComponent {
+export class ListComponent extends AbstractComponent {
 
     private TIMER = interval(2000).pipe(startWith(0));
     private FORCE_UPDATE = new BehaviorSubject<boolean>(true);
@@ -46,9 +46,75 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
     }
 
     public ngOnInit(): void {
-        //this.initialize()
+        this.initialize()
     }
 
+    private handleGenesisProcessContainer(genesisProcess: ProcessPaginatedModel): void {
+        this.genesisProcess = genesisProcess;
+        this.title = 'Execuções';
+
+        if (this.genesisProcess.size > 0) {
+            this.subTitle = 'Encontradas ' + this.genesisProcess.size;
+        } else {
+            this.subTitle = 'Nenhuma Execução Encontrada';
+        }
+    }
+    private initialize(): void {
+        this.title = 'Buscando execuções';
+        this.subTitle = 'Aguarde';
+
+        this.initializeRoute();
+        this.watchGenesisProcess();
+    }
+    private initializeRoute(): void {
+        const queryParams = this.route.snapshot.queryParams;
+
+        if (queryParams.page && queryParams.limit) {
+            this.pagination = {
+                limit: parseInt(queryParams.limit),
+                page: parseInt(queryParams.page)
+            }
+        } else {
+            this.pushPaginationState(true);
+        }
+    }
+    private pushPaginationState(replace = false): void {
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {
+                limit: this.pagination.limit,
+                page: this.pagination.page
+            },
+            replaceUrl: replace
+        })
+    }
+    private trackById(index: number, item: ProcessModel): any {
+        return item._id;
+    }
+
+    private watchGenesisProcess(): void {
+        this.subscriptions$.add(combineLatest([
+            this.TIMER,
+            this.FORCE_UPDATE.pipe(filter((update) => update === true)),
+        ]).pipe(
+            filter((values: [number, boolean]) => {
+                return !this.REQUESTING || values[1] === true
+            }),
+            switchMap(() => {
+                this.REQUESTING = true;
+                return this.genesisProcessService.getProcess({}, this.pagination);
+            })
+        ).subscribe(
+            (genesisProcess: ProcessPaginatedModel) => {
+                this.handleGenesisProcessContainer(genesisProcess);
+                this.FORCE_UPDATE.next(false);
+                this.REQUESTING = false;
+            },
+            (error: HttpErrorResponse) => {
+                this.openErrorMessageBox(error);
+            }
+        ));
+    }
     // public eventLimitChanged(limit: number): void {
     //     this.pagination.limit = limit;
     //     this.forceUpdate();
@@ -129,72 +195,11 @@ export class GenesisProcessSummaryComponent extends AbstractComponent {
     //
     //     return (time / 1000 / 60).toFixed(2) + ' minutos'
     // }
-    // private handleGenesisProcessContainer(genesisProcess: ProcessPaginatedModel): void {
-    //     this.genesisProcess = genesisProcess;
-    //     this.title = 'Execuções';
-    //
-    //     if (this.genesisProcess.size > 0) {
-    //         this.subTitle = 'Encontradas ' + this.genesisProcess.size;
-    //     } else {
-    //         this.subTitle = 'Nenhuma Execução Encontrada';
-    //     }
-    // }
-    // private initialize(): void {
-    //     this.title = 'Buscando execuções';
-    //     this.subTitle = 'Aguarde';
-    //
-    //     this.initializeRoute();
-    //     this.watchGenesisProcess();
-    // }
-    // private initializeRoute(): void {
-    //     const queryParams = this.route.snapshot.queryParams;
-    //
-    //     if (queryParams.page && queryParams.limit) {
-    //         this.pagination = {
-    //             limit: parseInt(queryParams.limit),
-    //             page: parseInt(queryParams.page)
-    //         }
-    //     } else {
-    //         this.pushPaginationState(true);
-    //     }
-    // }
+
     // private isFailed(genesisExecution: ProcessModel): boolean {
     //     return genesisExecution.result.status === 'fail';
     // }
-    // private pushPaginationState(replace = false): void {
-    //     this.router.navigate([], {
-    //         relativeTo: this.route,
-    //         queryParams: {
-    //             limit: this.pagination.limit,
-    //             page: this.pagination.page
-    //         },
-    //         replaceUrl: replace
-    //     })
-    // }
-    // private trackById(index: number, item: ProcessModel): any {
-    //     return item._id;
-    // }
-    // private watchGenesisProcess(): void {
-    //     this.subscriptions$.add(combineLatest([
-    //         this.TIMER,
-    //         this.FORCE_UPDATE.pipe(filter((update) => update === true)),
-    //     ]).pipe(
-    //         filter((values: [number, boolean]) => {
-    //             return !this.REQUESTING || values[1] === true
-    //         }),
-    //         switchMap(() => {
-    //             this.REQUESTING = true;
-    //             return this.genesisProcessService.getProcess({}, this.pagination);
-    //         })
-    //     ).subscribe(
-    //         (genesisProcess: ProcessPaginatedModel) => {
-    //             this.handleGenesisProcessContainer(genesisProcess);
-    //             this.FORCE_UPDATE.next(false);
-    //             this.REQUESTING = false;
-    //         },
-    //         (error: HttpErrorResponse) => {
-    //             this.openErrorMessageBox(error);
-    //         }
-    //     ));
-    // }
+
+
+
 }

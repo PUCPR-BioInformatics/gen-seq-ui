@@ -15,14 +15,13 @@ import { FormHelper } from '../../shared/helper/form.helper';
 import { GenesisStates } from '../genesis.states';
 import { AlignmentToolModel } from '../shared/model/alignment-tool.model';
 import { GeneomeReferenceModel } from '../shared/model/geneome-reference.model';
-import validate = WebAssembly.validate;
 
 @Component({
-    selector: 'app-genesis-process-creation',
-    templateUrl: './genesis-process-creation.component.html',
-    styleUrls: ['./genesis-process-creation.component.scss']
+    selector: 'app-creation',
+    templateUrl: './creation.component.html',
+    styleUrls: ['./creation.component.scss']
 })
-export class GenesisProcessCreationComponent extends AbstractComponent{
+export class CreationComponent extends AbstractComponent{
 
     public aligmentTools: Array<AlignmentToolModel>;
     public parametersForm: FormGroup;
@@ -117,7 +116,7 @@ export class GenesisProcessCreationComponent extends AbstractComponent{
         const genesisProcess = this.buildGenesis(creationParametersRaw, creationRnaAlignmentRaw, creationDnaAlignmentRaw);
         this.genesisService.createProcess(genesisProcess).subscribe(
             (genesisProcess: ProcessModel) => {
-                const link = GenesisStates.genesis.path + '/' + genesisProcess._id;
+                const link = GenesisStates.list.path + '/' + genesisProcess._id;
                 this.openSuccessMessageBox(
                     'O Processo começou!', 'Sucesso',  link, 'Clique para Acompanhar'
                 ).afterClosed().subscribe(() => {

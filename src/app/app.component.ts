@@ -86,8 +86,7 @@ export class AppComponent {
             return;
         }
         const fullUrl = (event.url === '/') ? event.urlAfterRedirects : event.url;
-        const urls = fullUrl.replace('/', '').replace(/\?.*/, '').split('/');
-        this.systemService.setState(this.userStates.find((state: AppState) => urls[0] === state.name));
+        this.systemService.setState(this.userStates.find((state: AppState) => fullUrl.includes(state.path)));
         // Todo coletar os sub states e setar na linha abaixo.
         this.systemService.setSubState(null);
 

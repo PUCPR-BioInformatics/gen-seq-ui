@@ -24,11 +24,11 @@ import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-sta
 import { CommandResultOutputParameters } from '../shared/model/command-result-output.parameters';
 
 @Component({
-    selector: 'app-genesis-process-detail',
-    templateUrl: './genesis-process-detail.component.html',
-    styleUrls: ['./genesis-process-detail.component.scss']
+    selector: 'app-detail',
+    templateUrl: './detail.component.html',
+    styleUrls: ['./detail.component.scss']
 })
-export class GenesisProcessDetailComponent extends AbstractComponent {
+export class DetailComponent extends AbstractComponent {
 
     public TIMER = interval(2000).pipe(startWith(0));
     public commands: Array<CommandExecutionModel>;
@@ -160,7 +160,7 @@ export class GenesisProcessDetailComponent extends AbstractComponent {
         ));
     }
     public eventNewExecution(): void {
-        this.router.navigate(['../' + GenesisStates.genesis.subStates.creation.path ], {
+        this.router.navigate(['../' + GenesisStates.creation.path ], {
             relativeTo: this.route
         });
     }

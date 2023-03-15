@@ -21,13 +21,19 @@
 .ui-component-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-flow: column;
-    flex: 1;
-    width: 100%;
+    width: auto;
 
     @include themify {
         color: themed('primary-text-color');
+    }
+}
+
+.ui-component-container-shadowed {
+    border-radius: 4px;
+
+    @include themify {
+        box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
     }
 }
 

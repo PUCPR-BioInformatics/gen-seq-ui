@@ -2,21 +2,27 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { GenesisStates } from './genesis.states';
-import { GenesisProcessSummaryComponent } from './genesis-process-summary/genesis-process-summary.component';
-import { GenesisProcessDetailComponent } from './genesis-process-detail/genesis-process-detail.component';
-import { GenesisProcessCreationComponent } from './genesis-process-creation/genesis-process-creation.component';
+import { ListComponent } from './list/list.component';
+import { DetailComponent } from './detail/detail.component';
+import { CreationComponent } from './creation/creation.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: GenesisProcessSummaryComponent
+        redirectTo: GenesisStates.list.path
     }, {
-        path: GenesisStates.genesis.subStates.creation.path,
-        component: GenesisProcessCreationComponent
+        path: GenesisStates.list.path,
+        component: ListComponent,
+        children: [
+            {
+                path: GenesisStates.list.subStates.detail.path + '/:id',
+                component: DetailComponent,
+            }
+        ]
     }, {
-        path: GenesisStates.genesis.subStates.detail.path,
-        component: GenesisProcessDetailComponent,
+        path: GenesisStates.creation.path,
+        component: CreationComponent
     }
 ];
 

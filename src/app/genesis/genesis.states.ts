@@ -1,38 +1,30 @@
 export const GenesisStates = {
-    genesis: {
-        name: 'genesis',
-        alias: 'Genesis',
-        path: 'genesis',
-        icon: 'fas fa-dna',
+    creation: {
+        name: 'genesis-creation',
+        alias: 'Create',
+        path: 'execution/creation',
+        icon: 'fa-regular fa-file',
+        profiles: [],
+        permissions: null,
+        subStates: null
+    },
+    list: {
+        name: 'genesis-list',
+        alias: 'Executions',
+        path: 'executions',
+        icon: 'fa-solid fa-diagram-project',
         profiles: [],
         permissions: null,
         subStates: {
-            creation: {
-                name: 'genesis-creation',
-                alias: 'Creation',
-                path: 'creation',
-                icon: null,
-                profiles: [],
-                permissions: null,
-                subStates: null
-            },
             detail: {
                 name: 'genesis-detail',
                 alias: 'Detail',
-                path: ':id',
-                icon: null,
-                profiles: [],
-                permissions: null,
-                subStates: null
-            }, summary: {
-                name: 'genesis-summary',
-                alias: 'Summary',
                 path: '',
                 icon: null,
                 profiles: [],
                 permissions: null,
                 subStates: null
             }
-        }
+        },
     }
 };
