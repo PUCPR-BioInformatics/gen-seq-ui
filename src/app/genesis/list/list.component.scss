@@ -153,6 +153,17 @@
             }
         }
 
+        .ui-process-card-error {
+            .ui-process-card-image {
+                background: themed('red-color');
+            }
+
+
+            .ui-process-card-footer {
+                visibility: hidden;
+            }
+        }
+
         .ui-process-card-waiting {
             .ui-process-card-image {
                 background: themed('gray-color');

@@ -11,8 +11,7 @@
 
 .ui-process-options {
     display: flex;
-    position: absolute;
-    bottom: -30px;
+    padding-left: 10px;
 }
 
 .ui-process-detail-header {
@@ -50,6 +49,11 @@
     flex-flow: column;
     flex: 1;
     padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.ui-process-detail-content {
+    margin: 0 5px;
 }
 
 .ui-process-commands {
@@ -72,10 +76,15 @@
     width: 100%;
 
     :nth-child(2) {
-        font-size: 10px;
+        font-size: 12px;
         font-weight: normal;
         margin-left: 1px;
     }
+}
+
+.ui-process-detail-title-and-options {
+    display: flex;
+    align-items: center;
 }
 
 .ui-process-detail-title-2 {
@@ -168,6 +177,15 @@
     flex: 1;
 }
 
+.ui-process-detail-body-painted {
+    border-radius: 4px;
+    .ui-process-detail-content {
+        box-shadow: unset !important;
+        background: unset !important;
+        border-radius: unset;
+    }
+}
+
 :host {
     .ui-process-command-time::ng-deep {
         .ui-field-view-label {
@@ -181,12 +199,25 @@
     }
 
     @include themify {
+        .ui-process-error {
+            .ui-process-detail-header > * {
+                color: themed('red-color') !important;
+            }
+
+            .ui-process-options {
+                .ui-circle-button {
+                    color: themed('red-color');
+                }
+            }
+        }
+
         .ui-process-detail-execution-backdrop {
             background: themed('application-background');
         }
 
         .ui-process-detail-execution,
-        .ui-process-detail-body {
+        .ui-process-detail-body-painted,
+        .ui-process-detail-content {
             background: themed('primary-color');
             box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
         }
@@ -208,14 +239,10 @@
 
         .ui-process-options {
             .ui-circle-button {
-                margin: 0 5px;
+                margin: 0 2px;
                 background: themed('primary-color');
                 color: themed('tertiary-color');
             }
-        }
-
-        .ui-process-detail-title:not(.ui-process-detail-title-2) {
-            color: themed('tertiary-color');
         }
 
         .ui-process-command {

@@ -63,16 +63,20 @@ export class ListComponent extends AbstractComponent {
         this.pagination.page = page;
         this.forceUpdate();
     }
+    public getProcessFinalStatus(process: ProcessModel): string {
+        return (process.result.status === 'FAIL') ? 'Failed' : 'Completed';
+    }
     public getStepClass(process: ProcessModel): string {
         if (process.completedDate) {
-            return STEP_STYLE['COMPLETE'].class;
+            return (process.result.status === 'FAIL') ? STEP_STYLE['ERROR'].class : STEP_STYLE['COMPLETE'].class;
         } else {
             return STEP_STYLE[process.actualCommandName].class;
         }
     }
     public getStepIcon(process: ProcessModel): string {
         if (process.completedDate) {
-            return STEP_STYLE['COMPLETE'].icon;
+            return (process.result.status === 'FAIL') ?
+                STEP_STYLE['ERROR'].icon : STEP_STYLE['COMPLETE'].icon;
         } else {
             return STEP_STYLE[process.actualCommandName].icon;
         }

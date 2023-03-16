@@ -13,7 +13,7 @@
              (click) = "eventNavigateToDetail(process)">
                 <div class = "ui-process-card-image">
                     <span [class] = "this.getStepIcon(process)"></span>
-                    <span>{{ (process.completedDate) ? 'Completed' : process.actualCommandName | StringNormalizePipe }}</span>
+                    <span>{{ (process.completedDate) ? this.getProcessFinalStatus(process) : process.actualCommandName | StringNormalizePipe }}</span>
                 </div>
                 <div class = "ui-process-card-body">
                     <app-field-view label = "SRA DNA" [value] = "process.dnaResource.sra"></app-field-view>

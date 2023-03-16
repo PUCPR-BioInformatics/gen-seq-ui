@@ -17,11 +17,10 @@ import { ChartHelper } from '../../shared/helper/chart.helper';
 import { CommandExecutionModel } from '../shared/model/command-execution.model';
 import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
 import { GenesisStates } from '../genesis.states';
-import {
-    CommandDetailComponent
-} from './command-detail/command-detail.component';
+import { CommandDetailComponent } from './command-detail/command-detail.component';
 import { ProcessStepEnum } from '../shared/enum/process-step-enum';
 import { STEP_STYLE } from '../shared/const/step-styling.const';
+import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 
 @Component({
     selector: 'app-detail',
@@ -56,6 +55,7 @@ export class DetailComponent extends AbstractComponent {
     }
 
     public buildGenesisChartData(): void {
+        console.log(this.process)
         const { total, executed } = this.collectTotalAndExecutedCommands();
         const completeness = parseFloat(((executed/total) * 100).toFixed(0));
         this.completenessText = isNaN(completeness) ? 'No Data' : completeness + '%';
@@ -68,8 +68,15 @@ export class DetailComponent extends AbstractComponent {
                 completenessTooltip
             )
         ];
-        const cssClass = (this.process.completedDate) ? ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'] :
-            ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
+        let cssClass;
+        if (this.process.completedDate ) {
+          cssClass = (this.process.result.status === ProcessStatusEnum.FAIL) ?
+              ['ui-linear-gradient-error-initial', 'ui-linear-gradient-error-endless'] :
+              ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'];
+        } else {
+            cssClass = ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
+        }
+
         const effect = ChartHelper.buildGradientEffect(
             'gradient-execution-' + new Date().getTime() + this.process._id,
             { class: cssClass[0], offset: '0%' },

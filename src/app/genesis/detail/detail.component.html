@@ -1,11 +1,35 @@
-<div class = "ui-component-container">
-    <div *ngIf = "!process" class = "ui-process-loader-container">
+<div class = "ui-component-container"  *ngIf = "!process">
+    <div class = "ui-process-loader-container">
         <app-spinner message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
     </div>
-    <div  *ngIf = "process" class = "ui-process-detail-body">
+</div>
+<div *ngIf = "process" class = "ui-component-container"
+    [ngClass] = "{
+    'ui-process-error': process.completedDate && process.result.status === 'FAIL'
+}">
+    <div class = "ui-process-detail-body ui-process-detail-body-painted">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title">
-                DNA results
+                <div class = "ui-process-detail-title-and-options">
+                    <span>Execution Informations</span>
+                    <div class = "ui-process-options">
+                        <button mat-button class = "ui-circle-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+                            <span class = "far fa-file"></span>
+                        </button>
+                        <button mat-button class = "ui-circle-button" matTooltip = "Duplicar parâmetros" (click) = "eventDuplicateExecution()">
+                            <span class = "far fa-copy"></span>
+                        </button>
+                        <button mat-button class = "ui-circle-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
+                            <span class = "fas fa-history"></span>
+                        </button>
+                        <button mat-button *ngIf = "!process?.completedDate"
+                                class = "ui-circle-button ui-header-title-button ui-cancel-process-button"
+                                matTooltip = "Cancelar execução" (click) = "eventCancelGenesisProcess()">
+                            <span class = "fas fa-times"></span>
+                        </button>
+                    </div>
+                </div>
+                <span>DNA</span>
             </div>
             <div class = "ui-empty-container">
                 Under construction
@@ -20,26 +44,11 @@
                 <span>Execution</span>
                 <span>{{process._id}}</span>
             </div>
-            <div class = "ui-process-options">
-                <button mat-button class = "ui-circle-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
-                    <span class = "far fa-file"></span>
-                </button>
-                <button mat-button class = "ui-circle-button" matTooltip = "Duplicar parâmetros" (click) = "eventDuplicateExecution()">
-                    <span class = "far fa-copy"></span>
-                </button>
-                <button mat-button class = "ui-circle-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
-                    <span class = "fas fa-history"></span>
-                </button>
-                <button mat-button *ngIf = "!process?.completedDate"
-                        class = "ui-circle-button ui-header-title-button ui-cancel-process-button"
-                        matTooltip = "Cancelar execução" (click) = "eventCancelGenesisProcess()">
-                    <span class = "fas fa-times"></span>
-                </button>
-            </div>
         </div>
         <div class = "ui-process-detail-content ui-process-detail-content-inverse">
             <div class = "ui-process-detail-title">
-                RNA results
+                <span>&nbsp;</span>
+                <span>RNA</span>
             </div>
             <div class = "ui-empty-container">
                 Under construction
@@ -47,8 +56,8 @@
         </div>
     </div>
 
-    <div *ngIf = "process" class = "ui-process-detail-body">
-        <div class = "ui-process-detail-content">
+    <div class = "ui-process-detail-body">
+        <div class = "ui-process-detail-content ui-process-detail-content-spaced">
             <div class = "ui-process-detail-title ui-process-detail-title-2">
                 DNA Outputs
             </div>
@@ -56,7 +65,7 @@
                 Under construction
             </div>
         </div>
-        <div class = "ui-process-detail-content ui-process-detail-content-inverse">
+        <div class = "ui-process-detail-content ui-process-detail-content-spaced ui-process-detail-content-inverse">
             <div class = "ui-process-detail-title ui-process-detail-title-2">
                 RNA Outputs
             </div>
@@ -65,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf = "process" class = "ui-process-detail-body">
+    <div *ngIf = "process.result.status === 'SUCCESS'" class = "ui-process-detail-body">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-2">
                 Analysis

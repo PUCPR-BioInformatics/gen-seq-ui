@@ -43,5 +43,9 @@ export const STEP_STYLE: {
     COMPLETE: {
         icon: 'fa-solid fa-clipboard-check',
         class: 'ui-process-card-complete'
+    },
+    ERROR: {
+        icon: 'fa-solid fa-clipboard-question',
+        class: 'ui-process-card-error'
     }
 }
