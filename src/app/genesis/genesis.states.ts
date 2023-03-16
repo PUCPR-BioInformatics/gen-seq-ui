@@ -15,16 +15,15 @@ export const GenesisStates = {
         icon: 'fa-solid fa-diagram-project',
         profiles: [],
         permissions: null,
-        subStates: {
-            detail: {
-                name: 'genesis-detail',
-                alias: 'Detail',
-                path: '',
-                icon: null,
-                profiles: [],
-                permissions: null,
-                subStates: null
-            }
-        },
+        subStates: null
+    },
+    detail: {
+        name: 'genesis-detail',
+        alias: 'Detail',
+        path: 'executions/detail',
+        icon: null,
+        profiles: [],
+        permissions: null,
+        subStates: null
     }
 };

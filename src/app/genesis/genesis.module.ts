@@ -8,7 +8,7 @@ import { GenesisRoutingModule } from './genesis-routing.module';
 import { SharedModule } from '../shared/components/shared.module';
 import { PaginationModule } from '../shared/components/pagination/pagination.module';
 import { ChartModule } from '../shared/components/chart/chart.module';
-import { GenesisProcessExecutionDetailComponent } from './detail/genesis-process-execution-detail/genesis-process-execution-detail.component';
+import { CommandDetailComponent } from './detail/command-detail/command-detail.component';
 
 
 
@@ -17,7 +17,7 @@ import { GenesisProcessExecutionDetailComponent } from './detail/genesis-process
         ListComponent,
         DetailComponent,
         CreationComponent,
-        GenesisProcessExecutionDetailComponent
+        CommandDetailComponent
     ],
     imports: [
         CommonModule,
@@ -27,7 +27,7 @@ import { GenesisProcessExecutionDetailComponent } from './detail/genesis-process
         ChartModule
     ],
     entryComponents: [
-        GenesisProcessExecutionDetailComponent
+        CommandDetailComponent
     ]
 })
 export class GenesisModule { }

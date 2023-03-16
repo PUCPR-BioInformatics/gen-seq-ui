@@ -6,14 +6,14 @@ import { ProcessModel } from '../../shared/model/process.model';
 import { CommandExecutionModel } from '../../shared/model/command-execution.model';
 
 @Component({
-    selector: 'app-genesis-process-execution-detail',
-    templateUrl: './genesis-process-execution-detail.component.html',
-    styleUrls: ['./genesis-process-execution-detail.component.scss']
+    selector: 'app-command-detail',
+    templateUrl: './command-detail.component.html',
+    styleUrls: ['./command-detail.component.scss']
 })
-export class GenesisProcessExecutionDetailComponent {
+export class CommandDetailComponent {
 
     constructor(
-        public dialogRef: MatDialogRef<GenesisProcessExecutionDetailComponent>,
+        public dialogRef: MatDialogRef<CommandDetailComponent>,
         private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: { execution: CommandExecutionModel, process: ProcessModel }
     ) {}

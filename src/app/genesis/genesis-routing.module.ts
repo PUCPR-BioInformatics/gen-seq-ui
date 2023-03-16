@@ -14,12 +14,10 @@ const routes: Routes = [
     }, {
         path: GenesisStates.list.path,
         component: ListComponent,
-        children: [
-            {
-                path: GenesisStates.list.subStates.detail.path + '/:id',
-                component: DetailComponent,
-            }
-        ]
+    }, {
+        path: GenesisStates.detail.path + '/:id',
+        component: DetailComponent,
+        pathMatch: 'full'
     }, {
         path: GenesisStates.creation.path,
         component: CreationComponent

@@ -74,7 +74,7 @@ export class FilterSortComponent implements OnInit {
     public eventOpenModal(): void {
         const oldValues = (this.formGroup) ? this.formGroup.getRawValue() : null;
         this.dialog.open(FilterSortModalComponent, {
-            backdropClass: 'ui-genesis-process-execution-detail-dark-backdrop',
+            backdropClass: 'ui-command-detail-dark-backdrop',
             data: {
                 actualSorted: this.actualSorted,
                 formGroup: this.formGroup,

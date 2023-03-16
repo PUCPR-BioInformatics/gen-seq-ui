@@ -1,18 +1,33 @@
 <div class = "ui-component-container">
-    <app-spinner *ngIf = "!process" message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
-    <div class = "ui-process-detail-container" *ngIf = "process">
-        <app-chart class = "ui-chart-container" [data] = "processData$" type = "gauge"></app-chart>
-        <div class = "ui-process-detail-header">
-            <span class = "ui-process-detail-header-title">Detalhes da Execução</span>
-            <span class = "ui-process-detail-header-subtitle">{{ process._id }}</span>
-            <div class = "ui-process-detail-header-options">
-                <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+    <div *ngIf = "!process" class = "ui-process-loader-container">
+        <app-spinner message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
+    </div>
+    <div  *ngIf = "process" class = "ui-process-detail-body">
+        <div class = "ui-process-detail-content">
+            <div class = "ui-process-detail-title">
+                DNA results
+            </div>
+            <div class = "ui-empty-container">
+                Under construction
+            </div>
+        </div>
+        <div class = "ui-process-detail-execution-backdrop">
+            <div class = "ui-process-detail-execution">
+                <app-chart class = "ui-chart-container" [data] = "processData$" type = "gauge"></app-chart>
+            </div>
+            <div class = "ui-process-detail-header">
+                <span>{{completenessText}}</span>
+                <span>Execution</span>
+                <span>{{process._id}}</span>
+            </div>
+            <div class = "ui-process-options">
+                <button mat-button class = "ui-circle-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
                     <span class = "far fa-file"></span>
                 </button>
-                <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Duplicar parâmetros" (click) = "eventDuplicateExecution()">
+                <button mat-button class = "ui-circle-button" matTooltip = "Duplicar parâmetros" (click) = "eventDuplicateExecution()">
                     <span class = "far fa-copy"></span>
                 </button>
-                <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
+                <button mat-button class = "ui-circle-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
                     <span class = "fas fa-history"></span>
                 </button>
                 <button mat-button *ngIf = "!process?.completedDate"
@@ -22,102 +37,74 @@
                 </button>
             </div>
         </div>
-        <div class = "ui-process-analyses-container">
-            <span class = "ui-process-result">{{ (process.result) ? process.result.description : 'Executando...' }}</span>
-            <div class = "ui-process-analyses-informations">
-                <div class = "ui-process-analyses-body">
-                    <div class = "ui-process-analyses-header">
-                        {{ process.dnaResource.sra }}
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaAlignmentSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaAlignmentSize !== undefined">{{ informations.dnaAlignmentSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">Alinhamento</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaVariantsSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaVariantsSize !== undefined">{{ informations.dnaVariantsSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">Variantes</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaSnpsSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaIndelsSize !== undefined">{{ informations.dnaIndelsSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">Indels</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.dnaSnpsSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.dnaSnpsSize !== undefined">{{ informations.dnaSnpsSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">SNP's</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <span class = "ui-process-analyses-information-value">DNA</span>
-                        <span class = "ui-process-analyses-information-alias">Tipo de Amostra</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <span class = "ui-process-analyses-information-value">{{ informations.dnaExecutionTime }}</span>
-                        <span class = "ui-process-analyses-information-alias">Executado Em</span>
-                    </div>
-                </div>
-                <div class = "ui-process-analyses-body ui-process-analyses-general">
-                    <div class = "ui-process-analyses-information">
-                        <span class = "ui-process-analyses-information-value">{{ process.reference }}</span>
-                        <span class = "ui-process-analyses-information-alias">Referência</span>
-                        <span class = "ui-process-analyses-information-value ui-process-analyses-execution-time">{{ getExecutionTime() }}</span>
-                    </div>
-                </div>
-                <div class = "ui-process-analyses-body">
-                    <div class = "ui-process-analyses-header">
-                        {{ process.rnaResource.sra }}
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaAlignmentSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaAlignmentSize !== undefined">{{ informations.rnaAlignmentSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">Alinhamento</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaVariantsSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaVariantsSize !== undefined">{{ informations.rnaVariantsSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">Variantes</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaSnpsSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaIndelsSize !== undefined">{{ informations.rnaIndelsSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">Indels</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <app-spinner width = "20px" height = "20px" *ngIf = "informations.rnaSnpsSize === undefined"></app-spinner>
-                        <span class = "ui-process-analyses-information-value" *ngIf = "informations.rnaSnpsSize !== undefined">{{ informations.rnaSnpsSize }}</span>
-                        <span class = "ui-process-analyses-information-alias">SNP's</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <span class = "ui-process-analyses-information-value">RNA</span>
-                        <span class = "ui-process-analyses-information-alias">Tipo de Amostra</span>
-                    </div>
-                    <div class = "ui-process-analyses-information">
-                        <span class = "ui-process-analyses-information-value">{{ informations.rnaExecutionTime }}</span>
-                        <span class = "ui-process-analyses-information-alias">Executado Em</span>
-                    </div>
-                </div>
+        <div class = "ui-process-detail-content ui-process-detail-content-inverse">
+            <div class = "ui-process-detail-title">
+                RNA results
+            </div>
+            <div class = "ui-empty-container">
+                Under construction
             </div>
         </div>
-        <div class = "ui-process-executions">
-            <div [class] = "getCssClass(command)" *ngFor = "let command of commands" (click) = "eventExecutionDetail(command)">
-                <div class = "ui-process-execution-step-container">
-                    <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command.step, $event)" *ngIf = "command.startDate !== null">
-                        <span class = "fas fa-redo"></span>
-                    </button>
-                    <div class = "ui-process-execution-step-information">
-                        <span>{{command.step | StringNormalizePipe}}</span>
-                        <div class = "ui-process-execution-status">
-                            {{ getExecutionStatus(command) }}
+    </div>
+
+    <div *ngIf = "process" class = "ui-process-detail-body">
+        <div class = "ui-process-detail-content">
+            <div class = "ui-process-detail-title ui-process-detail-title-2">
+                DNA Outputs
+            </div>
+            <div class = "ui-empty-container">
+                Under construction
+            </div>
+        </div>
+        <div class = "ui-process-detail-content ui-process-detail-content-inverse">
+            <div class = "ui-process-detail-title ui-process-detail-title-2">
+                RNA Outputs
+            </div>
+            <div class = "ui-empty-container">
+                Under construction
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "process" class = "ui-process-detail-body">
+        <div class = "ui-process-detail-content">
+            <div class = "ui-process-detail-title ui-process-detail-title-2">
+                Analysis
+            </div>
+            <div class = "ui-empty-container">
+                Under construction
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf = "process" class = "ui-process-detail-body ui-process-detail-body-extensible">
+        <div class = "ui-process-detail-content">
+            <div class = "ui-process-detail-title ui-process-detail-title-2">
+                <span>Commands</span>
+                <span>Amount: {{ commands.length }}</span>
+            </div>
+            <div class = "ui-process-commands">
+                <div [class] = "getCssClass(command)" *ngFor = "let command of commands" (click) = "eventExecutionDetail(command)">
+                    <div class = "ui-process-command-step-container">
+                        <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command.step, $event)" *ngIf = "command.startDate !== null">
+                            <span class = "fas fa-redo"></span>
+                        </button>
+                        <div class = "ui-process-command-step-information">
+                            <span [class] = "getStepIcon(command.step)"></span>
+                            <span>{{command.step | StringNormalizePipe}}</span>
+                            <span>
+                                {{ getExecutionStatus(command) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class = "ui-process-command-time">
+                        <app-field-view class = "ui-process-field" label = "Start Date" [value] = "command.startDate" [isDate] = "true"></app-field-view>
+                        <app-field-view class = "ui-process-field" label = "End Date" [value] = "command.endDate" [isDate] = "true"></app-field-view>
+                    </div>
+                    <div class = "ui-process-command-footer">
+                        <div class = "ui-process-command-footer-slider">
                         </div>
                     </div>
                 </div>
-                <div class = "ui-process-execution-time">
-                    <app-field-view class = "ui-process-field" label = "Data Início" [value] = "command.startDate" [isDate] = "true"></app-field-view>
-                    <app-field-view class = "ui-process-field" label = "Data Fim" [value] = "command.endDate" [isDate] = "true"></app-field-view>
-                </div>
-                <div class = "ui-divisor"></div>
             </div>
         </div>
     </div>

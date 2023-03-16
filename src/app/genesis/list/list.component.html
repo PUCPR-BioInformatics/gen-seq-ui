@@ -1,43 +1,40 @@
-<!--<app-header [title] = "title" [subTitle] = "subTitle">-->
-<!--    <div appHeaderTitleOptions class = "ui-header-title-options">-->
-<!--        <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">-->
-<!--            <span class = "far fa-file"></span>-->
-<!--        </button>-->
-<!--    </div>-->
-<!--</app-header>-->
-<!--<div class = "ui-component-container ui-genesis-container" *ngIf = "genesisProcess && genesisProcess.size > 0">-->
-<!--    <div class = "ui-genesis-executions-container">-->
-<!--        <div class = "ui-card ui-card-zoomed" *ngFor = "let execution of genesisProcess.process; trackBy: trackById" (click) = "eventNavigateToDetail(execution)" >-->
-<!--            <app-chart class = "ui-card-chart" [data] = "getExecutionData(execution)" type = "gauge"></app-chart>-->
-<!--            <div class = "ui-genesis-informations">-->
-<!--                <app-field-view class = "ui-genesis-information-field-view" label = "Sra DNA" [value] = "execution.dnaResource.sra"></app-field-view>-->
-<!--                <app-field-view class = "ui-genesis-information-field-view" label = "Alinhador DNA" [value] = "execution.dnaResource.alignmentParameters?.toolName"></app-field-view>-->
-<!--                <app-field-view class = "ui-genesis-information-field-view" label = "Sra RNA" [value] = "execution.rnaResource.sra"></app-field-view>-->
-<!--                <app-field-view class = "ui-genesis-information-field-view" label = "Alinhador RNA" [value] = "execution.rnaResource.alignmentParameters?.toolName"></app-field-view>-->
-<!--                <app-field-view class = "ui-genesis-information-field-view" label = "Referência" [value] = "execution.reference"></app-field-view>-->
-<!--                <app-field-view class = "ui-genesis-information-field-view" label = "Executa Em" [value] = "getExecutionTime(execution)"></app-field-view>-->
-<!--            </div>-->
-<!--            <div [ngClass] = "{-->
-<!--                'ui-execution-footer': true,-->
-<!--                'ui-execution-footer-executing': !execution.completedDate && execution.step !== 'WAITING',-->
-<!--                'ui-execution-footer-completed': execution.completedDate && !isFailed(execution),-->
-<!--                'ui-execution-footer-failed': execution.completedDate && isFailed(execution),-->
-<!--                'ui-execution-footer-waiting': execution.step === 'WAITING'-->
-<!--            }">-->
-<!--                {{ (execution.completedDate) ? getExecutionCompleteState(execution) : (execution.step | StringNormalizePipe) }}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <app-pagination [limit] = "pagination.limit" [page] = "pagination.page" [size] = "genesisProcess.size" [processing] = "FORCE_UPDATE.getValue()"-->
-<!--        (limitChange) = "eventLimitChanged($event)" (pageChange) = "eventPageChanged($event)"></app-pagination>-->
-<!--</div>-->
-<!--<div class = "ui-component-container ui-empty-container" *ngIf = "genesisProcess && genesisProcess.size === 0">-->
-<!--    <span>Nenhuma execução encontrada</span>-->
-<!--    <span>Criar uma nova execução?</span>-->
-<!--    <button mat-button class = "ui-circle-button ui-create-button" (click) = "eventNewExecution()">-->
-<!--        <span class = "fas fa-plus"></span>-->
-<!--    </button>-->
-<!--</div>-->
-<!--<div class = "ui-component-container" *ngIf = "!genesisProcess">-->
-<!--    <app-spinner message = "Buscando as execuções" boldMessage = "Aguarde"></app-spinner>-->
-<!--</div>-->
+<div class = "ui-component-container ui-component-container-shadowed">
+    <app-header [title] = "title" [subTitle] = "subTitle">
+        <div appHeaderTitleOptions class = "ui-header-title-options">
+            <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+                <span class = "far fa-file"></span>
+            </button>
+        </div>
+    </app-header>
+
+    <div class = "ui-process-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
+        <div class = "ui-process-page-container">
+            <div [class] = "'ui-process-card ' + this.getStepClass(process)" *ngFor = "let process of genesisProcess.process; trackBy: trackById"
+             (click) = "eventNavigateToDetail(process)">
+                <div class = "ui-process-card-image">
+                    <span [class] = "this.getStepIcon(process)"></span>
+                    <span>{{ (process.completedDate) ? 'Completed' : process.actualCommandName | StringNormalizePipe }}</span>
+                </div>
+                <div class = "ui-process-card-body">
+                    <app-field-view label = "SRA DNA" [value] = "process.dnaResource.sra"></app-field-view>
+                    <app-field-view label = "DNA Tool" [value] = "process.dnaResource.alignment.toolName"></app-field-view>
+                    <app-field-view label = "SRA RNA" [value] = "process.rnaResource.sra"></app-field-view>
+                    <app-field-view label = "RNA Tool" [value] = "process.rnaResource.alignment.toolName"></app-field-view>
+                    <app-field-view label = "Reference" [value] = "process.reference"></app-field-view>
+                </div>
+                <div class = "ui-process-card-footer">
+                    <div class = "ui-process-card-footer-slider"></div>
+                </div>
+            </div>
+        </div>
+        <app-pagination class = "ui-process-paginator" [limit] = "pagination.limit" [page] = "pagination.page" [size] = "genesisProcess.size" [processing] = "FORCE_UPDATE.getValue()"
+            (limitChange) = "eventLimitChanged($event)" (pageChange) = "eventPageChanged($event)"></app-pagination>
+    </div>
+    <div class = "ui-empty-container" *ngIf = "genesisProcess && genesisProcess.size === 0">
+        <span>Nenhuma execução encontrada</span>
+        <span>Criar uma nova execução?</span>
+        <button mat-button class = "ui-circle-button ui-create-button" (click) = "eventNewExecution()">
+            <span class = "fas fa-plus"></span>
+        </button>
+    </div>
+</div>

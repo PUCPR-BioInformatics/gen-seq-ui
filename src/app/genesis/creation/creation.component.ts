@@ -116,13 +116,13 @@ export class CreationComponent extends AbstractComponent{
         const genesisProcess = this.buildGenesis(creationParametersRaw, creationRnaAlignmentRaw, creationDnaAlignmentRaw);
         this.genesisService.createProcess(genesisProcess).subscribe(
             (genesisProcess: ProcessModel) => {
-                const link = GenesisStates.list.path + '/' + genesisProcess._id;
+                const link = GenesisStates.detail.path + '/' + genesisProcess._id;
                 this.openSuccessMessageBox(
                     'O Processo começou!', 'Sucesso',  link, 'Clique para Acompanhar'
-                ).afterClosed().subscribe(() => {
-                    this.router.navigate(['../'], {
-                        relativeTo: this.route
-                    });
+                ).afterClosed().subscribe((result) => {
+                    if (!result.linked) {
+                        this.router.navigate([GenesisStates.list.path]);
+                    }
                 })
             }, (error: HttpErrorResponse) => this.openErrorMessageBox(error)
         );

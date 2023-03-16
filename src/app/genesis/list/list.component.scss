@@ -1,68 +1,88 @@
-@import "src/styling/themes/core/theme-core.scss";
+@import 'src/styling/themes/core/theme-core.scss';
 
-.ui-genesis-container {
-    flex-flow: column;
+.ui-component-container {
+    display: flex;
     justify-content: unset;
     align-items: unset;
-    flex: unset;
+    min-height: 300px;
+    min-width: 300px;
+    max-width: 95%;
 }
 
-.ui-genesis-executions-container {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 0 20px;
-}
-
-.ui-card {
-    margin: 5px;
-    width: 220px;
-    max-width: 230px;
-    height: 330px;
-    position: relative;
-}
-
-.ui-card-chart {
-    padding-top: 20px;
-}
-
-.ui-genesis-informations {
+.ui-process-container {
     display: flex;
     flex: 1;
-    flex-flow: row wrap;
-    align-items: unset;
-    padding-bottom: 20px;
+    flex-flow: column;
+    overflow-y: auto;
 }
 
-.ui-genesis-information {
+.ui-process-page-container {
+    display: flex;
+    flex: 1;
+    padding: 0 10px;
+    flex-flow: row wrap;
+}
+
+.ui-process-card {
     display: flex;
     flex-flow: column;
-    width: 90px;
+    width: 220px;
+    height: 300px;
     margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.ui-genesis-information-label {
-    font-size: 9px;
-}
-.ui-genesis-information-value {
-    font-weight: bold;
-    font-size: 12px;
+.ui-process-paginator::ng-deep {
+    flex: unset;
+
+    .ui-paginator-sizes {
+        padding-left: 10px;
+    }
 }
 
-.ui-execution-footer {
-    position: absolute;
+.ui-process-paginator {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 20px;
+    min-height: 70px;
+}
+
+.ui-process-card-image {
     width: 100%;
-    bottom: -2px;
-    font-weight: bold;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    height: 150px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+
+    :nth-child(1) {
+        font-size: 80px;
+        font-weight: bold;
+        vertical-align: center;
+    }
+
+    :nth-child(2) {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 11px;
+    }
+}
+
+.ui-process-card-body {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1;
+    width: 100%;
+    padding: 10px 5px 6px 10px;
 }
 
 .ui-empty-container {
+    display: flex;
     flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 
     .ui-create-button {
         height: 35px;
@@ -80,61 +100,67 @@
 }
 
 :host {
+    padding: 10px 0;
+    align-items: center;
+
     @include themify {
-        .ui-card {
+        .ui-process-card-image {
+            background: themed('blue-color');
+            color: themed('white-color');
+        }
+
+        .ui-process-card-footer {
+            width: 100%;
+            height: 5px;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            position: relative;
+            background: themed('blue-color');
+            overflow: hidden;
+
+            .ui-process-card-footer-slider {
+                position: absolute;
+                height: 5px;
+                width: 40%;
+                animation: executing 2s infinite linear;
+                background: linear-gradient(90deg, themed('blue-color') 0%, themed('light-blue-color') 30%, themed('light-blue-color') 70%, themed('blue-color') 100%);
+            }
+        }
+
+        .ui-component-container {
+            min-width: 300px;
             background: themed('primary-color');
         }
 
-        .ui-execution-footer-executing {
-            background: themed('tertiary-color');
-            color: themed('tertiary-text-color');
+        .ui-process-card {
+            background: themed('secondary-color');
+            color: themed('secondary-text-color');
+            box-shadow: 1px 1px 2px -1px themed('secondary-shadow-color');
         }
 
-        .ui-execution-footer-completed {
-            background: themed('green-color');
-            color: themed('white-color');
+        .ui-process-card:hover {
+            box-shadow: 1px 1px 4px -1px themed('secondary-shadow-color');
         }
 
-        .ui-execution-footer-failed {
-            background: themed('red-color');
-            color: themed('white-color');
-        }
+        .ui-process-card-complete {
+            .ui-process-card-image {
+                background: themed('green-color');
+            }
 
-        .ui-execution-footer-waiting {
-            background: themed('gray-color');
-            color: themed('white-color');
-        }
 
-        .ui-empty-container {
-            .ui-create-button {
-                background: themed('tertiary-color');
-                color: themed('tertiary-text-color');
+            .ui-process-card-footer {
+                visibility: hidden;
             }
         }
-    }
-}
 
-::ng-deep {
-    .ui-genesis-information-field-view {
-        margin: 5px;
-    }
-}
+        .ui-process-card-waiting {
+            .ui-process-card-image {
+                background: themed('gray-color');
+            }
 
-:host-context(.ui-container-mobile) {
-    .ui-genesis-container {
-        justify-content: center;
-    }
-
-    .ui-card {
-        width: 230px;
-        max-width: 230px;
-        flex: unset;
-    }
-
-    @media(max-width: 345px) {
-        .ui-card {
-            width: 100%;
-            max-width: 100%;
+            .ui-process-card-footer {
+                visibility: hidden;
+            }
         }
     }
 }

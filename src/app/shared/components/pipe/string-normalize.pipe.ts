@@ -4,16 +4,16 @@ import { ProcessStepEnum } from '../../../genesis/shared/enum/process-step-enum'
 @Pipe({name: 'StringNormalizePipe'})
 export class StringNormalizePipe implements PipeTransform {
     private translator = {
-        WAITING: "Aguardar",
-        REFERENCE: "Download do Genoma",
-        FASTQ_DUMP_DNA: "Download da amostra de DNA",
-        FASTQ_DUMP_RNA: "Download da amostra de RNA",
-        ALIGNING_DNA: "Alinhamento do DNA",
-        ALIGNING_RNA: "Alinhamento do RNA",
-        EXTRACT_DNA: "Extrair diferenças do DNA",
-        EXTRACT_RNA: "Extrair diferenças do RNA",
-        ANALYSING: "Análise",
-        COMPLETE: "Encerramento"
+        WAITING: "Waiting",
+        REFERENCE: "Genoma Download",
+        FASTQ_DUMP_DNA: "DNA Sample Download",
+        FASTQ_DUMP_RNA: "DNA Sample Download",
+        ALIGNING_DNA: "DNA Alignment",
+        ALIGNING_RNA: "RNA Alignment",
+        EXTRACT_DNA: "DNA Extraction",
+        EXTRACT_RNA: "RNA Extraction",
+        ANALYSING: "Analysis",
+        COMPLETE: "Completed"
     }
     public transform(value: string): string {
         if (ProcessStepEnum[value]) {

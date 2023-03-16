@@ -1,156 +1,116 @@
 @import 'src/styling/themes/core/theme-core.scss';
 
-.ui-process-detail-container {
+.ui-component-container {
     display: flex;
-    flex-flow: column;
-    flex: 1;
-    min-height: 100%;
-    padding-top: 10px;
+    width: 100%;
+    padding: 5px 10px 10px 10px;
+    justify-content: unset;
+    align-items: center;
+    max-height: unset;
+}
+
+.ui-process-options {
+    display: flex;
+    position: absolute;
+    bottom: -30px;
 }
 
 .ui-process-detail-header {
     display: flex;
+    width: 100%;
+    height: 30px;
     flex-flow: column;
+    position: absolute;
+    bottom: 55%;
+    align-items: center;
+}
+
+.ui-process-loader-container {
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 10px;
-
-    .ui-process-detail-header-title {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .ui-process-detail-header-subtitle {
-        font-size: 11px;
-    }
-
-    .ui-process-detail-header-options {
-        display: flex;
-        flex-flow: row wrap;
-        padding-top: 10px;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-.ui-process-result {
-    text-align: center;
-    padding: 10px 0;
-}
-
-.ui-chart-container {
-    width: 100%;
-    flex: unset;
-}
-
-.ui-process-executions,
-.ui-process-analyses-container {
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-    padding: 10px 10px 10px 13px;
-    justify-content: center;
-}
-
-.ui-process-analyses-body {
-    display: flex;
-    justify-content: space-evenly;
-    width: 500px;
-    min-height: 100px;
-    flex-flow: row wrap;
-}
-
-.ui-process-analyses-header {
-    height: 25px;
-    width: 100%;
-    padding-left: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-
-.ui-process-analyses-general {
-    display: flex;
-    min-width: 200px;
-    max-width: 350px;
-    min-height: 100px;
-}
-
-.ui-process-analyses-container {
-    flex-flow: column;
-    width: 100%;
-    align-items: center;
-}
-
-.ui-process-analyses-informations {
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    flex-flow: row wrap;
     flex: 1;
-    padding: 10px;
 }
 
-.ui-process-analyses-information {
+.ui-process-detail-body {
+    display: flex;
+    flex-flow: row;
+    height: 250px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.ui-process-detail-body-extensible {
+    min-height: 200px;
+    height: auto;
+}
+
+.ui-process-detail-content {
     display: flex;
     flex-flow: column;
-    justify-items: center;
-    align-items: center;
+    flex: 1;
+    padding: 10px 20px;
 }
 
-.ui-process-analyses-information-value {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.ui-process-analyses-information-alias {
-    padding-top: 2px;
-    font-size: 11px;
-}
-
-.ui-process-analyses-general {
+.ui-process-commands {
     display: flex;
-    margin: 10px;
-    align-items: center;
+    flex-flow: row wrap;
 }
 
-.ui-process-executions {
-    justify-content: start;
-    padding-top: 10px;
+.ui-process-detail-content-inverse {
+    .ui-process-detail-title {
+        display: flex;
+        align-items: flex-end;
+    }
 }
 
-.ui-process-empty {
+.ui-process-detail-title {
+    display: flex;
+    flex-flow: column;
+    font-size: 20px;
+    font-weight: bold;
     width: 100%;
-    height: 100px;
+
+    :nth-child(2) {
+        font-size: 10px;
+        font-weight: normal;
+        margin-left: 1px;
+    }
+}
+
+.ui-process-detail-title-2 {
+    font-size: 14px;
+}
+
+.ui-process-detail-execution-backdrop {
+    height: 122%;
+    width: 300px;
+    padding: 10px;
+    display: flex;
     align-items: center;
-}
-
-.ui-process-execution {
-    width: 320px;
-    max-width: 320px;
-    height: 150px;
-    margin: 6px;
+    justify-content: center;
+    border-radius: 100%;
     position: relative;
-
-    .ui-divisor {
-        position: absolute;
-        height: 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        margin: 0;
-        bottom: -4px;
-        left: 0;
-    }
-
-    .ui-retry-button {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-    }
 }
 
-.ui-process-execution-step-container {
+.ui-process-detail-execution {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.ui-process-command {
+    display: flex;
+    flex-flow: column;
+    height: 200px;
+    width: 230px;
+    margin: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.ui-process-command-step-container {
     display: flex;
     flex: 1;
     justify-content: center;
@@ -160,130 +120,150 @@
     padding: 10px;
 }
 
-.ui-process-execution-step-information {
+.ui-retry-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.ui-process-command-step-information {
     display: flex;
     flex: 1;
     justify-content: center;
     align-items: center;
     flex-flow: column;
+
+    :nth-child(1) {
+        font-size: 40px;
+    }
+
+    :nth-child(2) {
+        margin-top: 5px;
+        font-size: 16px;
+    }
+
+    :nth-child(3) {
+        font-size: 10px;
+    }
 }
 
-.ui-process-execution-status {
-    display: flex;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    padding-top: 10px;
-}
-
-.ui-process-analyses-execution-time {
-    margin-top: 15px;
-}
-
-.ui-process-execution-time {
+.ui-process-command-time {
     display: flex;
     justify-content: space-evenly;
     padding: 0 5px 10px 5px;
     min-width: 140px;
 }
 
-.ui-updated-time {
-    opacity: 0.8;
-    font-size: 11px;
+.ui-process-command-footer {
+    height: 5px;
+    width: 100%;
+    background: transparent;
+    position: relative;
 }
 
-::ng-deep {
-    .ui-process-field {
-        margin: 0 5px;
-    }
-}
-
-@media (max-width: 550px) {
-    .ui-process-executions {
-        flex-flow: column;
-        padding-right: 20px;
-
-        .ui-process-execution {
-            min-height: 150px;
-            width: 100%;
-            max-width: unset;
-        }
-    }
+.ui-empty-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 :host {
+    .ui-process-command-time::ng-deep {
+        .ui-field-view-label {
+            padding-bottom: 2px;
+            font-size: 9px;
+        }
+
+        .ui-field-view-value {
+            font-size: 10px;
+        }
+    }
+
     @include themify {
-        .ui-cancel-process-button {
-            color: themed('red-color') !important;
+        .ui-process-detail-execution-backdrop {
+            background: themed('application-background');
         }
-        .ui-process-execution {
+
+        .ui-process-detail-execution,
+        .ui-process-detail-body {
             background: themed('primary-color');
-            color: themed('primary-text-color');
+            box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
         }
-        .ui-process-execution-waiting {
-            .ui-divisor {
-                background: themed('gray-color');
+
+        .ui-process-detail-header {
+            :nth-child(1) {
+                font-size: 60px;
+                margin-left: 10px;
+                font-weight: bold;
+                color: themed('tertiary-color');
+            }
+
+            :nth-child(2) {
+                font-size: 14px;
+                font-weight: bold;
+                color: themed('tertiary-color');
             }
         }
 
-        .ui-process-execution-executing {
-            .ui-divisor {
-                background: themed('tertiary-color');
+        .ui-process-options {
+            .ui-circle-button {
+                margin: 0 5px;
+                background: themed('primary-color');
+                color: themed('tertiary-color');
             }
         }
 
-        .ui-process-execution-fail {
-            .ui-divisor {
-                background: themed('red-color');
-            }
+        .ui-process-detail-title:not(.ui-process-detail-title-2) {
+            color: themed('tertiary-color');
         }
 
-        .ui-process-execution-skipped {
-            .ui-divisor {
-                background: themed('yellow-color');
-            }
+        .ui-process-command {
+            background: themed('secondary-color');
+            box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
         }
 
-        .ui-process-execution-done {
-            .ui-divisor {
+        .ui-process-command:hover {
+            box-shadow: 1px 1px 4px -1px themed('secondary-shadow-color');
+        }
+
+       .ui-process-command-fail {
+           .ui-process-command-footer {
+               background: themed('red-color');
+           }
+       }
+
+        .ui-process-command-done {
+            .ui-process-command-footer {
                 background: themed('green-color');
             }
         }
 
-        .ui-process-analyses-body {
-            background: themed('primary-color');
-            color: themed('primary-text-color');
-            box-shadow: 1px 1px 2px -1px themed('primary-shadow-color');
-        }
+        .ui-process-command-executing {
+            .ui-process-command-footer {
+                background: themed('blue-color');
+                overflow: hidden;
 
-        .ui-process-analyses-file {
-            display: flex;
-            margin: 5px;
-            align-items: center;
-
-            .fas {
-                font-size: 20px;
-                color: themed('blue-color');
-            }
-
-            .ui-process-analyses-alias {
-                padding-left: 10px;
+                .ui-process-command-footer-slider {
+                    position: absolute;
+                    height: 5px;
+                    width: 40%;
+                    animation: executing 2s infinite linear;
+                    background: linear-gradient(90deg, themed('blue-color') 0%, themed('light-blue-color') 30%, themed('light-blue-color') 70%, themed('blue-color') 100%);
+                }
             }
         }
 
-        .ui-process-analyses-general,
-        .ui-process-analyses-header {
-            background: themed('blue-color');
-            color: themed('white-color');
+        .ui-process-command-waiting {
+            .ui-process-command-footer {
+                background: themed('gray-color');
+            }
         }
-    }
-}
 
-:host-context(.ui-container-mobile) {
-    .ui-process-analyses-body,
-    .ui-process-analyses-general {
-        width: 100%;
-        max-width: unset;
-        margin: 10px 0;
+        .ui-process-command-skipped {
+            .ui-process-command-footer {
+                background: themed('orange-color');
+            }
+        }
     }
 }
