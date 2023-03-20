@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject, forkJoin, interval } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, interval } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
@@ -18,7 +18,6 @@ import { CommandExecutionModel } from '../shared/model/command-execution.model';
 import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
 import { GenesisStates } from '../genesis.states';
 import { CommandDetailComponent } from './command-detail/command-detail.component';
-import { ProcessStepEnum } from '../shared/enum/process-step-enum';
 import { STEP_STYLE } from '../shared/const/step-styling.const';
 import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 
@@ -29,12 +28,11 @@ import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 })
 export class DetailComponent extends AbstractComponent {
 
-    public TIMER = interval(2000).pipe(startWith(0));
+    public TIMER$ = interval(2000).pipe(startWith(0));
     public commands: Array<CommandExecutionModel>;
     public process: ProcessModel;
     public processData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
     public completenessText: string;
-    public informations: { [key: string]: string | number | undefined } = {};
     public title: string;
     public subTitle: string;
     public lastUpdate = new Date();
@@ -55,7 +53,6 @@ export class DetailComponent extends AbstractComponent {
     }
 
     public buildGenesisChartData(): void {
-        console.log(this.process)
         const { total, executed } = this.collectTotalAndExecutedCommands();
         const completeness = parseFloat(((executed/total) * 100).toFixed(0));
         this.completenessText = isNaN(completeness) ? 'No Data' : completeness + '%';
@@ -158,11 +155,17 @@ export class DetailComponent extends AbstractComponent {
             maxHeight: '90vh'
         })
     }
-    public eventRetryStep(step: ProcessStepEnum, event: Event): void {
+    public eventRetryStep(command: CommandExecutionModel, event: Event): void {
         event.preventDefault();
         event.stopPropagation();
-        this.subscriptions$.add(this.genesisService.retryProcess(this.process._id, step).subscribe(
+        command.result.detail = null;
+        command.result.description = null;
+        command.endDate = null;
+        command.status = CommandExecutionStatusEnum.EXECUTING;
+
+        this.subscriptions$.add(this.genesisService.retryProcess(this.process._id, command.step).subscribe(
             (updatedProcess: ProcessModel) => {
+                console.log(updatedProcess)
                 this.handleGenesisProcess(updatedProcess);
             }, (error) => {
                 this.openErrorMessageBox(error);
@@ -215,27 +218,29 @@ export class DetailComponent extends AbstractComponent {
             this.buildGenesisChartData();
         }
     }
-    public trackExecutionByStep(index: number, execution: CommandExecutionModel): string {
-        return execution.step;
+    public trackByCommandId(index: number, command: CommandExecutionModel): string {
+        return command._id;
     }
     private watchGenesisProcess(): void {
-        this.subscriptions$.add(this.TIMER.pipe(
-            filter(() => !this.process || this.process.completedDate === null),
-            switchMap(() => {
-                return forkJoin([
-                    this.genesisService.getProcessById(this.route.snapshot.params.id),
-                    this.genesisService.getCommandsByProcessId(this.route.snapshot.params.id)
-                ])
-            })
-        ).subscribe(
-            (result: [ProcessModel, Array<CommandExecutionModel>]) => {
-                this.commands = result[1];
-                this.handleGenesisProcess(result[0]);
-            },
-            (error: HttpErrorResponse) => {
-                this.openErrorMessageBox(error);
-            }
-        ));
+        this.subscriptions$.add(
+            this.TIMER$.pipe(
+                filter(() => !this.process || this.process.completedDate === null),
+                switchMap(() => {
+                    return combineLatest([
+                        this.genesisService.getProcessById(this.route.snapshot.params.id),
+                        this.genesisService.getCommandsByProcessId(this.route.snapshot.params.id)
+                    ])
+                })
+            ).subscribe(
+                (result: [ProcessModel, Array<CommandExecutionModel>]) => {
+                    this.commands = result[1];
+                    this.handleGenesisProcess(result[0]);
+                },
+                (error: HttpErrorResponse) => {
+                    this.openErrorMessageBox(error);
+                }
+            )
+        );
     }
     // protected collectInformations(): void {
     //     const extractedDna = this.getExtractionSizes('dna');

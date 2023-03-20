@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf = "process.result.status === 'SUCCESS'" class = "ui-process-detail-body">
+    <div *ngIf = "process.result?.status === 'SUCCESS'" class = "ui-process-detail-body">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-2">
                 Analysis
@@ -85,16 +85,16 @@
         </div>
     </div>
 
-    <div *ngIf = "process" class = "ui-process-detail-body ui-process-detail-body-extensible">
+    <div class = "ui-process-detail-body ui-process-detail-body-extensible">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-2">
                 <span>Commands</span>
                 <span>Amount: {{ commands.length }}</span>
             </div>
             <div class = "ui-process-commands">
-                <div [class] = "getCssClass(command)" *ngFor = "let command of commands" (click) = "eventExecutionDetail(command)">
+                <div [class] = "getCssClass(command)" *ngFor = "let command of commands; trackBy: trackByCommandId" (click) = "eventExecutionDetail(command)">
                     <div class = "ui-process-command-step-container">
-                        <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command.step, $event)" *ngIf = "command.startDate !== null">
+                        <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command, $event)" *ngIf = "command.startDate !== null">
                             <span class = "fas fa-redo"></span>
                         </button>
                         <div class = "ui-process-command-step-information">

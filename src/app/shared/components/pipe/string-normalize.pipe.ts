@@ -7,7 +7,7 @@ export class StringNormalizePipe implements PipeTransform {
         WAITING: "Waiting",
         REFERENCE: "Genoma Download",
         FASTQ_DUMP_DNA: "DNA Sample Download",
-        FASTQ_DUMP_RNA: "DNA Sample Download",
+        FASTQ_DUMP_RNA: "RNA Sample Download",
         ALIGNING_DNA: "DNA Alignment",
         ALIGNING_RNA: "RNA Alignment",
         EXTRACT_DNA: "DNA Extraction",
