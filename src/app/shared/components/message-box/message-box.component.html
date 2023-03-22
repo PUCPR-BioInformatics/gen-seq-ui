@@ -15,7 +15,7 @@
             <div class = "ui-container-message-box-message-detail">
                 {{detail}}
             </div>
-            <a *ngIf = "linkMessage" [routerLink] = "[link]"  class = "ui-container-message-box-message-link" (click) = "eventNavigateTo()" >
+            <a *ngIf = "linkMessage" class = "ui-container-message-box-message-link" (click) = "eventNavigateTo()" >
                 {{linkMessage}}
             </a>
         </div>

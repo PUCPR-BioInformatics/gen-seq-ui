@@ -1,6 +1,6 @@
-export const GenesisStates = {
+export const ProcessStates = {
     creation: {
-        name: 'genesis-creation',
+        name: 'process-creation',
         alias: 'Create',
         path: 'execution/creation',
         icon: 'fa-regular fa-file',
@@ -9,7 +9,7 @@ export const GenesisStates = {
         subStates: null
     },
     list: {
-        name: 'genesis-list',
+        name: 'process-list',
         alias: 'Executions',
         path: 'executions',
         icon: 'fa-solid fa-diagram-project',
@@ -18,7 +18,7 @@ export const GenesisStates = {
         subStates: null
     },
     detail: {
-        name: 'genesis-detail',
+        name: 'process-detail',
         alias: 'Detail',
         path: 'executions/detail',
         icon: null,

@@ -17,7 +17,7 @@ import { WsMessageModel } from '../core/ws/model/ws-message.model';
 @Injectable({
     providedIn: 'root'
 })
-export class GenesisProcessService extends AbstractWsService {
+export class ProcessService extends AbstractWsService {
     constructor(
         protected systemService: SystemService,
         protected wsConnectorProvider: WsConnectorProvider

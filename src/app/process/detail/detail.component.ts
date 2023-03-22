@@ -10,13 +10,13 @@ import { filter, startWith, switchMap } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
-import { GenesisProcessService } from '../genesis-process.service';
+import { ProcessService } from '../process.service';
 import { ProcessModel } from '../shared/model/process.model';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { CommandExecutionModel } from '../shared/model/command-execution.model';
 import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
-import { GenesisStates } from '../genesis.states';
+import { ProcessStates } from '../process.states';
 import { CommandDetailComponent } from './command-detail/command-detail.component';
 import { STEP_STYLE } from '../shared/const/step-styling.const';
 import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
@@ -41,7 +41,7 @@ export class DetailComponent extends AbstractComponent {
         public systemService: SystemService,
         public dialog: MatDialog,
         public messageBoxService: MessageBoxService,
-        public genesisService: GenesisProcessService,
+        public genesisService: ProcessService,
         public router: Router,
         public route: ActivatedRoute
     ) {
@@ -131,14 +131,14 @@ export class DetailComponent extends AbstractComponent {
         );
     }
     public eventDuplicateExecution(): void {
-        this.router.navigate([GenesisStates.creation.path], {
+        this.router.navigate([ProcessStates.creation.path], {
             queryParams: {
                 from: this.process._id
             }
         });
     }
     public eventNewExecution(): void {
-        this.router.navigate([GenesisStates.creation.path ]);
+        this.router.navigate([ProcessStates.creation.path ]);
     }
     public eventGenesisSummary(): void {
         this.router.navigate(['../../'], {
@@ -158,14 +158,15 @@ export class DetailComponent extends AbstractComponent {
     public eventRetryStep(command: CommandExecutionModel, event: Event): void {
         event.preventDefault();
         event.stopPropagation();
-        command.result.detail = null;
-        command.result.description = null;
+        if (command.result) {
+            command.result.detail = null;
+            command.result.description = null;
+        }
         command.endDate = null;
         command.status = CommandExecutionStatusEnum.EXECUTING;
 
         this.subscriptions$.add(this.genesisService.retryProcess(this.process._id, command.step).subscribe(
             (updatedProcess: ProcessModel) => {
-                console.log(updatedProcess)
                 this.handleGenesisProcess(updatedProcess);
             }, (error) => {
                 this.openErrorMessageBox(error);

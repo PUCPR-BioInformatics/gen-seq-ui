@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ProcessStepEnum } from '../../../genesis/shared/enum/process-step-enum';
+import { ProcessStepEnum } from '../../../process/shared/enum/process-step-enum';
 
 @Pipe({name: 'StringNormalizePipe'})
 export class StringNormalizePipe implements PipeTransform {

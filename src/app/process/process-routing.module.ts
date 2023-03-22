@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GenesisStates } from './genesis.states';
+import { ProcessStates } from './process.states';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { CreationComponent } from './creation/creation.component';
@@ -10,16 +10,16 @@ import { CreationComponent } from './creation/creation.component';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: GenesisStates.list.path
+        redirectTo: ProcessStates.list.path
     }, {
-        path: GenesisStates.list.path,
+        path: ProcessStates.list.path,
         component: ListComponent,
     }, {
-        path: GenesisStates.detail.path + '/:id',
+        path: ProcessStates.detail.path + '/:id',
         component: DetailComponent,
         pathMatch: 'full'
     }, {
-        path: GenesisStates.creation.path,
+        path: ProcessStates.creation.path,
         component: CreationComponent
     }
 ];
@@ -30,4 +30,4 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-export class GenesisRoutingModule { }
+export class ProcessRoutingModule { }

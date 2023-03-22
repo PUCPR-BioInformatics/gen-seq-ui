@@ -9,10 +9,10 @@ import { map } from 'rxjs/operators';
 import { AbstractComponent } from '../../core/abstract.component';
 import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
-import { GenesisProcessService } from '../genesis-process.service';
+import { ProcessService } from '../process.service';
 import { ProcessModel } from '../shared/model/process.model';
 import { FormHelper } from '../../shared/helper/form.helper';
-import { GenesisStates } from '../genesis.states';
+import { ProcessStates } from '../process.states';
 import { AlignmentToolModel } from '../shared/model/alignment-tool.model';
 import { GeneomeReferenceModel } from '../shared/model/geneome-reference.model';
 
@@ -34,7 +34,7 @@ export class CreationComponent extends AbstractComponent{
     constructor(
         public systemService: SystemService,
         public messageBoxService: MessageBoxService,
-        public genesisService: GenesisProcessService,
+        public genesisService: ProcessService,
         public router: Router,
         public route: ActivatedRoute
     ) {
@@ -116,12 +116,12 @@ export class CreationComponent extends AbstractComponent{
         const genesisProcess = this.buildGenesis(creationParametersRaw, creationRnaAlignmentRaw, creationDnaAlignmentRaw);
         this.genesisService.createProcess(genesisProcess).subscribe(
             (genesisProcess: ProcessModel) => {
-                const link = GenesisStates.detail.path + '/' + genesisProcess._id;
+                const link = ProcessStates.detail.path + '/' + genesisProcess._id;
                 this.openSuccessMessageBox(
                     'O Processo começou!', 'Sucesso',  link, 'Clique para Acompanhar'
                 ).afterClosed().subscribe((result) => {
                     if (!result.linked) {
-                        this.router.navigate([GenesisStates.list.path]);
+                        this.router.navigate([ProcessStates.list.path]);
                     }
                 })
             }, (error: HttpErrorResponse) => this.openErrorMessageBox(error)
@@ -172,7 +172,7 @@ export class CreationComponent extends AbstractComponent{
             extractionParameters: new FormControl(''),
             indexParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
-            pairedDump: new FormControl(false, Validators.required),
+            pairedDump: new FormControl(true, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
             forceExtraction: new FormControl(false, Validators.required),
             forceIndex: new FormControl(false, Validators.required),
@@ -184,7 +184,7 @@ export class CreationComponent extends AbstractComponent{
             extractionParameters: new FormControl(''),
             indexParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
-            pairedDump: new FormControl(false, Validators.required),
+            pairedDump: new FormControl(true, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
             forceExtraction: new FormControl(false, Validators.required),
             forceIndex: new FormControl(false, Validators.required),

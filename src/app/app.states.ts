@@ -1,7 +1,7 @@
-import { GenesisStates } from './genesis/genesis.states';
+import { ProcessStates } from './process/process.states';
 
 export const AppStates = {
-    ...GenesisStates,
+    ...ProcessStates,
     error: {
         alias: 'error',
         name: 'Erro',

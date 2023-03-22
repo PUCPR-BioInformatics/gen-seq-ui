@@ -8,11 +8,11 @@ import { filter, startWith, switchMap } from 'rxjs/operators';
 import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
 import { AbstractComponent } from '../../core/abstract.component';
-import { GenesisProcessService } from '../genesis-process.service';
+import { ProcessService } from '../process.service';
 import { ProcessPaginatedModel } from '../shared/model/process-paginated.model';
 import { PaginationModel } from '../../shared/model/pagination.model';
 import { ProcessModel } from '../shared/model/process.model';
-import { GenesisStates } from '../genesis.states';
+import { ProcessStates } from '../process.states';
 import { STEP_STYLE } from '../shared/const/step-styling.const';
 
 
@@ -38,7 +38,7 @@ export class ListComponent extends AbstractComponent {
     constructor(
         public systemService: SystemService,
         public messageBoxService: MessageBoxService,
-        public genesisProcessService: GenesisProcessService,
+        public genesisProcessService: ProcessService,
         private router: Router,
         private route: ActivatedRoute
     ) {
@@ -50,10 +50,10 @@ export class ListComponent extends AbstractComponent {
     }
 
     public eventNavigateToDetail(genesisProcess: ProcessModel): void {
-        this.router.navigate([GenesisStates.detail.path, genesisProcess._id]);
+        this.router.navigate([ProcessStates.detail.path, genesisProcess._id]);
     }
     public eventNewExecution(): void {
-        this.router.navigate([ GenesisStates.creation.path ]);
+        this.router.navigate([ ProcessStates.creation.path ]);
     }
     public eventLimitChanged(limit: number): void {
         this.pagination.limit = limit;

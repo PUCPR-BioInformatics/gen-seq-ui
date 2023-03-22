@@ -9,7 +9,7 @@ import { ErrorComponent } from './error/error.component';
 const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./genesis/genesis.module').then((m => m.GenesisModule))
+        loadChildren: () => import('./process/process.module').then((m => m.ProcessModule))
     }, {
         path: AppStates.error.path,
         pathMatch: 'full',
