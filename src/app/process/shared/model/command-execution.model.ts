@@ -2,6 +2,7 @@ import { InteractionModel } from './interaction.model';
 import { ProcessStepEnum } from '../enum/process-step-enum';
 import { CommandExecutionStatusEnum } from '../enum/command-execution-status.enum';
 import { CommandResultModel } from './command-result.model';
+import { CommandParametersModel } from './command-parameters.model';
 
 export interface CommandExecutionModel {
     _id?: string;
@@ -15,4 +16,6 @@ export interface CommandExecutionModel {
     interactions: Array<InteractionModel>;
     type: 'dna' | 'rna' | 'global';
     status: CommandExecutionStatusEnum;
+    sra: string;
+    parameters: CommandParametersModel;
 }
