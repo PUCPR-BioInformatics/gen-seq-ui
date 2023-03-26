@@ -14,7 +14,7 @@ import { ProcessService } from '../process.service';
 import { ProcessModel } from '../shared/model/process.model';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
-import { CommandExecutionModel } from '../shared/model/command-execution.model';
+import { CommandModel } from '../shared/model/command.model';
 import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
 import { ProcessStates } from '../process.states';
 import { CommandDetailComponent } from './command-detail/command-detail.component';
@@ -29,7 +29,7 @@ import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 export class DetailComponent extends AbstractComponent {
 
     public TIMER$ = interval(2000).pipe(startWith(0));
-    public commands: Array<CommandExecutionModel>;
+    public commands: Array<CommandModel>;
     public process: ProcessModel;
     public processData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
     public completenessText: string;
@@ -145,7 +145,7 @@ export class DetailComponent extends AbstractComponent {
             relativeTo: this.route
         });
     }
-    public eventExecutionDetail(execution: CommandExecutionModel): void {
+    public eventExecutionDetail(execution: CommandModel): void {
         this.dialog.open(CommandDetailComponent, {
             data: {
                 execution,
@@ -155,7 +155,7 @@ export class DetailComponent extends AbstractComponent {
             maxHeight: '90vh'
         })
     }
-    public eventRetryStep(command: CommandExecutionModel, event: Event): void {
+    public eventRetryStep(command: CommandModel, event: Event): void {
         event.preventDefault();
         event.stopPropagation();
         if (command.result) {
@@ -173,7 +173,7 @@ export class DetailComponent extends AbstractComponent {
             }
         ));
     }
-    public getCssClass(execution: CommandExecutionModel): string {
+    public getCssClass(execution: CommandModel): string {
         let cssClass = 'ui-process-command ';
 
         if (!execution.startDate) {
@@ -195,7 +195,7 @@ export class DetailComponent extends AbstractComponent {
     public getStepIcon(step: string): string {
         return STEP_STYLE[step].icon;
     }
-    public getExecutionStatus(command: CommandExecutionModel): string {
+    public getExecutionStatus(command: CommandModel): string {
         if (!command.startDate) {
             return 'Waiting';
         } else if (!command.endDate) {
@@ -219,7 +219,7 @@ export class DetailComponent extends AbstractComponent {
             this.buildGenesisChartData();
         }
     }
-    public trackByCommandId(index: number, command: CommandExecutionModel): string {
+    public trackByCommandId(index: number, command: CommandModel): string {
         return command._id;
     }
     private watchGenesisProcess(): void {
@@ -233,7 +233,7 @@ export class DetailComponent extends AbstractComponent {
                     ])
                 })
             ).subscribe(
-                (result: [ProcessModel, Array<CommandExecutionModel>]) => {
+                (result: [ProcessModel, Array<CommandModel>]) => {
                     this.commands = result[1];
                     this.handleGenesisProcess(result[0]);
                 },

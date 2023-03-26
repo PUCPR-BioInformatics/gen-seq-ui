@@ -174,9 +174,6 @@ export class CreationComponent extends AbstractComponent{
             rnaSraId: new FormControl('', Validators.required),
         });
         this.dnaAlignmentForm = new FormGroup({
-            alignmentParameters: new FormControl(''),
-            dumpParameters: new FormControl(''),
-            extractionParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
             pairedDump: new FormControl(true, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
@@ -185,9 +182,6 @@ export class CreationComponent extends AbstractComponent{
             toolName: new FormControl('', Validators.required)
         });
         this.rnaAlignmentForm = new FormGroup({
-            alignmentParameters: new FormControl(''),
-            dumpParameters: new FormControl(''),
-            extractionParameters: new FormControl(''),
             forceDump: new FormControl(false, Validators.required),
             pairedDump: new FormControl(true, Validators.required),
             forceAlignment: new FormControl(false, Validators.required),
@@ -197,23 +191,12 @@ export class CreationComponent extends AbstractComponent{
         });
 
         if (this.fromGenesisExecution) {
-            const dnaAlignmentParameters = this.fromGenesisExecution.dnaResource.alignment.shellArguments;
-            const dnaDumpParameters = this.fromGenesisExecution.dnaResource.fastqDump.shellArguments;
-            const dnaExtractionParameters = this.fromGenesisExecution.dnaResource.extraction.shellArguments;
-
-            const rnaAlignmentParameters = this.fromGenesisExecution.rnaResource.alignment.shellArguments;
-            const rnaDumpParameters = this.fromGenesisExecution.rnaResource.fastqDump.shellArguments;
-            const rnaExtractionParameters = this.fromGenesisExecution.rnaResource.extraction.shellArguments;
-
             this.parametersForm.setValue({
                 reference: this.fromGenesisExecution.reference,
                 dnaSraId: this.fromGenesisExecution.dnaResource.sra,
                 rnaSraId: this.fromGenesisExecution.rnaResource.sra,
             });
             this.dnaAlignmentForm.setValue({
-                alignmentParameters: (dnaAlignmentParameters) ? dnaAlignmentParameters.toString() : '',
-                dumpParameters: (dnaDumpParameters) ? dnaDumpParameters.toString() : '',
-                extractionParameters: (dnaExtractionParameters) ? dnaExtractionParameters.toString() : '',
                 toolName: this.fromGenesisExecution.dnaResource.alignment.toolName,
                 pairedDump: this.fromGenesisExecution.dnaResource.fastqDump.arguments['isPaired'],
                 forceAlignment: false,
@@ -222,9 +205,6 @@ export class CreationComponent extends AbstractComponent{
                 forceIndex: false
             });
             this.rnaAlignmentForm.setValue({
-                alignmentParameters: (rnaAlignmentParameters) ? rnaAlignmentParameters.toString() : '',
-                dumpParameters:  (rnaDumpParameters) ? rnaDumpParameters.toString() : '',
-                extractionParameters: (rnaExtractionParameters) ? rnaExtractionParameters.toString() : '',
                 toolName: this.fromGenesisExecution.rnaResource.alignment.toolName,
                 pairedDump: this.fromGenesisExecution.rnaResource.fastqDump.arguments['isPaired'],
                 forceAlignment: false,

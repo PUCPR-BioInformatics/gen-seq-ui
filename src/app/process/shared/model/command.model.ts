@@ -4,7 +4,7 @@ import { CommandExecutionStatusEnum } from '../enum/command-execution-status.enu
 import { CommandResultModel } from './command-result.model';
 import { CommandParametersModel } from './command-parameters.model';
 
-export interface CommandExecutionModel {
+export interface CommandModel {
     _id?: string;
     startDate: Date | null;
     endDate: Date | null;
@@ -16,6 +16,5 @@ export interface CommandExecutionModel {
     interactions: Array<InteractionModel>;
     type: 'dna' | 'rna' | 'global';
     status: CommandExecutionStatusEnum;
-    sra: string;
     parameters: CommandParametersModel;
 }

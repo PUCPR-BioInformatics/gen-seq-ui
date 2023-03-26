@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ProcessModel } from '../../shared/model/process.model';
-import { CommandExecutionModel } from '../../shared/model/command-execution.model';
+import { CommandModel } from '../../shared/model/command.model';
 
 @Component({
     selector: 'app-command-detail',
@@ -15,7 +15,7 @@ export class CommandDetailComponent {
     constructor(
         public dialogRef: MatDialogRef<CommandDetailComponent>,
         private router: Router,
-        @Inject(MAT_DIALOG_DATA) public data: { execution: CommandExecutionModel, process: ProcessModel }
+        @Inject(MAT_DIALOG_DATA) public data: { execution: CommandModel, process: ProcessModel }
     ) {}
 
     public eventDismiss(): void {

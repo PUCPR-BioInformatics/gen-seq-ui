@@ -9,7 +9,7 @@ import { ProcessModel } from './shared/model/process.model';
 import { GeneomeReferenceModel } from './shared/model/geneome-reference.model';
 import { AlignmentToolModel } from './shared/model/alignment-tool.model';
 import { ProcessStepEnum } from './shared/enum/process-step-enum';
-import { CommandExecutionModel } from './shared/model/command-execution.model';
+import { CommandModel } from './shared/model/command.model';
 import { WsConnectorProvider } from '../core/ws/provider/ws-connector.service';
 import { AbstractWsService } from '../core/ws/service/abstract-ws-service';
 import { WsMessageModel } from '../core/ws/model/ws-message.model';
@@ -78,8 +78,8 @@ export class ProcessService extends AbstractWsService {
             body: queryParamUrl
         }));
     }
-    public getCommandsByProcessId(processId): Observable<Array<CommandExecutionModel>> {
-        return this.sendRequest<Array<CommandExecutionModel>>(new WsMessageModel({
+    public getCommandsByProcessId(processId): Observable<Array<CommandModel>> {
+        return this.sendRequest<Array<CommandModel>>(new WsMessageModel({
             name: 'orchestrator-process-commands',
             version: '1.0',
             body: processId

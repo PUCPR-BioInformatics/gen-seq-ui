@@ -1,6 +1,8 @@
+import { CommandArgumentsMapModel } from './command-arguments.map.model';
+
 export interface CommandParametersModel {
     toolName?: string;
-    arguments?: { [key: string]: string | number | boolean };
-    shellArguments: Array<string>;
+    arguments: CommandArgumentsMapModel;
     force: boolean;
+    sra?: string;
 }
