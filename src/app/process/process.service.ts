@@ -9,10 +9,11 @@ import { ProcessModel } from './shared/model/process.model';
 import { GeneomeReferenceModel } from './shared/model/geneome-reference.model';
 import { AlignmentToolModel } from './shared/model/alignment-tool.model';
 import { ProcessStepEnum } from './shared/enum/process-step-enum';
-import { CommandModel } from './shared/model/command.model';
+import { CommandModel } from './detail/model/command.model';
 import { WsConnectorProvider } from '../core/ws/provider/ws-connector.service';
 import { AbstractWsService } from '../core/ws/service/abstract-ws-service';
 import { WsMessageModel } from '../core/ws/model/ws-message.model';
+import { ResourceModel } from './detail/model/resources.model';
 
 @Injectable({
     providedIn: 'root'
@@ -81,6 +82,13 @@ export class ProcessService extends AbstractWsService {
     public getCommandsByProcessId(processId): Observable<Array<CommandModel>> {
         return this.sendRequest<Array<CommandModel>>(new WsMessageModel({
             name: 'orchestrator-process-commands',
+            version: '1.0',
+            body: processId
+        }));
+    }
+    public getResourcesByProcessId(processId): Observable<Array<ResourceModel>> {
+        return this.sendRequest<Array<ResourceModel>>(new WsMessageModel({
+            name: 'orchestrator-process-resources',
             version: '1.0',
             body: processId
         }));

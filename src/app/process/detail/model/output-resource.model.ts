@@ -1,4 +1,4 @@
-export interface CommandResultOutputParameters {
+export interface OutputResourceModel {
     alias: string;
     name: string;
     value: string | number | boolean;

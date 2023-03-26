@@ -1,6 +1,6 @@
-import { InteractionModel } from './interaction.model';
-import { ProcessStepEnum } from '../enum/process-step-enum';
-import { CommandExecutionStatusEnum } from '../enum/command-execution-status.enum';
+import { InteractionModel } from '../../shared/model/interaction.model';
+import { ProcessStepEnum } from '../../shared/enum/process-step-enum';
+import { CommandExecutionStatusEnum } from '../../shared/enum/command-execution-status.enum';
 import { CommandResultModel } from './command-result.model';
 import { CommandParametersModel } from './command-parameters.model';
 

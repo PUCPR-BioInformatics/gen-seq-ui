@@ -1,4 +1,4 @@
-import { CommandParametersModel } from './command-parameters.model';
+import { CommandParametersModel } from '../../detail/model/command-parameters.model';
 
 export interface GenesisResourceModel {
     alignment: CommandParametersModel;

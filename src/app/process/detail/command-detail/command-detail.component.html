@@ -17,14 +17,6 @@
                 {{ data.execution.result.description }}
             </div>
         </div>
-        <div class = "ui-information-container" *ngFor = "let outputParemeter of data.execution.result?.outputParameters">
-            <div class = "ui-information-label">
-                {{ outputParemeter.alias }}
-            </div>
-            <div class = "ui-information-value">
-                {{ outputParemeter.value }}
-            </div>
-        </div>
     </div>
     <mat-accordion class = "ui-minimalist-accordion" *ngIf = "data.execution.interactions.length > 0">
         <mat-expansion-panel>

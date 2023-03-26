@@ -15,7 +15,7 @@ import { FormHelper } from '../../shared/helper/form.helper';
 import { ProcessStates } from '../process.states';
 import { AlignmentToolModel } from '../shared/model/alignment-tool.model';
 import { GeneomeReferenceModel } from '../shared/model/geneome-reference.model';
-import { CommandParametersModel } from '../shared/model/command-parameters.model';
+import { CommandParametersModel } from '../detail/model/command-parameters.model';
 
 @Component({
     selector: 'app-creation',

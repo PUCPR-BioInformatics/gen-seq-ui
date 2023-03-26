@@ -14,12 +14,13 @@ import { ProcessService } from '../process.service';
 import { ProcessModel } from '../shared/model/process.model';
 import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
-import { CommandModel } from '../shared/model/command.model';
+import { CommandModel } from './model/command.model';
 import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
 import { ProcessStates } from '../process.states';
 import { CommandDetailComponent } from './command-detail/command-detail.component';
 import { STEP_STYLE } from '../shared/const/step-styling.const';
 import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
+import { ResourceModel } from './model/resources.model';
 
 @Component({
     selector: 'app-detail',
@@ -229,11 +230,12 @@ export class DetailComponent extends AbstractComponent {
                 switchMap(() => {
                     return combineLatest([
                         this.genesisService.getProcessById(this.route.snapshot.params.id),
-                        this.genesisService.getCommandsByProcessId(this.route.snapshot.params.id)
+                        this.genesisService.getCommandsByProcessId(this.route.snapshot.params.id),
+                        this.genesisService.getResourcesByProcessId(this.route.snapshot.params.id)
                     ])
                 })
             ).subscribe(
-                (result: [ProcessModel, Array<CommandModel>]) => {
+                (result: [ProcessModel, Array<CommandModel>, Array<ResourceModel>]) => {
                     this.commands = result[1];
                     this.handleGenesisProcess(result[0]);
                 },
@@ -243,90 +245,4 @@ export class DetailComponent extends AbstractComponent {
             )
         );
     }
-    // protected collectInformations(): void {
-    //     const extractedDna = this.getExtractionSizes('dna');
-    //     const extractedRna = this.getExtractionSizes('rna');
-    //
-    //     this.informations.dnaAlignmentSize = this.getAlignmentSize('dna');
-    //     this.informations.dnaVariantsSize = extractedDna[0];
-    //     this.informations.dnaSnpsSize = extractedDna[1];
-    //     this.informations.dnaIndelsSize = extractedDna[2];
-    //     this.informations.dnaExecutionTime = this.getExecutionTime('dna');
-    //
-    //     this.informations.rnaAlignmentSize = this.getAlignmentSize('rna');
-    //     this.informations.rnaVariantsSize = extractedRna[0];
-    //     this.informations.rnaSnpsSize = extractedRna[1];
-    //     this.informations.rnaIndelsSize = extractedRna[2];
-    //     this.informations.rnaExecutionTime = this.getExecutionTime('rna');
-    // }
-
-
-    // protected getAlignmentSize(type: 'dna' | 'rna'): number | undefined{
-    //     const step = (type === 'dna') ? ProcessStepEnum.ALIGNING_DNA : ProcessStepEnum.ALIGNING_RNA;
-    //     const execution = this.commands.find((execution) => execution.step === step);
-    //     const parameter = execution.result?.outputParameters.find((parameter) => parameter.name === 'alignmentOutputSize');
-    //
-    //     return (parameter) ? parseInt(parameter.value as string) : undefined;
-    // }
-    // protected getExtractionSizes(type: 'dna' | 'rna'): [number | undefined, number | undefined, number | undefined]{
-    //     const step = (type === 'dna') ? ProcessStepEnum.EXTRACT_DNA : ProcessStepEnum.EXTRACT_RNA;
-    //     const execution = this.commands.find((execution) => execution.step === step);
-    //     console.log(this.commands, step)
-    //     const parameterVariants = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedOutputSize');
-    //     const parameterSnps = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedSnpsOutputSize');
-    //     const parameterIndels = execution.result?.outputParameters.find((parameter) => parameter.name === 'extractedIndelsOutputSize');
-    //
-    //     return [
-    //         (parameterVariants) ? parseInt(parameterVariants.value as string) - 26 : undefined,
-    //         (parameterSnps) ? parseInt(parameterSnps.value as string) - 29 : undefined,
-    //         (parameterIndels) ? parseInt(parameterIndels.value as string) - 29 : undefined,
-    //     ];
-    // }
-
-
-    // public getExecutionTime(type?: 'dna' | 'rna'): string {
-    //     let time = 0;
-    //
-    //     if (type) {
-    //         if (!this.process.completedDate) {
-    //             return 'Executando';
-    //         }
-    //         this.commands.filter((execution) => execution.type === type).forEach((execution) => {
-    //             time += new Date(execution.endDate).getTime() - new Date(execution.startDate).getTime()
-    //         });
-    //     } else {
-    //         let initialTime = new Date(this.process.creationDate).getTime();
-    //         let finalTime = new Date(this.process.completedDate).getTime();
-    //
-    //         if (!this.process.completedDate) {
-    //             finalTime = new Date().getTime();
-    //         }
-    //         // if (this.genesisProcess.executionsHistory) {
-    //         //     initialTime = new Date(this.genesisProcess.executions[0].startDate).getTime();
-    //         // }
-    //
-    //         time = finalTime - initialTime;
-    //     }
-    //     const seconds = (time / 1000);
-    //     if (seconds < 60) {
-    //         return seconds.toFixed(2) + ' segundo(s)';
-    //     } else if (seconds < 3600) {
-    //         return (seconds / 60).toFixed(2) + ' minuto(s)';
-    //     } else {
-    //         return (seconds / 60 / 60).toFixed(2) + ' hora(s)';
-    //     }
-    // }
-    // public getFiles(type: 'dna' | 'rna'): Array<CommandResultOutputParameters> {
-    //     const parameters = [];
-    //     const executions = this.commands.filter((execution) => execution.type === type);
-    //
-    //     for (const execution of executions) {
-    //         for (const parameter of execution.result.outputParameters) {
-    //             if (parameter.type === 'file') {
-    //                 parameters.push(parameter);
-    //             }
-    //         }
-    //     }
-    //     return parameters;
-    // }
 }

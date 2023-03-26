@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ProcessModel } from '../../shared/model/process.model';
-import { CommandModel } from '../../shared/model/command.model';
+import { CommandModel } from '../model/command.model';
 
 @Component({
     selector: 'app-command-detail',
