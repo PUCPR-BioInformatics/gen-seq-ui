@@ -78,7 +78,7 @@ export class CreationComponent extends AbstractComponent{
             { forceIndex: creationRnaAlignmentRaw.forceIndex }
         );
         const dnaFastq = this.buildCommandParameters(
-            null, dnaDumpParameters, creationDnaAlignmentRaw.forceAlignment,
+            null, dnaDumpParameters, creationDnaAlignmentRaw.fastqDump,
             { isPaired: creationDnaAlignmentRaw.pairedDump as boolean }
         );
         const dnaExtraction = this.buildCommandParameters(
@@ -90,7 +90,7 @@ export class CreationComponent extends AbstractComponent{
             { forceIndex: creationRnaAlignmentRaw.forceIndex }
         );
         const rnaFastq = this.buildCommandParameters(
-            null, rnaDumpParameters, creationRnaAlignmentRaw.forceAlignment,
+            null, rnaDumpParameters, creationRnaAlignmentRaw.fastqDump,
             { isPaired: creationRnaAlignmentRaw.pairedDump as boolean }
         );
 

@@ -31,8 +31,25 @@
                 </div>
                 <span>DNA</span>
             </div>
-            <div class = "ui-empty-container">
-                Under construction
+            <div class = "ui-process-detail-resource">
+                <div class = "ui-process-detail-information">
+                    <div class = "ui-process-detail-information-icon">
+                        <span class = "fa-solid fa-info-circle"></span>
+                    </div>
+                    <div class = "ui-process-detail-information-body">
+                        <div>SRA</div>
+                        <div>{{ process.dnaResource.sra }}</div>
+                    </div>
+                </div>
+                <div class = "ui-process-detail-information">
+                    <div class = "ui-process-detail-information-icon">
+                        <span class = "fa-solid fa-file"></span>
+                    </div>
+                    <div class = "ui-process-detail-information-body">
+                        <div>Alignment Tool</div>
+                        <div>{{ process.dnaResource.alignment.toolName }}</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class = "ui-process-detail-execution-backdrop">
@@ -56,7 +73,7 @@
         </div>
     </div>
 
-    <div class = "ui-process-detail-body">
+    <div class = "ui-process-detail-body ui-process-detail-body-painted">
         <div class = "ui-process-detail-content ui-process-detail-content-spaced">
             <div class = "ui-process-detail-title ui-process-detail-title-2">
                 DNA Outputs
