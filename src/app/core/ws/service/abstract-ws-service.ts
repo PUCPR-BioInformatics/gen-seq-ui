@@ -7,6 +7,7 @@ import { SystemService } from '../../system.service';
 import { WsConnectorProvider } from '../provider/ws-connector.service';
 import { WsMessageModel } from '../model/ws-message.model';
 import { WsConnectionStateEnum } from '../enum/ws-connection-state.enum';
+import { ApplicationException } from '../../exception/application.exception';
 
 
 export abstract class AbstractWsService {
@@ -39,7 +40,9 @@ export abstract class AbstractWsService {
                         (wsResponse: WsMessageModel<T>) => {
                             if (wsResponse.code !== 200) {
                                 const body = wsResponse.body as any;
-                                observer.error(new Error(JSON.stringify(body)));
+                                observer.error(
+                                    new ApplicationException(body.detail, body.description, wsResponse.code)
+                                );
                             }
                             observer.next(wsResponse.body);
                             observer.complete()

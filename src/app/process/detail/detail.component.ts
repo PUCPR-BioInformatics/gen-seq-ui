@@ -21,6 +21,7 @@ import { CommandDetailComponent } from './command-detail/command-detail.componen
 import { STEP_STYLE } from '../shared/const/step-styling.const';
 import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 import { ResourceModel } from './model/resources.model';
+import { OutputResourceModel } from './model/output-resource.model';
 
 @Component({
     selector: 'app-detail',
@@ -31,12 +32,16 @@ export class DetailComponent extends AbstractComponent {
 
     public TIMER$ = interval(2000).pipe(startWith(0));
     public commands: Array<CommandModel>;
+    public resources: Array<ResourceModel>;
+    public dnaResources: Array<ResourceModel>;
+    public rnaResources: Array<ResourceModel>;
     public process: ProcessModel;
     public processData$: BehaviorSubject<ChartDataModel> = new BehaviorSubject(undefined) ;
     public completenessText: string;
     public title: string;
     public subTitle: string;
     public lastUpdate = new Date();
+
 
     constructor(
         public systemService: SystemService,
@@ -72,7 +77,7 @@ export class DetailComponent extends AbstractComponent {
               ['ui-linear-gradient-error-initial', 'ui-linear-gradient-error-endless'] :
               ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'];
         } else {
-            cssClass = ['ui-linear-gradient-success-initial', 'ui-linear-gradient-success-endless'];
+            cssClass = ['ui-linear-gradient-default-initial', 'ui-linear-gradient-default-endless'];
         }
 
         const effect = ChartHelper.buildGradientEffect(
@@ -168,7 +173,7 @@ export class DetailComponent extends AbstractComponent {
 
         this.subscriptions$.add(this.genesisService.retryProcess(this.process._id, command.step).subscribe(
             (updatedProcess: ProcessModel) => {
-                this.handleGenesisProcess(updatedProcess);
+                this.handleProcess(updatedProcess);
             }, (error) => {
                 this.openErrorMessageBox(error);
             }
@@ -205,19 +210,42 @@ export class DetailComponent extends AbstractComponent {
             return (command.status === CommandExecutionStatusEnum.FAIL) ? 'Failed' : 'Completed';
         }
     }
+    public getFileOutputOnly(resource: ResourceModel): Array<OutputResourceModel> {
+        return resource.outputResources.filter((output) => output.type === 'file');
+    }
+    public getFileNameOnly(output: OutputResourceModel): string {
+        const allBars = (output.value as string).split('/');
+        return allBars[allBars.length - 1];
+    }
+    public getFileExtension(output: OutputResourceModel): string {
+        const allBars = (output.value as string).split('/');
+        return allBars[allBars.length - 1].split('.')[1];
+    }
+    public getFileLinesCount(sourceOutput: OutputResourceModel, outputs: Array<OutputResourceModel>): string {
+        const found = outputs.find((output) => output.name === sourceOutput.name + 'Size');
+        return found ? 'Lines Count ' + found.value : 'No Lines Count';
+    }
     private initialize(): void {
         this.title = 'Buscando a execução';
         this.subTitle = 'Aguarde';
 
         this.watchGenesisProcess();
     }
-    private handleGenesisProcess(genesisProcess: ProcessModel): void {
+    private handleProcess(genesisProcess: ProcessModel): void {
         if (JSON.stringify(genesisProcess) !== JSON.stringify(this.process)) {
             this.process = genesisProcess;
             this.title = 'Execution Detail';
             this.subTitle = this.process._id;
             this.lastUpdate = new Date();
             this.buildGenesisChartData();
+        }
+    }
+    private handleResources(resources: Array<ResourceModel>): void {
+        if (JSON.stringify(resources) !== JSON.stringify(this.resources)) {
+            // todo filter to command id active and not all
+            this.dnaResources = resources.filter((resource) => resource.step.includes('DNA'));
+            this.rnaResources = resources.filter((resource) => resource.step.includes('RNA'));
+            this.resources = resources;
         }
     }
     public trackByCommandId(index: number, command: CommandModel): string {
@@ -237,7 +265,8 @@ export class DetailComponent extends AbstractComponent {
             ).subscribe(
                 (result: [ProcessModel, Array<CommandModel>, Array<ResourceModel>]) => {
                     this.commands = result[1];
-                    this.handleGenesisProcess(result[0]);
+                    this.handleProcess(result[0]);
+                    this.handleResources(result[2]);
                 },
                 (error: HttpErrorResponse) => {
                     this.openErrorMessageBox(error);
