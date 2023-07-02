@@ -83,7 +83,7 @@
         position: absolute;
         width: auto;
         right: 15px;
-        top: 15px;
+        top: 5px;
         padding: 0 !important;
     }
 
@@ -94,6 +94,12 @@
 
         .ui-nav-bar-retraction {
             .ui-circle-button {
+                color: themed('nav-bar-selected-text-color');
+                background: themed('nav-bar-vertical-color');
+                box-shadow: 2px 0 3px -1px themed('nav-bar-vertical-shadow-color');
+            }
+
+            .ui-circle-button:hover {
                 color: themed('nav-bar-selected-text-color');
                 background: themed('nav-bar-vertical-color');
                 box-shadow: 2px 0 3px -1px themed('nav-bar-vertical-shadow-color');
@@ -142,7 +148,6 @@
 
         .ui-nav-bar-system-name {
             display: flex;
-            align-items: center;
             padding-left: 10px;
             padding-top: 0;
             margin-left: 0;
@@ -337,10 +342,18 @@
     margin-left: 10px;
 
     .ui-nav-bar-system-name {
+        display: flex;
+        flex-flow: column;
         font-size: 20px;
         padding: 0;
         font-weight: bold;
         margin-left: 10px;
+
+        .ui-nav-bar-system-subtitle {
+            font-weight: normal;
+            font-size: 10px;
+            opacity: .8;
+        }
 
         @include themify {
             color: themed('logo-color');

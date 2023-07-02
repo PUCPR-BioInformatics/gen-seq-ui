@@ -8,7 +8,6 @@ import { AbstractComponent } from '../core/abstract.component';
 import { AppState } from '../shared/model/app-state';
 import { MessageBoxService } from '../shared/components/message-box/message-box.service';
 import { SystemService } from '../core/system.service';
-import { ThemeModel } from '../shared/model/theme.model';
 import { UserComponentService } from '../user/user-component.service';
 
 @Component({
@@ -27,6 +26,7 @@ export class NavBarComponent extends AbstractComponent implements AfterViewInit 
     retracted: boolean;
     actualState: AppState;
     actualSubState: AppState;
+    systemSubtitle = 'from PUCPR Bioinformatics Lab';
     menu: MatMenuTrigger;
 
     constructor(
@@ -96,8 +96,8 @@ export class NavBarComponent extends AbstractComponent implements AfterViewInit 
                     this.classes += ' ui-nav-bar-mobile';
                 } else if (this.mode === 'horizontal') {
                     this.classes += ' ui-nav-bar-horizontal';
-                } else if (this.mode === 'vertical' && this.retracted) {
-                    this.classes += ' ui-nav-bar-retracted';
+                } else if (this.mode === 'vertical') {
+                    this.classes += ` ui-nav-bar-vertical ${(this.retracted) ? 'ui-nav-bar-retracted' : ''}`;
                 }
 
                 if (this.retracted || this.mode === 'mobile') {
@@ -115,12 +115,12 @@ export class NavBarComponent extends AbstractComponent implements AfterViewInit 
 
                 if (retracted) {
                     if (this.mode === 'vertical') {
-                        this.classes = 'ui-nav-bar ui-nav-bar-retracted';
+                        this.classes = 'ui-nav-bar ui-nav-bar-vertical ui-nav-bar-retracted';
                     }
                     this.disableOptionsAlias();
                 } else if (this.mode !== 'mobile') {
                     if (this.mode === 'vertical') {
-                        this.classes = 'ui-nav-bar';
+                        this.classes = 'ui-nav-bar ui-nav-bar-vertical';
                     }
                     this.enableOptionsAlias();
                 }

@@ -39,6 +39,7 @@ export abstract class AbstractWsService {
                     ).subscribe(
                         (wsResponse: WsMessageModel<T>) => {
                             if (wsResponse.code !== 200) {
+                                console.log(wsResponse)
                                 const body = wsResponse.body as any;
                                 observer.error(
                                     new ApplicationException(body.detail, body.description, wsResponse.code)

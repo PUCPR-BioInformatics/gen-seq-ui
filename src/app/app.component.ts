@@ -25,7 +25,7 @@ export class AppComponent {
     protected navBarMode: 'horizontal' | 'mobile' | 'vertical' = 'vertical';
     protected navBarRetracted = true;
     protected systemId = 'gen-seq-api';
-    protected systemName = 'Genesis Seq';
+    protected systemName = 'Gen Seq';
     public body: HTMLElement = document.querySelector('body');
     public userStates: Array<AppState>;
 

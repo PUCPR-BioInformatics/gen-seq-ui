@@ -2,7 +2,7 @@ export const ProcessStates = {
     creation: {
         name: 'process-creation',
         alias: 'Create',
-        path: 'execution/creation',
+        path: 'pipeline/creation',
         icon: 'fa-regular fa-file',
         profiles: [],
         permissions: null,
@@ -11,7 +11,7 @@ export const ProcessStates = {
     list: {
         name: 'process-list',
         alias: 'Executions',
-        path: 'executions',
+        path: 'pipeline/executions',
         icon: 'fa-solid fa-diagram-project',
         profiles: [],
         permissions: null,
@@ -20,7 +20,7 @@ export const ProcessStates = {
     detail: {
         name: 'process-detail',
         alias: 'Detail',
-        path: 'executions/detail',
+        path: 'pipeline/detail',
         icon: null,
         profiles: [],
         permissions: null,

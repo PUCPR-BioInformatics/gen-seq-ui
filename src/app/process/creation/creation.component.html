@@ -1,119 +1,119 @@
 <div class = "ui-component-container ui-component-container-shadowed">
-    <app-header title = "Criando" subTitle = "Nova Execução">
+    <app-header title = "Create" subTitle = "New Pipeline Execution">
         <div appHeaderTitleOptions class = "ui-header-title-options">
-            <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Ver Todas as Execuções" (click) = "eventGenesisSummary()">
+            <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Execution History" (click) = "eventGenesisSummary()">
                 <span class = "fas fa-history"></span>
             </button>
         </div>
     </app-header>
     <div class = "ui-genesis-process-container">
         <div class = "ui-genesis-process-container-spinner" *ngIf = "loading">
-            <app-spinner message = "Carregando recursos" type = "full" boldMessage =  "Aguarde"></app-spinner>
+            <app-spinner message = "Loading the resources" type = "full" boldMessage =  "Please wait"></app-spinner>
         </div>
         <mat-vertical-stepper class = "ui-stepper" *ngIf = "!loading" [linear] = "true">
             <ng-template matStepperIcon = "edit">
                 <span class = "fas fa-check" style = "font-size: 16px"></span>
             </ng-template>
-            <mat-step label = "Parâmetros de Entrada" state = "input" [stepControl] = "parametersForm">
+            <mat-step label = "Input Parameters" state = "input" [stepControl] = "parametersForm">
                 <form class = "ui-fields" [formGroup] = "parametersForm">
                     <mat-form-field class = "ui-field">
-                        <mat-select formControlName = "reference" placeholder = "Referência">
+                        <mat-select formControlName = "reference" placeholder = "Reference Genome">
                             <mat-option *ngFor = "let reference of genomeReferences" [value] = "reference.name">{{reference.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class = "ui-field">
-                        <input type = "text" matInput placeholder = "Amostra de DNA(SRA)" formControlName = "dnaSraId">
+                        <input type = "text" matInput placeholder = "DNA Sample(SRA)" formControlName = "dnaSraId">
                     </mat-form-field>
                     <mat-form-field class = "ui-field">
-                        <input type = "text" matInput placeholder = "Amostra do RNA(SRA)" formControlName = "rnaSraId">
+                        <input type = "text" matInput placeholder = "RNA Sample(SRA)" formControlName = "rnaSraId">
                     </mat-form-field>
                     <div class = "ui-fields-options">
                         <button mat-button class = "ui-button" [disabled] = "parametersForm.invalid" matStepperNext>
-                            Próximo
+                            Next
                         </button>
                     </div>
                 </form>
             </mat-step>
-            <mat-step label = "Parâmetros: Análise DNA" state = "input" [stepControl] = "dnaAlignmentForm">
+            <mat-step label = "Parameters: DNA Analysis" state = "input" [stepControl] = "dnaAlignmentForm">
                 <form class = "ui-fields" [formGroup] = "dnaAlignmentForm">
                     <mat-form-field class = "ui-field">
-                        <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
+                        <mat-select formControlName = "toolName" placeholder = "DNA Alignment Tools">
                             <mat-option *ngFor = "let tool of getDnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "pairedDump">
-                            É uma amostra emparelhada (paired)?
+                            It's a paired sample
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceDump">
-                            Forçar download do SRA?
+                            Force SRA download
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceAlignment">
-                            Forçar alinhamento?
+                            Force alignment
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceIndex" [disabled] = "dnaAlignmentForm.get('forceAlignment').value !== true">
-                            Forçar indexamento (para o alinhamento)?
+                            Force indexing
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceExtraction">
-                            Forçar extração?
+                            Force extraction
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-fields-options">
                         <button mat-button class = "ui-button" matStepperPrevious>
-                            Voltar
+                            Back
                         </button>
                         <button mat-button class = "ui-button"  matStepperNext>
-                            Próximo
+                            Next
                         </button>
                     </div>
                 </form>
             </mat-step>
-            <mat-step label = "Parâmetros: Análise RNA" state = "input" [stepControl] = "rnaAlignmentForm">
+            <mat-step label = "Parameters: RNA Analysis" state = "input" [stepControl] = "rnaAlignmentForm">
                 <form class = "ui-fields" [formGroup] = "rnaAlignmentForm">
                     <mat-form-field class = "ui-field">
-                        <mat-select formControlName = "toolName" placeholder = "Ferramenta de Alinhamento">
+                        <mat-select formControlName = "toolName" placeholder = "RNA Alignment Tools">
                             <mat-option *ngFor = "let tool of getRnaAlignmentTools()" [value] = "tool.name">{{tool.alias}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "pairedDump">
-                            É uma amostra emparelhada (paired)?
+                            It's a paired sample
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceDump">
-                            Forçar download do SRA?
+                            Force SRA download
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceAlignment">
-                            Forçar alinhamento?
+                            Force alignment
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceIndex" [disabled] = "rnaAlignmentForm.get('forceAlignment').value !== true">
-                            Forçar indexamento (para o alinhamento)?
+                            Force indexing
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-force-toggle ui-field ui-field-toggle">
                         <mat-slide-toggle formControlName = "forceExtraction">
-                            Forçar extração?
+                            Force extraction
                         </mat-slide-toggle>
                     </div>
                     <div class = "ui-fields-options">
                         <button mat-button class = "ui-button" matStepperPrevious>
-                            Voltar
+                            Back
                         </button>
                         <button mat-button class = "ui-button" [disabled] = "rnaAlignmentForm.invalid" (click) = "eventCreateGenesisProcess()">
-                            Executar
+                            Execute
                         </button>
                     </div>
                 </form>

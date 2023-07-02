@@ -6,6 +6,6 @@
         "genSeqWs": "ws://localhost:9501/gen-seq-api/ws/"
     },
     "development": {
-        "genSeqWs": "ws://localhost:9501/gen-seq-api/ws/"
+        "genSeqWs": "ws://localhost:9502/gen-seq-api/ws/"
     }
 }

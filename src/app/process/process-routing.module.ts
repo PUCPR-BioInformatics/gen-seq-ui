@@ -9,17 +9,14 @@ import { CreationComponent } from './creation/creation.component';
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: ProcessStates.list.path
-    }, {
-        path: ProcessStates.list.path,
+        path: ProcessStates.list.path.replace('pipeline/', ''),
         component: ListComponent,
     }, {
-        path: ProcessStates.detail.path + '/:id',
+        path: ProcessStates.detail.path.replace('pipeline/', '') + '/:id',
         component: DetailComponent,
         pathMatch: 'full'
     }, {
-        path: ProcessStates.creation.path,
+        path: ProcessStates.creation.path.replace('pipeline/', ''),
         component: CreationComponent
     }
 ];

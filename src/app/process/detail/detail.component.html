@@ -1,13 +1,17 @@
+
 <div class = "ui-component-container ui-component-loading"  *ngIf = "!process">
+    <div class = "ui-process-detail-title-and-options">
+        <span>Loading Execution Data</span>
+    </div>
     <div class = "ui-process-loader-container">
-        <app-spinner message =  "Buscando os detalhes da execução" boldMessage = "Aguarde"></app-spinner>
+        <app-spinner message =  "Searching the execution details" boldMessage = "Please Wait"></app-spinner>
     </div>
 </div>
 <div *ngIf = "process" class = "ui-component-container"
     [ngClass] = "{
     'ui-process-error': process.completedDate && process.result.status === 'FAIL'
 }">
-    <div class = "ui-process-detail-body ui-process-detail-body-smaller">
+    <div class = "ui-process-detail-body ui-process-detail-header">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title-and-options">
                 <span>Execution Informations</span>
@@ -62,7 +66,7 @@
             <div class = "ui-process-detail-execution">
                 <app-chart class = "ui-chart-container" [data] = "processData$" type = "gauge"></app-chart>
             </div>
-            <div class = "ui-process-detail-header">
+            <div class = "ui-process-detail-execution-header">
                 <span>{{completenessText}}</span>
                 <span>Execution</span>
                 <span>{{process._id}}</span>

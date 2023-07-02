@@ -1,7 +1,8 @@
 <div class = "ui-nav-bar-system" [matTooltip] = "getSystemName()" [matTooltipDisabled] = "mode === 'mobile' || !retracted" (click) = "eventNavigateToHome()">
     <div class = "ui-nav-bar-system-logo"></div>
     <div class = "ui-nav-bar-system-name">
-        {{getSystemName()}}
+        <span>{{getSystemName()}}</span>
+        <span class = "ui-nav-bar-system-subtitle">{{systemSubtitle}}</span>
     </div>
 </div>
 <div class = "ui-nav-bar-states-container" >
@@ -17,7 +18,7 @@
     </div>
 </div>
 <div *ngIf = "mode === 'vertical'" class = "ui-nav-bar-retraction">
-    <button (click) = "eventRetract()" [matTooltip] = "(!retracted) ? 'Recolher' : 'Expandir'" *ngIf = "user" mat-button class = "ui-circle-button">
+    <button (click) = "eventRetract()" [matTooltip] = "(!retracted) ? 'Recolher' : 'Expandir'" mat-button class = "ui-circle-button">
         <span [class] = "'ui-button-icon ' + ((!this.retracted) ? 'fas fa-arrow-left' :  'fas fa-arrow-right')"></span>
     </button>
 </div>

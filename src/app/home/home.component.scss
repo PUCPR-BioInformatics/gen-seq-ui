@@ -1,0 +1,40 @@
+.ui-error-body {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ui-error-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.ui-error-description {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    :nth-child(1) {
+        margin-bottom: 8px;
+        font-size: 40px;
+    }
+
+    :nth-child(2) {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+}
+
+.ui-error-detail {
+    display: flex;
+    flex-flow: row wrap;
+    padding-top: 8px;
+    font-size: 11px;
+}

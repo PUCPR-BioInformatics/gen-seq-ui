@@ -4,8 +4,8 @@
     display: flex;
     justify-content: unset;
     align-items: unset;
-    min-height: 300px;
-    min-width: 300px;
+    min-height: 200px;
+    min-width: 200px;
     max-width: 95%;
 }
 
@@ -67,6 +67,13 @@
         font-weight: bold;
         font-size: 11px;
     }
+}
+
+.ui-component-spinner-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ui-process-card-body {

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject, combineLatest, forkJoin, interval } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 
 import { AbstractComponent } from '../../core/abstract.component';
@@ -206,6 +206,8 @@ export class DetailComponent extends AbstractComponent {
             return 'Waiting';
         } else if (!command.endDate) {
             return 'Executing';
+        } else if (command.status === CommandExecutionStatusEnum.SKIPPED) {
+            return 'Skipped';
         } else {
             return (command.status === CommandExecutionStatusEnum.FAIL) ? 'Failed' : 'Completed';
         }

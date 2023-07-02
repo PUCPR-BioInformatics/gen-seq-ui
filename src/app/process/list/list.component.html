@@ -7,6 +7,9 @@
         </div>
     </app-header>
 
+    <div class = "ui-component-spinner-container" *ngIf = "!genesisProcess" >
+        <app-spinner type = "full" message = "Searching the executions"></app-spinner>
+    </div>
     <div class = "ui-process-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
         <div class = "ui-process-page-container">
             <div [class] = "'ui-process-card ' + this.getStepClass(process)" *ngFor = "let process of genesisProcess.process; trackBy: trackById"

@@ -21,10 +21,10 @@
 }
 
 .ui-loading-logo {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-size: 100% 100%;
-    margin-left: 10px;
+    margin-left: 20px;
 
     @include themify {
         @include background-logo(themed('logo-color'));
@@ -32,14 +32,16 @@
 }
 
 .ui-loading-spinner {
-    height: 80px;
-    width: 80px;
+    height: 50px;
+    width: 50px;
     padding: 10px;
 }
 
 .ui-loading-description {
     padding-top: 15px;
-    font-size: 16px;
+    margin-top: 10px;
+    font-size: 13px;
+    margin-left: 10px;
     font-weight: bold;
 
     @include themify {

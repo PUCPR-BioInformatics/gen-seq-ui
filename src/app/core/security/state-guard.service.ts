@@ -38,7 +38,7 @@ export class StateGuardService {
         const appStates = this.systemService.getAppStates();
 
         for (const stateKey in appStates) {
-            if (!appStates[stateKey]) {
+            if (!appStates[stateKey] || !appStates[stateKey].icon ) {
                 continue;
             }
 
