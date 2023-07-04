@@ -16,9 +16,9 @@ import { delay, distinctUntilChanged, filter } from 'rxjs/operators';
 import { GenericChart } from './chart-types/generic-chart';
 import { GaugeChart } from './chart-types/gauge/gauge-chart';
 import { ChartDataModel } from './model/chart-data.model';
-import { SystemService } from '../../../core/system.service';
-import { ApplicationException } from '../../../core/exception/application.exception';
-import { JsonHelper } from '../../helper/json.helper';
+import { SystemService } from '../../../../core/system.service';
+import { ApplicationException } from '../../../../core/exception/application.exception';
+import { JsonHelper } from '../../../helper/json.helper';
 
 @Component({
     selector: 'app-chart',

@@ -9,7 +9,7 @@ export const ProcessStates = {
         subStates: null
     },
     list: {
-        name: 'process-list',
+        name: 'pipeline',
         alias: 'Executions',
         path: 'pipeline/executions',
         icon: 'fa-solid fa-diagram-project',
@@ -18,7 +18,7 @@ export const ProcessStates = {
         subStates: null
     },
     detail: {
-        name: 'process-detail',
+        name: 'pipeline',
         alias: 'Detail',
         path: 'pipeline/detail',
         icon: null,

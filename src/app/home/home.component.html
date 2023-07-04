@@ -1,3 +1,88 @@
-<div class = "ui-component-container ui-error-container">
-    <iframe width="760px" height="500px" src="https://sway.office.com/s/etNfCe4l3zyCOuNf/embed" frameborder="0" marginheight="0" marginwidth="0" max-width="100%" sandbox="allow-forms allow-modals allow-orientation-lock allow-popups allow-same-origin allow-scripts" scrolling="no" style="border: none; max-width: 100%; max-height: 100vh" allowfullscreen mozallowfullscreen msallowfullscreen webkitallowfullscreen></iframe>
+<div class = "ui-slide-backdrop">
+    <div #container class = "ui-slide-container">
+        <div class = "ui-slide ui-slide-home">
+            <div class = "ui-slide-content" style = "width: 60%;" >
+                <span class = "ui-slide-text-big">Aplicação de ferramentas de <span class = "ui-slide-text-colored">bioinformática</span> e inteligência artificial para caracterização e correlação de tipo e frequência de variantes genéticas no <span class = "ui-slide-text-colored">genoma</span> com expressão do <span class = "ui-slide-text-colored">transcriptoma</span> em células de tecido cerebral</span>
+                <span class = "ui-slide-text-med" style = "padding-top: 10px">Hanor Sátiro Cintra</span>
+                <span class = "ui-slide-text-small">Orientado por: Dr. Roberto Herai</span>
+            </div>
+            <div class = "ui-slide-content">
+                <img src = "assets/img/dna.jpg" class = "ui-slide-image-rotated">
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Introdução</span>
+                <span>Humanos</span>
+            </div>
+            <div class = "ui-slide-body">
+                <img src = "assets/img/genetic-humans.svg">
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Introdução</span>
+                <span>Dogma Central</span>
+            </div>
+            <div class = "ui-slide-body">
+                Empty
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Projeto</span>
+                <span>Objetivos</span>
+            </div>
+            <div class = "ui-slide-body">
+                Empty
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Projeto</span>
+                <span>Exemplo</span>
+            </div>
+            <div class = "ui-slide-body">
+                Empty
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Projeto</span>
+                <span>Pipeline</span>
+            </div>
+            <div class = "ui-slide-body">
+                Empty
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Projeto</span>
+                <span>Sistema</span>
+            </div>
+            <div class = "ui-slide-body">
+                Empty
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Agradecimentos</span>
+                <span>PUCPR - PPGCS</span>
+            </div>
+            <div class = "ui-slide-body">
+                Empty
+            </div>
+        </div>
+        <div class = "ui-slide">
+            Fim da apresentação
+        </div>
+    </div>
+    <div class = "ui-slide-tools">
+        <button [disabled] = "isBegin" mat-button class = "ui-circle-button" (click) = "eventPreviousSlide()">
+            <span class = "ui-button-icon fa-solid fa-chevron-left"></span>
+        </button>
+        <button [disabled] = "isEnd" mat-button class = "ui-circle-button" (click) = "eventNextSlide()">
+            <span class = "ui-button-icon fa-solid fa-chevron-right"></span>
+        </button>
+    </div>
 </div>

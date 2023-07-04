@@ -12,7 +12,7 @@ import { SystemService } from '../../core/system.service';
 import { MessageBoxService } from '../../shared/components/message-box/message-box.service';
 import { ProcessService } from '../process.service';
 import { ProcessModel } from '../shared/model/process.model';
-import { ChartDataModel } from '../../shared/components/chart/model/chart-data.model';
+import { ChartDataModel } from '../../shared/components/svg-component/chart/model/chart-data.model';
 import { ChartHelper } from '../../shared/helper/chart.helper';
 import { CommandModel } from './model/command.model';
 import { CommandExecutionStatusEnum } from '../shared/enum/command-execution-status.enum';
@@ -22,6 +22,7 @@ import { STEP_STYLE } from '../shared/const/step-styling.const';
 import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 import { ResourceModel } from './model/resources.model';
 import { OutputResourceModel } from './model/output-resource.model';
+import { SequenceNodeModel } from '../../shared/components/svg-component/sequence-node/model/sequence-node.model';
 
 @Component({
     selector: 'app-detail',
@@ -197,6 +198,18 @@ export class DetailComponent extends AbstractComponent {
         }
 
         return cssClass;
+    }
+    public getCommandsNodes(): Array<SequenceNodeModel> {
+        return this.commands.map((command: CommandModel, index: number) => {
+           return {
+               uid: command._id,
+               title: command.step,
+               subTitle: command.status,
+               color: 'blue',
+               isCompleted: command.status === CommandExecutionStatusEnum.SUCCESS,
+               previousCommand: (index > 0) ? this.commands[index - 1]._id : null
+           };
+        });
     }
     public getStepIcon(step: string): string {
         return STEP_STYLE[step].icon;

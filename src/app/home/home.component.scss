@@ -1,40 +1,129 @@
-.ui-error-body {
-    font-size: 18px;
+@import 'src/styling/themes/core/theme-core.scss';
+
+.ui-slide-backdrop {
     display: flex;
-    align-items: center;
+    position: relative;
     justify-content: center;
-    text-align: center;
+    align-items: center;
+    height: 100%;
 }
 
-.ui-error-container {
+.ui-slide-backdrop:not(.ui-slide-fullscreen) {
+    margin-left: 150px;
+}
+
+.ui-slide-container {
+    width: 80%;
+    height: 80%;
+    position: relative;
+}
+
+.ui-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.ui-slide-home {
+    flex-flow: row;
+}
+
+.ui-slide[data=active]{
+    display: flex;
+}
+
+.ui-slide-tools {
+    position: absolute;
+    bottom: 10px;
+}
+
+.ui-slide-content,
+.ui-slide-content-half {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex: 1;
+    padding-left: 50px;
+    height: 100%;
+    overflow: hidden;
 }
 
-.ui-error-description {
+.ui-slide-content-half {
+    width: 50%;
+    padding-left: 50px;
+}
+
+.ui-slide-image-rotated {
+    transform: rotate(294deg);
+    width: 800px !important;
+    height: 450px !important;
+}
+
+.ui-slide-content img {
+    width: 100%;
+    height:100%;
+}
+
+.ui-slide-text-big {
+    font-size: 4vmin;
+}
+
+.ui-slide-text-med {
+    font-size: 2.5vmin;
+}
+
+.ui-slide-text-small {
+    font-size: 2vmin;
+}
+
+.ui-slide-header {
     display: flex;
     flex-flow: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 55px;
+    padding-top: 20px;
 
     :nth-child(1) {
-        margin-bottom: 8px;
-        font-size: 40px;
-    }
-
-    :nth-child(2) {
-        font-size: 14px;
         font-weight: bold;
-        margin-top: 10px;
+        font-size: 3.8vmin;
+    }
+    :nth-child(2) {
+        font-size: 2.8vmin;
     }
 }
 
-.ui-error-detail {
+.ui-slide-body {
     display: flex;
-    flex-flow: row wrap;
-    padding-top: 8px;
-    font-size: 11px;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        object-fit: contain;
+    }
+}
+
+.ui-slide-end {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:host {
+    @include themify {
+        .ui-slide-container {
+            background: themed('primary-color');
+            color: themed('primary-text-color');
+        }
+
+        .ui-slide-text-colored {
+            color: themed('tertiary-color');
+        }
+    }
 }

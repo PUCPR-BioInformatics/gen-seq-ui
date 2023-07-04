@@ -7,10 +7,9 @@ import { CreationComponent } from './creation/creation.component';
 import { ProcessRoutingModule } from './process-routing.module';
 import { SharedModule } from '../shared/components/shared.module';
 import { PaginationModule } from '../shared/components/pagination/pagination.module';
-import { ChartModule } from '../shared/components/chart/chart.module';
+import { ChartModule } from '../shared/components/svg-component/chart/chart.module';
 import { CommandDetailComponent } from './detail/command-detail/command-detail.component';
-
-
+import { SequenceNodeModule } from '../shared/components/svg-component/sequence-node/sequence-node.module';
 
 @NgModule({
     declarations: [
@@ -22,6 +21,7 @@ import { CommandDetailComponent } from './detail/command-detail/command-detail.c
     imports: [
         CommonModule,
         ProcessRoutingModule,
+        SequenceNodeModule,
         SharedModule,
         PaginationModule,
         ChartModule

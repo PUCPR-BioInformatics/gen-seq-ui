@@ -1,8 +1,8 @@
 
-import { GaugeGenericPlotDataModel } from '../components/chart/chart-types/gauge/model/gauge-plot-data.model';
-import { PlotEffectModel } from '../components/chart/model/plot-effect.model';
-import { PlotTooltip } from '../components/chart/model/plot-tooltip.model';
-import { PlotDataInformationContextModel } from '../components/chart/model/plot-data-information-context.model';
+import { GaugeGenericPlotDataModel } from '../components/svg-component/chart/chart-types/gauge/model/gauge-plot-data.model';
+import { PlotEffectModel } from '../components/svg-component/chart/model/plot-effect.model';
+import { PlotTooltip } from '../components/svg-component/chart/model/plot-tooltip.model';
+import { PlotDataInformationContextModel } from '../components/svg-component/chart/model/plot-data-information-context.model';
 
 export class ChartHelper {
     static buildBlurEffect(id: string, initial: { [key: string]: string; }, applyTo: Array<string>): PlotEffectModel {
