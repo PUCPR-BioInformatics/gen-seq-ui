@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageBoxService } from '../shared/components/message-box/message-box.service';
 import { AbstractComponent } from '../core/abstract.component';
 import { SystemService } from '../core/system.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -12,12 +13,16 @@ import { SystemService } from '../core/system.service';
 })
 export class HomeComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @ViewChild('container') slideContainer: ElementRef;
+    isEndObservable = new BehaviorSubject<boolean>(false);
+
     slideContainerDOM: HTMLElement;
     actualSlide: HTMLElement;
     actualSlideNumber;
     childByNumber: Array<HTMLElement> = [];
     isEnd = false;
     isBegin = true;
+    public isFullscreen = false;
+    public listenerBound = false;
 
     public message: string;
     public boldMessage: string;
@@ -75,5 +80,20 @@ export class HomeComponent extends AbstractComponent implements OnInit, AfterVie
         }
         this.actualSlide = this.childByNumber[this.actualSlideNumber];
         this.actualSlide.setAttribute('data', 'active');
+    }
+    public eventFullScreen(): void {
+        this.slideContainerDOM.parentElement.requestFullscreen();
+
+        if (!this.listenerBound) {
+            document.addEventListener('fullscreenchange', (event) => {
+                if (!this.isFullscreen) {
+                    this.slideContainerDOM.className += ' ui-slide-container-fullscreen';
+                    this.isFullscreen = true;
+                } else {
+                    this.isFullscreen = false;
+                    this.slideContainerDOM.className = this.slideContainerDOM.className.replace(' ui-slide-container-fullscreen', '');
+                }
+            }, false);
+        }
     }
 }

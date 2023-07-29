@@ -22,10 +22,19 @@
         <div class = "ui-slide">
             <div class = "ui-slide-header">
                 <span>Introdução</span>
-                <span>Dogma Central</span>
+                <span>Dogma Central - Transcrição</span>
             </div>
             <div class = "ui-slide-body">
-                Empty
+                <img width = "90%" height = "90%" style = "margin-top: -50px" src = "assets/img/transcription.svg">
+            </div>
+        </div>
+        <div class = "ui-slide">
+            <div class = "ui-slide-header">
+                <span>Introdução</span>
+                <span>Dogma Central - Tradução</span>
+            </div>
+            <div class = "ui-slide-body">
+                <img width = "90%" height = "90%" style = "margin-top: -50px" src = "assets/img/translate.svg">
             </div>
         </div>
         <div class = "ui-slide">
@@ -34,7 +43,14 @@
                 <span>Objetivos</span>
             </div>
             <div class = "ui-slide-body">
-                Empty
+                <div style = "display: flex; flex-flow: column; flex: 1; padding-left: 80px; text-align: left">
+                    <span class = "ui-slide-text-med" style = "margin: 5px 0"><b>1.</b> (Primária) Analisar mutações presentes no DNA e não expressas no RNA</span>
+                    <span class = "ui-slide-text-med" style = "margin: 5px 0"><b>2.</b> (Primária) Analisar amostras de duas pessoas com a mesma mutação onde uma delas tem problemas decorrente da alteração e a outra é assintomática</span>
+                    <span class = "ui-slide-text-med" style = "margin: 5px 0"><b>3.</b> (Secundária) Mosaicismo</span>
+                    <span class = "ui-slide-text-med" style = "margin: 5px 0"><b>4.</b> (Secundária) Penetração da mutação</span>
+                    <span class = "ui-slide-text-med" style = "margin: 5px 0"><b>5.</b> (Secundária) Aplicar inteligência artificial</span>
+                </div>
+                <img src="assets/img/vann.svg" width = "400px" height="400px">
             </div>
         </div>
         <div class = "ui-slide">
@@ -83,6 +99,9 @@
         </button>
         <button [disabled] = "isEnd" mat-button class = "ui-circle-button" (click) = "eventNextSlide()">
             <span class = "ui-button-icon fa-solid fa-chevron-right"></span>
+        </button>
+        <button [style.visibility]="isFullscreen ? 'hidden' : 'visible'" mat-button class = "ui-circle-button" (click) = "eventFullScreen()">
+            <span class = "ui-button-icon fa-solid fa-maximize"></span>
         </button>
     </div>
 </div>
