@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -23,13 +23,21 @@ import { ProcessStatusEnum } from '../shared/enum/process-status-enum';
 import { ResourceModel } from './model/resources.model';
 import { OutputResourceModel } from './model/output-resource.model';
 import { SequenceNodeModel } from '../../shared/components/svg-component/sequence-node/model/sequence-node.model';
+import { NumberFormatHelper } from '../../shared/helper/number-format.pipe';
+import { ProcessStepEnum } from '../shared/enum/process-step-enum';
+import { BarGraphBuilder } from './builder/bar-graph.builder';
+import { SpiderGraphBuilder } from './builder/spider-graph.builder';
 
+declare let Plotly: any;
 @Component({
     selector: 'app-detail',
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent extends AbstractComponent {
+export class DetailComponent extends AbstractComponent implements AfterViewInit {
+    @ViewChild('graphContainer', { read: ElementRef }) graphContainer: ElementRef<HTMLDivElement>;
+    @ViewChild('graphContainerDNASpider', { read: ElementRef }) spiderDNAGraphContainer: ElementRef<HTMLDivElement>;
+    @ViewChild('graphContainerRNASpider', { read: ElementRef }) spiderRNAGraphContainer: ElementRef<HTMLDivElement>;
 
     public TIMER$ = interval(2000).pipe(startWith(0));
     public commands: Array<CommandModel>;
@@ -56,6 +64,8 @@ export class DetailComponent extends AbstractComponent {
     }
 
     public ngOnInit(): void {
+    }
+    public ngAfterViewInit(): void {
         this.initialize();
     }
 
@@ -238,7 +248,7 @@ export class DetailComponent extends AbstractComponent {
     }
     public getFileLinesCount(sourceOutput: OutputResourceModel, outputs: Array<OutputResourceModel>): string {
         const found = outputs.find((output) => output.name === sourceOutput.name + 'Size');
-        return found ? 'Lines Count ' + found.value : 'No Lines Count';
+        return found ? 'Lines Count ' + NumberFormatHelper.transform(found.value as number) : 'No Lines Count';
     }
     private initialize(): void {
         this.title = 'Buscando a execução';
@@ -263,6 +273,18 @@ export class DetailComponent extends AbstractComponent {
             this.resources = resources;
         }
     }
+    protected handleCommands(): void {
+        const analysedCommand = this.commands.find((command) => command.step === ProcessStepEnum.ANALYSING);
+        const result = analysedCommand.result.metadata;
+
+        BarGraphBuilder.build(this.graphContainer.nativeElement, result);
+        SpiderGraphBuilder.build(this.spiderDNAGraphContainer.nativeElement, result.dna, 'DNA');
+        SpiderGraphBuilder.build(this.spiderRNAGraphContainer.nativeElement, result.rna, 'RNA');
+    }
+    @HostListener('window:resize')
+    public eventResize(): void {
+        Plotly.Plots.resize(this.graphContainer.nativeElement);
+    }
     public trackByCommandId(index: number, command: CommandModel): string {
         return command._id;
     }
@@ -282,6 +304,9 @@ export class DetailComponent extends AbstractComponent {
                     this.commands = result[1];
                     this.handleProcess(result[0]);
                     this.handleResources(result[2]);
+                    setTimeout(() => {
+                        this.handleCommands();
+                    }, 50)
                 },
                 (error: HttpErrorResponse) => {
                     this.openErrorMessageBox(error);

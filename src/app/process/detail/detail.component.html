@@ -1,4 +1,5 @@
 
+
 <div class = "ui-component-container ui-component-loading"  *ngIf = "!process">
     <div class = "ui-process-detail-title-and-options">
         <span>Loading Execution Data</span>
@@ -7,11 +8,11 @@
         <app-spinner message =  "Searching the execution details" boldMessage = "Please Wait"></app-spinner>
     </div>
 </div>
-<div *ngIf = "process" class = "ui-component-container"
+<div [style.display] = "process ? 'flex' : 'none'"  class = "ui-component-container"
     [ngClass] = "{
-    'ui-process-error': process.completedDate && process.result.status === 'FAIL'
+    'ui-process-error': process?.completedDate && process?.result.status === 'FAIL'
 }">
-    <div class = "ui-process-detail-body ui-process-detail-header">
+    <div *ngIf = "process" class = "ui-process-detail-body ui-process-detail-header">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title-and-options">
                 <span>Execution Informations</span>
@@ -104,7 +105,8 @@
             </div>
         </div>
     </div>
-    <div class = "ui-process-detail-body">
+
+    <div *ngIf = "process" class = "ui-process-detail-body ui-graph-container">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-normal">
                 Analysis
@@ -115,12 +117,32 @@
                 </div>
                 <span>Executing</span>
             </div>
-            <div class = "ui-empty-container" *ngIf = "process.result">
-                Under construction
+
+            <div class = "ui-graphs-container">
+                <div #graphContainerDNASpider class = "ui-graph"  [style.display] = "process?.result ? 'flex' : 'none'">
+                </div>
+                <div #graphContainerRNASpider class = "ui-graph"  [style.display] = "process?.result ? 'flex' : 'none'">
+                </div>
             </div>
         </div>
     </div>
 
+    <div class = "ui-process-detail-body ui-graph-container">
+        <div class = "ui-process-detail-content">
+            <div class = "ui-process-detail-title ui-process-detail-title-normal">
+                Variants
+            </div>
+            <div *ngIf = "process && !process.result" class = "ui-executing-container">
+                <div class = "ui-executing-bar">
+                    <div class = "ui-executing-bar-slider"></div>
+                </div>
+                <span>Executing</span>
+            </div>
+            <div #graphContainer class = "ui-graph" [style.display] = "process?.result ? 'flex' : 'none'">
+            </div>
+        </div>
+    </div>
+<!--
     <div class = "ui-process-detail-body ui-process-detail-body-extensible">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-normal">
@@ -132,7 +154,7 @@
                     <div class = "ui-process-detail-output-resource-file-extension">{{ getFileExtension(output) }}</div>
                     <div class = "ui-process-detail-output-resource-file">
                         <span>{{ getFileNameOnly(output) }}</span>
-                        <span>{{ getFileLinesCount(output, resource.outputResources) }}</span>
+                        <span>{{ getFileLinesCount(output, resource.outputResources)}}</span>
                     </div>
                 </div>
             </div>
@@ -153,6 +175,7 @@
             </div>
         </div>
     </div>
+    -->
 <!--    <div class = "ui-process-detail-body ui-process-detail-body-extensible">-->
 <!--        <div class = "ui-process-detail-content">-->
 <!--            <div class = "ui-process-detail-title ui-process-detail-title-normal">-->
@@ -162,7 +185,7 @@
 <!--            <app-sequence-node class = "ui-sequence-node" [data] = "getCommandsNodes()"></app-sequence-node>-->
 <!--        </div>-->
 <!--    </div>-->
-    <div class = "ui-process-detail-body ui-process-detail-body-extensible">
+    <div *ngIf = "process" class = "ui-process-detail-body ui-process-detail-body-extensible">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-normal">
                 <span>Commands</span>
@@ -171,7 +194,7 @@
             <div class = "ui-process-commands">
                 <div [class] = "getCssClass(command)" *ngFor = "let command of commands; trackBy: trackByCommandId" (click) = "eventExecutionDetail(command)">
                     <div class = "ui-process-command-step-container">
-                        <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command, $event)" *ngIf = "command.startDate !== null">
+                        <button mat-button class = "ui-circle-button ui-retry-button" (click) = "eventRetryStep(command, $event)" >
                             <span class = "fas fa-redo"></span>
                         </button>
                         <div class = "ui-process-command-step-information">

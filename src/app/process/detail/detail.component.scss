@@ -248,7 +248,7 @@
 .ui-process-detail-output-resource {
     display: flex;
     flex-flow: column;
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 10px 20px;
 
     .ui-process-detail-output-resource-step {
         font-size: 14px;
@@ -319,6 +319,38 @@
 
     :nth-child(2) {
         margin-top: 10px;
+    }
+}
+
+.ui-process-detail-body.ui-graph-container {
+    height: 500px;
+    position: relative;
+    width: 100%;
+
+    .ui-process-detail-title {
+        z-index: 1;
+        width: 200px;
+    }
+
+    .ui-graph {
+        position: absolute;
+        top: 20px;
+        height: 480px;
+        width: calc(100% - 30px);
+    }
+
+    .ui-graphs-container {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        top: 20px;
+        width: 100%;
+
+        .ui-graph {
+            position: relative;
+            top: 0;
+            width: calc(50% - 20px);
+        }
     }
 }
 

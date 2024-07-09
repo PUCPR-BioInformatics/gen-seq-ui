@@ -1,7 +1,7 @@
 <div class = "ui-component-container ui-component-container-shadowed">
     <app-header [title] = "title" [subTitle] = "subTitle">
         <div appHeaderTitleOptions class = "ui-header-title-options">
-            <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "Nova Execução" (click) = "eventNewExecution()">
+            <button mat-button class = "ui-circle-button ui-header-title-button" matTooltip = "New Execution" (click) = "eventNewExecution()">
                 <span class = "far fa-file"></span>
             </button>
         </div>
@@ -10,23 +10,56 @@
     <div class = "ui-component-spinner-container" *ngIf = "!genesisProcess" >
         <app-spinner type = "full" message = "Searching the executions"></app-spinner>
     </div>
-    <div class = "ui-process-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
-        <div class = "ui-process-page-container">
-            <div [class] = "'ui-process-card ' + this.getStepClass(process)" *ngFor = "let process of genesisProcess.process; trackBy: trackById"
-             (click) = "eventNavigateToDetail(process)">
-                <div class = "ui-process-card-image">
-                    <span [class] = "this.getStepIcon(process)"></span>
+    <div class = "ui-process-executions-container" *ngIf = "genesisProcess && genesisProcess.size > 0">
+        <div class = "ui-process-execution-header">
+            <div class = "ui-process-execution-header-info">
+                Step
+            </div>
+            <div class = "ui-process-execution-header-info">
+                SRA DNA
+            </div>
+            <div class = "ui-process-execution-header-info">
+                SRA RNA
+            </div>
+            <div class = "ui-process-execution-header-info">
+                DNA Aligner
+            </div>
+            <div class = "ui-process-execution-header-info">
+                RNA Aligner
+            </div>
+            <div class = "ui-process-execution-header-info">
+                Reference
+            </div>
+            <div class = "ui-process-execution-header-info">
+                Status
+            </div>
+        </div>
+        <div class = "ui-process-execution-container">
+            <div [class] = "'ui-process-execution ' + this.getProcessExecutionClass(process)" *ngFor = "let process of genesisProcess.process; trackBy: trackById"
+            (click) = "eventNavigateToDetail(process)">
+                <div class = "ui-process-execution-info ui-process-execution-step">
+                    <div>
+                        <span [class] = "this.getStepIcon(process)"></span>
+                    </div>
                     <span>{{ (process.completedDate) ? this.getProcessFinalStatus(process) : process.actualCommandName | StringNormalizePipe }}</span>
                 </div>
-                <div class = "ui-process-card-body">
-                    <app-field-view label = "SRA DNA" [value] = "process.dnaResource.sra"></app-field-view>
-                    <app-field-view label = "DNA Tool" [value] = "process.dnaResource.alignment.toolName"></app-field-view>
-                    <app-field-view label = "SRA RNA" [value] = "process.rnaResource.sra"></app-field-view>
-                    <app-field-view label = "RNA Tool" [value] = "process.rnaResource.alignment.toolName"></app-field-view>
-                    <app-field-view label = "Reference" [value] = "process.reference"></app-field-view>
+                <div class = "ui-process-execution-info">
+                    {{ process.dnaResource.sra }}
                 </div>
-                <div class = "ui-process-card-footer">
-                    <div class = "ui-process-card-footer-slider"></div>
+                <div class = "ui-process-execution-info">
+                    {{ process.rnaResource.sra }}
+                </div>
+                <div class = "ui-process-execution-info">
+                    {{ process.dnaResource.alignment.toolName }}
+                </div>
+                <div class = "ui-process-execution-info">
+                    {{ process.rnaResource.alignment.toolName }}
+                </div>
+                <div class = "ui-process-execution-info">
+                    {{ process.reference}}
+                </div>
+                <div class = "ui-process-execution-info ui-process-execution-status">
+                    {{ getProcessFinalStatus(process) }}
                 </div>
             </div>
         </div>

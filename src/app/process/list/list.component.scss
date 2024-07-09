@@ -9,28 +9,12 @@
     max-width: 95%;
 }
 
-.ui-process-container {
+.ui-process-executions-container {
     display: flex;
     flex: 1;
     flex-flow: column;
+    width: 100%;
     overflow-y: auto;
-}
-
-.ui-process-page-container {
-    display: flex;
-    flex: 1;
-    padding: 0 10px;
-    flex-flow: row wrap;
-}
-
-.ui-process-card {
-    display: flex;
-    flex-flow: column;
-    width: 220px;
-    height: 300px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 .ui-process-paginator::ng-deep {
@@ -47,41 +31,11 @@
     min-height: 70px;
 }
 
-.ui-process-card-image {
-    width: 100%;
-    height: 150px;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-
-    :nth-child(1) {
-        font-size: 80px;
-        font-weight: bold;
-        vertical-align: center;
-    }
-
-    :nth-child(2) {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 11px;
-    }
-}
-
 .ui-component-spinner-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.ui-process-card-body {
-    display: flex;
-    flex-flow: row wrap;
-    flex: 1;
-    width: 100%;
-    padding: 10px 5px 6px 10px;
 }
 
 .ui-empty-container {
@@ -106,31 +60,108 @@
     }
 }
 
+.ui-process-execution-header {
+    display: flex;
+    width: 100%;
+    padding: 15px;
+}
+
+.ui-process-execution-header-info {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px;
+    width: 200px;
+}
+
+.ui-process-execution-container {
+    display: flex;
+    flex-flow: column;
+    overflow-y: auto;
+}
+
+.ui-process-execution {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    height: 60px;
+}
+
+.ui-process-execution-info {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    padding: 10px;
+}
+
+.ui-process-execution-step {
+    :nth-child(1) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 20px;
+        font-size: 20px;
+    }
+    :nth-child(2) {
+        margin-left: 10px;
+    }
+}
+
+.ui-process-execution-status {
+    font-weight: bold;
+}
+
 :host {
     padding: 10px 0;
     align-items: center;
 
     @include themify {
-        .ui-process-card-image {
-            background: themed('blue-color');
-            color: themed('white-color');
+        .ui-process-execution {
+            border-bottom: 1px solid themed('primary-border-color');
         }
 
-        .ui-process-card-footer {
-            width: 100%;
-            height: 5px;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-            position: relative;
-            background: themed('blue-color');
-            overflow: hidden;
+        .ui-process-execution:hover {
+            background: themed('secondary-color');
+            cursor: pointer;
+        }
 
-            .ui-process-card-footer-slider {
-                position: absolute;
-                height: 5px;
-                width: 40%;
-                animation: executing 2s infinite linear;
-                background: linear-gradient(90deg, themed('blue-color') 0%, themed('light-blue-color') 30%, themed('light-blue-color') 70%, themed('blue-color') 100%);
+        .ui-process-execution-executing {
+            .ui-process-execution-status {
+                color: themed('blue-color');
+            }
+
+            .ui-process-execution-step {
+                :nth-child(1) {
+                    background: themed('blue-color');
+                    color: themed('white-color');
+                }
+            }
+        }
+
+        .ui-process-execution-completed {
+            .ui-process-execution-status {
+                color: themed('green-color');
+            }
+
+            .ui-process-execution-step {
+                :nth-child(1) {
+                    background: themed('green-color');
+                    color: themed('white-color');
+                }
+            }
+        }
+
+        .ui-process-execution-error {
+            .ui-process-execution-status {
+                color: themed('red-color');
+            }
+
+            .ui-process-execution-step {
+                :nth-child(1) {
+                    background: themed('red-color');
+                    color: themed('white-color');
+                }
             }
         }
 
@@ -139,46 +170,46 @@
             background: themed('primary-color');
         }
 
-        .ui-process-card {
-            background: themed('secondary-color');
-            color: themed('secondary-text-color');
-            box-shadow: 1px 1px 2px -1px themed('secondary-shadow-color');
-        }
-
-        .ui-process-card:hover {
-            box-shadow: 1px 1px 4px -1px themed('secondary-shadow-color');
-        }
-
-        .ui-process-card-complete {
-            .ui-process-card-image {
-                background: themed('green-color');
-            }
-
-
-            .ui-process-card-footer {
-                visibility: hidden;
-            }
-        }
-
-        .ui-process-card-error {
-            .ui-process-card-image {
-                background: themed('red-color');
-            }
-
-
-            .ui-process-card-footer {
-                visibility: hidden;
-            }
-        }
-
-        .ui-process-card-waiting {
-            .ui-process-card-image {
-                background: themed('gray-color');
-            }
-
-            .ui-process-card-footer {
-                visibility: hidden;
-            }
-        }
+        //.ui-process-card {
+        //    background: themed('secondary-color');
+        //    color: themed('secondary-text-color');
+        //    box-shadow: 1px 1px 2px -1px themed('secondary-shadow-color');
+        //}
+        //
+        //.ui-process-card:hover {
+        //    box-shadow: 1px 1px 4px -1px themed('secondary-shadow-color');
+        //}
+        //
+        //.ui-process-card-complete {
+        //    .ui-process-card-image {
+        //        background: themed('green-color');
+        //    }
+        //
+        //
+        //    .ui-process-card-footer {
+        //        visibility: hidden;
+        //    }
+        //}
+        //
+        //.ui-process-card-error {
+        //    .ui-process-card-image {
+        //        background: themed('red-color');
+        //    }
+        //
+        //
+        //    .ui-process-card-footer {
+        //        visibility: hidden;
+        //    }
+        //}
+        //
+        //.ui-process-card-waiting {
+        //    .ui-process-card-image {
+        //        background: themed('gray-color');
+        //    }
+        //
+        //    .ui-process-card-footer {
+        //        visibility: hidden;
+        //    }
+        //}
     }
 }

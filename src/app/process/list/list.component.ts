@@ -64,13 +64,17 @@ export class ListComponent extends AbstractComponent {
         this.forceUpdate();
     }
     public getProcessFinalStatus(process: ProcessModel): string {
-        return (process.result.status === 'FAIL') ? 'Failed' : 'Completed';
-    }
-    public getStepClass(process: ProcessModel): string {
         if (process.completedDate) {
-            return (process.result.status === 'FAIL') ? STEP_STYLE['ERROR'].class : STEP_STYLE['COMPLETE'].class;
+            return (process.result?.status === 'FAIL') ? 'Failed' : 'Completed';
         } else {
-            return STEP_STYLE[process.actualCommandName].class;
+            return 'Executing'
+        }
+    }
+    public getProcessExecutionClass(process: ProcessModel): string {
+        if (process.completedDate) {
+            return (process.result.status === 'FAIL') ? 'ui-process-execution-error' : 'ui-process-execution-completed';
+        } else {
+            return 'ui-process-execution-executing'
         }
     }
     public getStepIcon(process: ProcessModel): string {
@@ -95,17 +99,17 @@ export class ListComponent extends AbstractComponent {
     }
     private handleGenesisProcessContainer(genesisProcess: ProcessPaginatedModel): void {
         this.genesisProcess = genesisProcess;
-        this.title = 'Execuções';
+        this.title = 'Executions';
 
         if (this.genesisProcess.size > 0) {
-            this.subTitle = 'Encontradas ' + this.genesisProcess.size;
+            this.subTitle = 'Found ' + this.genesisProcess.size;
         } else {
-            this.subTitle = 'Nenhuma Execução Encontrada';
+            this.subTitle = 'No one execution found';
         }
     }
     private initialize(): void {
-        this.title = 'Buscando execuções';
-        this.subTitle = 'Aguarde';
+        this.title = 'Searching the executions';
+        this.subTitle = 'Wait';
 
         this.initializeRoute();
         this.watchGenesisProcess();
