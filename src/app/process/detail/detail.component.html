@@ -107,21 +107,83 @@
     </div>
 
     <div *ngIf = "process" class = "ui-process-detail-body ui-graph-container">
-        <div class = "ui-process-detail-content">
-            <div class = "ui-process-detail-title ui-process-detail-title-normal">
-                Analysis
-            </div>
-            <div *ngIf = "!process.result" class = "ui-executing-container">
-                <div class = "ui-executing-bar">
-                    <div class = "ui-executing-bar-slider"></div>
+        <div class = "ui-graphs-container">
+            <div class = "ui-process-detail-content">
+                <div class = "ui-process-detail-title ui-process-detail-title-normal">
+                    Analysis<br>DNA
                 </div>
-                <span>Executing</span>
-            </div>
+                <div *ngIf = "!process.result" class = "ui-executing-container">
+                    <div class = "ui-executing-bar">
+                        <div class = "ui-executing-bar-slider"></div>
+                    </div>
+                    <span>Executing</span>
+                </div>
 
-            <div class = "ui-graphs-container">
+                <div class = "ui-sample-detail">
+                    <span><b>SRA:</b> SRR14325448</span>
+                    <span><b>Organismo:</b> Homo Sapiens</span>
+                    <span><b>Réplica:</b> Whole exome sequencing of line WT83, clone C13, Nova1 genotype Ko/Ar</span>
+                    <span><b>Criação(NCBI):</b> 2021/04/28</span>
+                    <span><b>BioProject:</b>PRJNA670687</span>
+                    <span><b>Quantidade de Bases:</b> 13.48 G</span>
+                    <span><b>Tamanho do Arquivo:</b> 3.77 Gb </span>
+                </div>
                 <div #graphContainerDNASpider class = "ui-graph"  [style.display] = "process?.result ? 'flex' : 'none'">
                 </div>
+            </div>
+            <div class = "ui-process-detail-content">
+                <div class = "ui-process-detail-title ui-process-detail-title-normal" style = "align-items: flex-end; width: 100%;">
+                    Analysis<br>RNA
+                </div>
+                <div *ngIf = "!process.result" class = "ui-executing-container">
+                    <div class = "ui-executing-bar">
+                        <div class = "ui-executing-bar-slider"></div>
+                    </div>
+                    <span>Executing</span>
+
+                </div>
+                <div class = "ui-sample-detail">
+                    <span><b>SRA:</b> SRR14343390</span>
+                    <span><b>Organismo:</b> Homo Sapiens</span>
+                    <span><b>Réplica:</b> RNA sequencing of line WT83, clone C13, Nova1 genotype Ar/Ar, 1 month organoid, Replicate 1</span>
+                    <span><b>Criação(NCBI):</b> 2021/04/28</span>
+                    <span><b>BioProject:</b> PRJNA670687</span>
+                    <span><b>Quantidade de Bases:</b> 8.87 G</span>
+                    <span><b>Tamanho do Arquivo:</b> 2.47 Gb</span>
+                </div>
                 <div #graphContainerRNASpider class = "ui-graph"  [style.display] = "process?.result ? 'flex' : 'none'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf = "process" class = "ui-process-detail-body ui-graph-container">
+        <div class = "ui-graphs-container">
+            <div class = "ui-process-detail-content">
+                <div class = "ui-process-detail-title ui-process-detail-title-normal">
+                    Analysis<br>DNA x RNA
+                </div>
+                <div *ngIf = "!process.result" class = "ui-executing-container">
+                    <div class = "ui-executing-bar">
+                        <div class = "ui-executing-bar-slider"></div>
+                    </div>
+                    <span>Executing</span>
+                </div>
+                <div #graphContainerDNAXRNASpider class = "ui-graph"  [style.display] = "process?.result ? 'flex' : 'none'">
+                </div>
+            </div>
+            <div class = "ui-process-detail-content">
+                <div class = "ui-process-detail-title ui-process-detail-title-normal" style = "align-items: flex-end; width: 100%;">
+                    Analysis<br> Diferenças e União
+                </div>
+                <div *ngIf = "!process.result" class = "ui-executing-container">
+                    <div class = "ui-executing-bar">
+                        <div class = "ui-executing-bar-slider"></div>
+                    </div>
+                    <span>Executing</span>
+
+                </div>
+                <div #graphContainerChangesSpider class = "ui-graph"  [style.display] = "process?.result ? 'flex' : 'none'">
                 </div>
             </div>
         </div>
@@ -142,49 +204,34 @@
             </div>
         </div>
     </div>
-<!--
-    <div class = "ui-process-detail-body ui-process-detail-body-extensible">
-        <div class = "ui-process-detail-content">
-            <div class = "ui-process-detail-title ui-process-detail-title-normal">
-                DNA Outputs
-            </div>
-            <div class = "ui-process-detail-output-resource" *ngFor = "let resource of dnaResources">
-                <span class = "ui-process-detail-output-resource-step">{{resource.step | StringNormalizePipe}}</span>
-                <div class = "ui-process-detail-output-resource-detail" *ngFor = "let output of getFileOutputOnly(resource)">
-                    <div class = "ui-process-detail-output-resource-file-extension">{{ getFileExtension(output) }}</div>
-                    <div class = "ui-process-detail-output-resource-file">
-                        <span>{{ getFileNameOnly(output) }}</span>
-                        <span>{{ getFileLinesCount(output, resource.outputResources)}}</span>
-                    </div>
+
+    <div class = "ui-process-detail-body ui-graph-container">
+        <div class = "ui-process-detail-body ui-graph-container" *ngIf = "analysedCommand">
+            <div class = "ui-process-detail-content">
+                <div class = "ui-process-detail-title ui-process-detail-title-normal">
+                    Modificações
                 </div>
-            </div>
-        </div>
-        <div class = "ui-process-detail-content ui-process-detail-content-inverse">
-            <div class = "ui-process-detail-title ui-process-detail-title-normal">
-                RNA Outputs
-            </div>
-            <div class = "ui-process-detail-output-resource" *ngFor = "let resource of rnaResources">
-                <span class = "ui-process-detail-output-resource-step">{{resource.step | StringNormalizePipe}}</span>
-                <div class = "ui-process-detail-output-resource-detail" *ngFor = "let output of getFileOutputOnly(resource)">
-                    <div class = "ui-process-detail-output-resource-file-extension">{{ getFileExtension(output) }}</div>
-                    <div class = "ui-process-detail-output-resource-file">
-                        <span>{{ getFileNameOnly(output) }}</span>
-                        <span>{{ getFileLinesCount(output, resource.outputResources) }}</span>
+                <div *ngIf = "process && !process.result" class = "ui-executing-container">
+                    <div class = "ui-executing-bar">
+                        <div class = "ui-executing-bar-slider"></div>
                     </div>
+                    <span>Executing</span>
+                </div>
+                <div style = 'display: flex; flex-flow: row wrap; padding: 0 20px; width: 100%; height: 400px; overflow-y: auto'>
+                    <div class = "ui-badge-normal" style = "margin: 5px; padding: 5px" *ngFor = "let changed of analysedCommand.result?.metadata?.changes.bothOnly ">
+                        <span> {{ changed }}</span> <b> Ambos</b>
+                    </div>
+<!--                    <div class = "ui-badge-normal" style = "margin: 5px; padding: 5px" *ngFor = "let changed of analysedCommand.result.metadata.changes.dnaOnly ">-->
+<!--                        <span> {{ changed }}</span> <b>DNA</b>-->
+<!--                    </div>-->
+<!--                    <div class = "ui-badge-normal" style = "margin: 5px; padding: 5px" *ngFor = "let changed of analysedCommand.result.metadata.changes.rnaOnly ">-->
+<!--                        <span> {{ changed }}</span> <b>RNA</b>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
     </div>
-    -->
-<!--    <div class = "ui-process-detail-body ui-process-detail-body-extensible">-->
-<!--        <div class = "ui-process-detail-content">-->
-<!--            <div class = "ui-process-detail-title ui-process-detail-title-normal">-->
-<!--                <span>Commands</span>-->
-<!--                <span>Amount: {{ commands.length }}</span>-->
-<!--            </div>-->
-<!--            <app-sequence-node class = "ui-sequence-node" [data] = "getCommandsNodes()"></app-sequence-node>-->
-<!--        </div>-->
-<!--    </div>-->
+
     <div *ngIf = "process" class = "ui-process-detail-body ui-process-detail-body-extensible">
         <div class = "ui-process-detail-content">
             <div class = "ui-process-detail-title ui-process-detail-title-normal">

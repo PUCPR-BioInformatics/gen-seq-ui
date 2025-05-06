@@ -27,6 +27,8 @@ import { NumberFormatHelper } from '../../shared/helper/number-format.pipe';
 import { ProcessStepEnum } from '../shared/enum/process-step-enum';
 import { BarGraphBuilder } from './builder/bar-graph.builder';
 import { SpiderGraphBuilder } from './builder/spider-graph.builder';
+import { PointGraphBuilder } from './builder/point-graph.builder';
+import { HorizontalBarGraphBuilder } from './builder/horizontal-bar-graph.builder';
 
 declare let Plotly: any;
 @Component({
@@ -38,6 +40,9 @@ export class DetailComponent extends AbstractComponent implements AfterViewInit 
     @ViewChild('graphContainer', { read: ElementRef }) graphContainer: ElementRef<HTMLDivElement>;
     @ViewChild('graphContainerDNASpider', { read: ElementRef }) spiderDNAGraphContainer: ElementRef<HTMLDivElement>;
     @ViewChild('graphContainerRNASpider', { read: ElementRef }) spiderRNAGraphContainer: ElementRef<HTMLDivElement>;
+    @ViewChild('pointsContainer', { read: ElementRef }) pointsContainer: ElementRef<HTMLDivElement>;
+    @ViewChild('graphContainerDNAXRNASpider', { read: ElementRef }) graphContainerDNAXRNASpider: ElementRef<HTMLDivElement>;
+    @ViewChild('graphContainerChangesSpider', { read: ElementRef }) graphContainerChangesSpider: ElementRef<HTMLDivElement>;
 
     public TIMER$ = interval(2000).pipe(startWith(0));
     public commands: Array<CommandModel>;
@@ -50,7 +55,7 @@ export class DetailComponent extends AbstractComponent implements AfterViewInit 
     public title: string;
     public subTitle: string;
     public lastUpdate = new Date();
-
+    public analysedCommand: CommandModel;
 
     constructor(
         public systemService: SystemService,
@@ -274,12 +279,23 @@ export class DetailComponent extends AbstractComponent implements AfterViewInit 
         }
     }
     protected handleCommands(): void {
-        const analysedCommand = this.commands.find((command) => command.step === ProcessStepEnum.ANALYSING);
-        const result = analysedCommand.result.metadata;
+        this.analysedCommand = this.commands.find((command) => command.step === ProcessStepEnum.ANALYSING);
+        const result = this.analysedCommand.result;
+        const metadata = result?.metadata;
 
-        BarGraphBuilder.build(this.graphContainer.nativeElement, result);
-        SpiderGraphBuilder.build(this.spiderDNAGraphContainer.nativeElement, result.dna, 'DNA');
-        SpiderGraphBuilder.build(this.spiderRNAGraphContainer.nativeElement, result.rna, 'RNA');
+        if (!result || !metadata) {
+            return;
+        }
+
+        BarGraphBuilder.build(this.graphContainer.nativeElement, metadata);
+        SpiderGraphBuilder.build(this.spiderDNAGraphContainer.nativeElement, metadata.dna, 'DNA');
+        SpiderGraphBuilder.build(this.spiderRNAGraphContainer.nativeElement, metadata.rna, 'RNA');
+        SpiderGraphBuilder.buildMultiple(
+            this.graphContainerDNAXRNASpider.nativeElement, [metadata.dna, metadata.rna],
+            ['DNA', 'RNA'],
+            ['#5760ce', '#0062fa']
+        )
+        HorizontalBarGraphBuilder.build(this.graphContainerChangesSpider.nativeElement, result);
     }
     @HostListener('window:resize')
     public eventResize(): void {
